@@ -13,3 +13,4 @@ Conference web app for the 2026 Spring Educators EdTech Conference.
 - Admin portal (badge queue, analytics, CSV export)
 
 Live at: https://tms-conference.vercel.app
+# Updated Tue Mar 17 17:59:48 UTC 2026
