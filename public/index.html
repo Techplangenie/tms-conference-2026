@@ -561,6 +561,7 @@ tr:hover td{background:var(--gray-50)}
       <button class="admin-ni" data-t="attendees" onclick="setAdminTab('attendees')">Attendees</button>
       <button class="admin-ni" data-t="badges" onclick="setAdminTab('badges')">Badge Management</button>
       <button class="admin-ni" data-t="schools" onclick="setAdminTab('schools')">Schools</button>
+      <button class="admin-ni" data-t="sessions" onclick="setAdminTab('sessions')">Session Selections</button>
       <button class="admin-ni" data-t="analytics" onclick="setAdminTab('analytics')">Analytics</button>
     </div>
     <div class="admin-sb-foot">
@@ -619,17 +620,42 @@ tr:hover td{background:var(--gray-50)}
       <div class="admin-pane hidden" id="ap-schools">
         <div class="tw" style="padding:20px"><div id="schools-cont"></div></div>
       </div>
+      <!-- Sessions -->
+      <div class="admin-pane hidden" id="ap-sessions">
+        <div class="tw" style="padding:22px;margin-bottom:16px">
+          <div style="font-family:Outfit;font-weight:800;font-size:14px;color:var(--navy);margin-bottom:4px">Session Selection Overview</div>
+          <div style="font-size:11px;color:var(--gray-600);margin-bottom:16px">Which sessions attendees have chosen — updated as they save their schedule</div>
+          <div id="sessions-overview"></div>
+        </div>
+        <div class="tw" style="padding:22px">
+          <div style="font-family:Outfit;font-weight:800;font-size:14px;color:var(--navy);margin-bottom:4px">Per-Slot Breakdown</div>
+          <div style="font-size:11px;color:var(--gray-600);margin-bottom:16px">Room popularity by breakout slot</div>
+          <div id="sessions-slots"></div>
+        </div>
+      </div>
       <!-- Analytics -->
       <div class="admin-pane hidden" id="ap-analytics">
-        <div class="tw" style="padding:24px">
-          <div style="font-family:Outfit;font-weight:800;font-size:15px;color:var(--navy);margin-bottom:16px">Registration Analytics</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
-            <div style="background:var(--gray-50);border-radius:12px;padding:20px;text-align:center">
-              <div style="font-family:Outfit;font-weight:900;font-size:32px;color:var(--green)" id="stat-total2">0</div>
-              <div style="font-size:11px;color:var(--gray-600)">Total Attendees</div>
-            </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div class="tw" style="padding:22px">
+            <div style="font-family:Outfit;font-weight:800;font-size:14px;color:var(--navy);margin-bottom:4px">Badge Status</div>
+            <div style="font-size:11px;color:var(--gray-600);margin-bottom:16px">Registration pipeline</div>
+            <div id="chart-badge"></div>
           </div>
-          <div style="margin-top:16px;font-size:12px;color:var(--gray-600)">Live data from Supabase. Click Refresh to update.</div>
+          <div class="tw" style="padding:22px">
+            <div style="font-family:Outfit;font-weight:800;font-size:14px;color:var(--navy);margin-bottom:4px">Top Schools</div>
+            <div style="font-size:11px;color:var(--gray-600);margin-bottom:16px">Attendees by institution</div>
+            <div id="chart-schools"></div>
+          </div>
+        </div>
+        <div class="tw" style="padding:22px;margin-bottom:16px">
+          <div style="font-family:Outfit;font-weight:800;font-size:14px;color:var(--navy);margin-bottom:4px">Top Cities</div>
+          <div style="font-size:11px;color:var(--gray-600);margin-bottom:16px">Geographic distribution</div>
+          <div id="chart-cities"></div>
+        </div>
+        <div class="tw" style="padding:22px">
+          <div style="font-family:Outfit;font-weight:800;font-size:14px;color:var(--navy);margin-bottom:4px">Most Popular Sessions</div>
+          <div style="font-size:11px;color:var(--gray-600);margin-bottom:16px">Based on attendee selections</div>
+          <div id="chart-sessions"></div>
         </div>
       </div>
     </div>
@@ -943,9 +969,23 @@ function pickSess2(slotId,day,salon){
   renderSelect();
 }
 
-function savePicks(){
+async function savePicks(){
   var count=0;
-  Object.values(picks).forEach(function(d){count+=Object.keys(d).length;});
+  var allPicks=[];
+  Object.entries(picks).forEach(function(de){
+    Object.entries(de[1]).forEach(function(se){
+      count++;
+      allPicks.push(se[1]); // salon name
+    });
+  });
+  if(curAtt&&curAtt.id){
+    try{
+      await supaFetch('/rest/v1/attendees?id=eq.'+curAtt.id,{
+        method:'PATCH',
+        body:JSON.stringify({sessions_selected:count,session_picks:JSON.stringify(picks)})
+      });
+    }catch(e){}
+  }
   toast('Saved '+count+' session selections!','success');
 }
 
@@ -971,19 +1011,21 @@ async function refreshAdmin(){
         return {id:r.id,n:r.full_name||r.name||'',s:r.school||'',c:r.city||'',
           b:r.badge_status||'pending',
           t:new Date(r.registered_at||r.created_at).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),
-          sel:r.sessions_selected||0,email:r.email||''};
+          sel:r.sessions_selected||0,email:r.email||'',picks:(function(){try{if(r.session_picks)return JSON.parse(r.session_picks);}catch(e){}return {};})()};
       });
     }
   }catch(e){console.log('Supabase error:',e);}
-  updStats();renderAtt();renderBadges();renderSchools();renderDash();
+  updStats();renderAtt();renderBadges();renderSchools();renderDash();renderAnalytics();renderSessionsTab();
 }
 
 function setAdminTab(t){
   curAdminTab=t;
   document.querySelectorAll('.admin-ni').forEach(function(n){n.classList.toggle('active',n.dataset.t===t);});
   document.querySelectorAll('.admin-pane').forEach(function(p){p.classList.toggle('hidden',p.id!=='ap-'+t);});
+  if(t==='analytics')renderAnalytics();
+  if(t==='sessions')renderSessionsTab();
   document.getElementById('admin-topbar-title').textContent={
-    dashboard:'Dashboard',attendees:'Attendees',badges:'Badge Management',
+    dashboard:'Dashboard',attendees:'Attendees',badges:'Badge Management',sessions:'Session Selections',
     schools:'Schools',analytics:'Analytics'
   }[t]||t;
 }
@@ -1061,6 +1103,160 @@ function renderSchools(){
     }).join('')+'</div>';
 }
 
+function barChart(data, color){
+  if(!data||!data.length)return '<div style="color:#999;font-size:12px;padding:20px;text-align:center">No data yet</div>';
+  var max=data[0][1]||1;
+  return data.map(function(row){
+    var pct=Math.round(row[1]/max*100);
+    return '<div style="margin-bottom:12px">'
+      +'<div style="display:flex;justify-content:space-between;margin-bottom:5px">'
+        +'<span style="font-size:12px;font-weight:600;color:var(--navy);max-width:75%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+row[0]+'</span>'
+        +'<span style="font-size:12px;font-weight:800;color:'+color+'">'+row[1]+'</span>'
+      +'</div>'
+      +'<div style="height:8px;background:var(--gray-200);border-radius:100px;overflow:hidden">'
+        +'<div style="height:100%;width:'+pct+'%;background:'+color+';border-radius:100px;transition:width .6s ease"></div>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+}
+
+function renderAnalytics(){
+  // Badge chart
+  var pend=ATT.filter(function(a){return a.b==='pending';}).length;
+  var prnt=ATT.filter(function(a){return a.b==='printing';}).length;
+  var done=ATT.filter(function(a){return a.b==='printed';}).length;
+  var badgeData=[['Pending',pend],['Printing',prnt],['Printed',done]].filter(function(d){return d[1]>0;});
+  var badgeColors=['#856404','#0a3378','#0a5c2e'];
+  var bEl=document.getElementById('chart-badge');
+  if(bEl)bEl.innerHTML=badgeData.length?badgeData.map(function(row,i){
+    var pct=ATT.length?Math.round(row[1]/ATT.length*100):0;
+    return '<div style="margin-bottom:12px">'
+      +'<div style="display:flex;justify-content:space-between;margin-bottom:5px">'
+        +'<span style="font-size:12px;font-weight:600;color:var(--navy)">'+row[0]+'</span>'
+        +'<span style="font-size:12px;font-weight:800;color:'+badgeColors[i]+'">'+row[1]+' ('+pct+'%)</span>'
+      +'</div>'
+      +'<div style="height:10px;background:var(--gray-200);border-radius:100px;overflow:hidden">'
+        +'<div style="height:100%;width:'+pct+'%;background:'+badgeColors[i]+';border-radius:100px"></div>'
+      +'</div>'
+    +'</div>';
+  }).join(''):'<div style="color:#999;font-size:12px;padding:20px;text-align:center">No data yet</div>';
+
+  // Schools chart
+  var sc={};
+  ATT.forEach(function(a){sc[a.s]=(sc[a.s]||0)+1;});
+  var sData=Object.entries(sc).sort(function(a,b){return b[1]-a[1];}).slice(0,8);
+  var sEl=document.getElementById('chart-schools');
+  if(sEl)sEl.innerHTML=barChart(sData,'var(--green)');
+
+  // Cities chart
+  var cc={};
+  ATT.forEach(function(a){cc[a.c]=(cc[a.c]||0)+1;});
+  var cData=Object.entries(cc).sort(function(a,b){return b[1]-a[1];}).slice(0,10);
+  var cEl=document.getElementById('chart-cities');
+  if(cEl)cEl.innerHTML=barChart(cData,'var(--teal)');
+
+  // Sessions chart — count picks across all attendees
+  var sessCounts={};
+  ATT.forEach(function(a){
+    if(a.picks){
+      Object.values(a.picks).forEach(function(day){
+        Object.values(day).forEach(function(salon){
+          sessCounts[salon]=(sessCounts[salon]||0)+1;
+        });
+      });
+    }
+  });
+  // Also count local picks if we have them
+  Object.values(picks).forEach(function(day){
+    Object.values(day).forEach(function(salon){
+      sessCounts[salon]=(sessCounts[salon]||0)+1;
+    });
+  });
+  var sessData=Object.entries(sessCounts).sort(function(a,b){return b[1]-a[1];}).slice(0,10);
+  var seEl=document.getElementById('chart-sessions');
+  if(seEl)seEl.innerHTML=sessData.length?barChart(sessData,'var(--orange)')
+    :'<div style="color:#999;font-size:12px;padding:20px;text-align:center">No session selections yet. Attendees select sessions after check-in.</div>';
+
+  // Update stat-total2
+  var st2=document.getElementById('stat-total2');
+  if(st2)st2.textContent=ATT.length;
+}
+
+function renderSessionsTab(){
+  // Overall most-selected sessions
+  var sessCounts={};
+  ATT.forEach(function(a){
+    if(a.picks){
+      Object.values(a.picks).forEach(function(day){
+        Object.values(day).forEach(function(salon){
+          sessCounts[salon]=(sessCounts[salon]||0)+1;
+        });
+      });
+    }
+  });
+  Object.values(picks).forEach(function(day){
+    Object.values(day).forEach(function(salon){
+      sessCounts[salon]=(sessCounts[salon]||0)+1;
+    });
+  });
+
+  var sessData=Object.entries(sessCounts).sort(function(a,b){return b[1]-a[1];});
+  var ovEl=document.getElementById('sessions-overview');
+  if(ovEl)ovEl.innerHTML=sessData.length
+    ?'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">'
+      +sessData.map(function(row){
+        return '<div style="background:var(--gray-50);border-radius:10px;padding:14px;border-left:4px solid var(--green)">'
+          +'<div style="font-family:Outfit;font-weight:900;font-size:28px;color:var(--green)">'+row[1]+'</div>'
+          +'<div style="font-size:11px;font-weight:700;color:var(--navy)">'+row[0]+'</div>'
+        +'</div>';
+      }).join('')+'</div>'
+    :'<div style="color:#999;font-size:12px;padding:40px;text-align:center">No session selections yet.<br>Attendees choose sessions after check-in.</div>';
+
+  // Per-slot breakdown
+  var slEl=document.getElementById('sessions-slots');
+  if(slEl){
+    var html2='';
+    SLOTS.forEach(function(slot){
+      var slotPicks={};
+      ATT.forEach(function(a){
+        if(a.picks&&a.picks['d'+slot.day]&&a.picks['d'+slot.day][slot.id]){
+          var s=a.picks['d'+slot.day][slot.id];
+          slotPicks[s]=(slotPicks[s]||0)+1;
+        }
+      });
+      if(picks['d'+slot.day]&&picks['d'+slot.day][slot.id]){
+        var s2=picks['d'+slot.day][slot.id];
+        slotPicks[s2]=(slotPicks[s2]||0)+1;
+      }
+      var total=Object.values(slotPicks).reduce(function(a,b){return a+b;},0);
+      var max2=total?Math.max.apply(null,Object.values(slotPicks)):1;
+      html2+='<div style="margin-bottom:28px">'
+        +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">'
+          +'<span style="background:var(--navy);color:#fff;font-family:Outfit;font-weight:800;font-size:11px;padding:4px 11px;border-radius:100px">'+slot.time+'</span>'
+          +'<span style="font-family:Outfit;font-weight:700;font-size:14px;color:var(--navy)">'+slot.lbl+'</span>'
+          +'<span style="font-size:11px;color:var(--gray-600)">Day '+slot.day+' &middot; '+total+' selections</span>'
+        +'</div>';
+      if(Object.keys(slotPicks).length){
+        slot.sess.forEach(function(s){
+          var cnt=slotPicks[s.s]||0;
+          var pct=max2?Math.round(cnt/max2*100):0;
+          html2+='<div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">'
+            +'<div style="width:80px;font-size:10px;font-weight:700;color:var(--teal);flex-shrink:0">'+s.s+'</div>'
+            +'<div style="flex:1;height:18px;background:var(--gray-100);border-radius:100px;overflow:hidden">'
+              +'<div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:100px;transition:width .6s ease"></div>'
+            +'</div>'
+            +'<div style="width:50px;font-size:11px;font-weight:700;color:var(--navy);text-align:right">'+cnt+(cnt===1?' pick':' picks')+'</div>'
+          +'</div>';
+        });
+      }else{
+        html2+='<div style="font-size:12px;color:#999;padding:8px 0">No selections yet</div>';
+      }
+      html2+='</div>';
+    });
+    slEl.innerHTML=html2;
+  }
+}
+
 function renderDash(){
   var cities={};
   ATT.forEach(function(a){cities[a.c]=(cities[a.c]||0)+1;});
@@ -1088,7 +1284,7 @@ async function deleteAtt(id){
   if(!confirm('Remove this registration permanently?'))return;
   try{await supaFetch('/rest/v1/attendees?id=eq.'+id,{method:'DELETE'});}catch(e){}
   ATT=ATT.filter(function(x){return x.id!==id;});
-  updStats();renderAtt();renderBadges();renderSchools();renderDash();
+  updStats();renderAtt();renderBadges();renderSchools();renderDash();renderAnalytics();renderSessionsTab();
   toast('Registration deleted','success');
 }
 async function updBadge(id,status){
