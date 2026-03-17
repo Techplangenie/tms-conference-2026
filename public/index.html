@@ -955,6 +955,7 @@ function renderAtt(){
           +'<option value="pending"'+(a.b==='pending'?' selected':'')+'>Pending</option>'
           +'<option value="printing"'+(a.b==='printing'?' selected':'')+'>Printing</option>'
           +'<option value="printed"'+(a.b==='printed'?' selected':'')+'>Printed</option>'
+          +'<option value="__del__" style="color:#dc3545;font-weight:700;">&#x2715; Delete</option>'
           +'</select>'
         +'</td>'
         +'</tr>';
@@ -1024,7 +1025,15 @@ function renderDash(){
     }).join('')+'</div>';
 }
 
+async function deleteAtt(id){
+  if(!confirm('Remove this registration permanently?'))return;
+  try{await supaFetch('/rest/v1/attendees?id=eq.'+id,{method:'DELETE'});}catch(e){}
+  ATT=ATT.filter(function(x){return x.id!==id;});
+  updStats();renderAtt();renderBadges();renderSchools();renderDash();
+  toast('Registration deleted','success');
+}
 async function updBadge(id,status){
+  if(status==='__del__'){deleteAtt(id);return;}
   var a=ATT.find(function(x){return x.id===id;});
   if(a){
     a.b=status;
