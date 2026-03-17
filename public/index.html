@@ -218,8 +218,13 @@ tr:hover td{background:var(--gray-50)}
 .hidden{display:none!important}
 @media(max-width:768px){.hero-stats{grid-template-columns:repeat(2,1fr)}.admin-layout{flex-direction:column}.admin-sb{width:100%;min-height:auto;position:relative}.kn-card{flex-direction:column;text-align:center}.nav-link{display:none}}
 
-.hero-logo{width:90px;height:90px;margin:0 auto 20px;flex-shrink:0}
-.hero-logo img{width:100%;height:100%;object-fit:contain;display:block}
+.hero-logo{width:120px;height:120px;margin:0 auto 24px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center}
+.hero-logo::before{content:'';position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,#00A651,#00AEEF,#00A651,#F7941D,#00A651);animation:spin 6s linear infinite;z-index:-1;opacity:.7}
+.hero-logo::after{content:'';position:absolute;inset:-4px;border-radius:50%;background:rgba(26,31,110,.8);z-index:-1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-logo img{width:120px;height:120px;object-fit:contain;display:block;filter:drop-shadow(0 0 20px rgba(0,166,81,.6)) drop-shadow(0 0 40px rgba(0,174,239,.3));animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero-logo img{width:120px;height:120px;object-fit:contain;display:block;filter:drop-shadow(0 0 20px rgba(0,166,81,.6)) drop-shadow(0 0 40px rgba(0,174,239,.3));animation:float 4s ease-in-out infinite}
 .nav-logo{width:42px;height:42px;border-radius:50%;overflow:hidden;background:#fff;flex-shrink:0}
 .nav-logo img{width:100%;height:100%;object-fit:cover;display:block}
 .form-logo{width:76px;height:76px;border-radius:50%;margin:0 auto 14px;overflow:hidden;border:3px solid var(--green)}
