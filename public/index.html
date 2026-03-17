@@ -683,16 +683,26 @@ const SLOTS=[
     {s:'Salón 9/10',t:'Code & Play',sp:'armanie-cordero',d:'Final Code & Play session.',lang:'english'},
   ]},
 ];
-let ATT=[
-  {id:1,n:'María García López',s:'Colegio San Ignacio',c:'San Juan, PR',b:'pending',t:'8:04 AM',sel:3},
-  {id:2,n:'Carlos Rivera Pérez',s:'Escuela Superior Techno',c:'Bayamón, PR',b:'printing',t:'8:17 AM',sel:4},
-  {id:3,n:'Ana Martínez Cruz',s:'The Baldwin School',c:'Guaynabo, PR',b:'printed',t:'8:31 AM',sel:5},
-  {id:4,n:'Pedro Colón Ortiz',s:'Academia del Perpetuo',c:'Ponce, PR',b:'pending',t:'8:45 AM',sel:2},
-  {id:5,n:'Lucía Hernández',s:'Dept. of Education PR',c:'San Juan, PR',b:'printing',t:'9:02 AM',sel:3},
-  {id:6,n:'José Rodríguez Torres',s:'Colegio San José',c:'Río Grande, PR',b:'pending',t:'9:18 AM',sel:4},
-  {id:7,n:'Carmen López Vélez',s:"Int'l School San Juan",c:'San Juan, PR',b:'printed',t:'9:34 AM',sel:6},
-];
-let SI={'Memorable Teaching: Brain-Based':32,'AI Tools Every Educator Should Know':28,'Beyond ChatGPT: Training Critical Thinkers':24,'Embracing Innovation':21,'Introduction to Deepfake Safety':18,'BYO EdTech Tool with PlayLab AI':15,'Unlocking Revision History':14,'NotebookLM in Teaching':12};
+const SUPA_URL='https://katheqekgsmyvfknxbqj.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthdGhlcWVrZ3NteXZma254YnFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MDg5NjcsImV4cCI6MjA4OTI4NDk2N30.VsBqlRjHmVE9zarkLgjmid5d3r3uZEWAz4hGmYFF7rk';
+async function supaFetch(path,opts){
+  opts=opts||{};
+  const hdrs={'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json'};
+  if(opts.headers)Object.assign(hdrs,opts.headers);
+  const r=await fetch(SUPA_URL+path,Object.assign({},opts,{headers:hdrs}));
+  return r.json();
+}
+const SUPA_URL='https://katheqekgsmyvfknxbqj.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthdGhlcWVrZ3NteXZma254YnFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MDg5NjcsImV4cCI6MjA4OTI4NDk2N30.VsBqlRjHmVE9zarkLgjmid5d3r3uZEWAz4hGmYFF7rk';
+async function supaFetch(path,opts){
+  opts=opts||{};
+  const hdrs={'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json'};
+  if(opts.headers)Object.assign(hdrs,opts.headers);
+  const r=await fetch(SUPA_URL+path,Object.assign({},opts,{headers:hdrs}));
+  return r.json();
+}
+let ATT=[];
+let SI={};
 let curAtt=null,curSel={},curDay=1,curFilter='all';
 
 function go(v){document.querySelectorAll('.view').forEach(e=>e.classList.remove('active'));const el=document.getElementById('view-'+v);if(el){el.classList.add('active');window.scrollTo(0,0);}}
@@ -701,9 +711,48 @@ function gi(n){if(!n)return'?';return n.split(' ').filter(Boolean).slice(0,2).ma
 function spk(id){return SPK.find(s=>s.id===id);}
 function ph(sp){const _u=sp&&sp.p?PHOTOS[sp.p]||sp.p:'';return _u?`<img src="${_u}" onerror="this.parentElement.innerHTML='<span class=ini>${gi(sp.n)}</span>'" alt="${sp.n}"/>`:`<span class="ini">${sp?gi(sp.n):'?'}</span>`;}
 
-function doRegister(){
-  const n=document.getElementById('rn').value.trim(),s=document.getElementById('rs').value.trim(),c=document.getElementById('rc').value.trim();
+async async function doRegister(){
+  const n=document.getElementById('rn').value.trim(),s=document.getElementById('rs').value.trim();
+  const c=document.getElementById('rc').value.trim(),e=document.getElementById('re').value.trim();
   if(!n||!s||!c){toast('Please fill in all required fields','error');return;}
+  try{
+    const d=await supaFetch('/rest/v1/attendees',{method:'POST',
+      headers:{'Prefer':'return=representation'},
+      body:JSON.stringify({full_name:n,school:s,city:c,badge_status:'pending'})});
+    const saved=Array.isArray(d)?d[0]:d;
+    curAtt={id:saved&&saved.id?saved.id:Date.now(),n,s,c,b:'pending',
+      t:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),sel:0};
+  }catch(err){
+    curAtt={id:Date.now(),n,s,c,b:'pending',
+      t:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),sel:0};
+  }
+  ATT.unshift(curAtt);
+  document.getElementById('bn').textContent=n;
+  document.getElementById('bsc').textContent=s;
+  document.getElementById('bcy').textContent=c;
+  document.getElementById('reg-form').classList.add('hidden');
+  document.getElementById('reg-success').classList.remove('hidden');
+  toast('Welcome, '+n.split(' ')[0]+'!','success');
+}
+  try{
+    const d=await supaFetch('/rest/v1/attendees',{method:'POST',
+      headers:{'Prefer':'return=representation'},
+      body:JSON.stringify({full_name:n,school:s,city:c,badge_status:'pending'})});
+    const saved=Array.isArray(d)?d[0]:d;
+    curAtt={id:saved&&saved.id?saved.id:Date.now(),n,s,c,b:'pending',
+      t:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),sel:0};
+  }catch(err){
+    curAtt={id:Date.now(),n,s,c,b:'pending',
+      t:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),sel:0};
+  }
+  ATT.unshift(curAtt);
+  document.getElementById('bn').textContent=n;
+  document.getElementById('bsc').textContent=s;
+  document.getElementById('bcy').textContent=c;
+  document.getElementById('reg-form').classList.add('hidden');
+  document.getElementById('reg-success').classList.remove('hidden');
+  toast('Welcome, '+n.split(' ')[0]+'!','success');
+}
   curAtt={id:Date.now(),n,s,c,b:'pending',t:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),sel:0};
   ATT.unshift(curAtt);
   document.getElementById('bn').textContent=n;document.getElementById('bsc').textContent=s;document.getElementById('bcy').textContent=c;
@@ -757,7 +806,24 @@ function doAdminLogin(){
   if(document.getElementById('ae').value==='admin@techmyschool.org'&&document.getElementById('ap').value==='tms2026'){go('admin');refreshAdmin();}
   else{document.getElementById('lerr').style.display='block';}
 }
-function refreshAdmin(){updStats();renderAtt();renderBadges();renderAnalytics();renderSchools();renderDash();}
+async function refreshAdmin(){
+  try{
+    const data=await supaFetch('/rest/v1/attendees?select=*&order=created_at.desc');
+    if(Array.isArray(data)&&data.length>0){
+      ATT=data.map(function(r){
+        return {id:r.id,
+          n:r.full_name||r.name||'',
+          s:r.school||'',
+          c:r.city||'',
+          b:r.badge_status||'pending',
+          t:new Date(r.registered_at||r.created_at).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),
+          sel:r.sessions_selected||0,
+          email:r.email||''};
+      });
+    }
+  }catch(e){console.log('Supabase load error:',e);}
+  updStats();renderAtt();renderBadges();renderAnalytics();renderSchools();renderDash();
+}
 function updStats(){
   document.getElementById('s-reg').textContent=ATT.length;
   document.getElementById('s-sel').textContent=ATT.reduce((a,b)=>a+(b.sel||0),0);
@@ -771,7 +837,22 @@ function renderDash(){
 }
 function renderAtt(){document.getElementById('att-tb').innerHTML=ATT.map((a,i)=>`<tr><td style="font-weight:700;color:var(--gray-400);">${i+1}</td><td style="font-weight:700;color:var(--navy);">${a.n}</td><td>${a.s}</td><td>${a.c}</td><td><span style="background:var(--gray-100);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;">${a.sel} sessions</span></td><td><span class="bs ${a.b}">${a.b}</span></td><td style="color:var(--gray-400);font-size:11px;">${a.t}</td></tr>`).join('');}
 function renderBadges(){document.getElementById('badge-tb').innerHTML=ATT.map(a=>`<tr><td style="font-weight:700;color:var(--navy);">${a.n}</td><td>${a.s}</td><td>${a.c}</td><td><span class="bs ${a.b}">${a.b}</span></td><td><select style="padding:4px 9px;border-radius:7px;border:2px solid var(--gray-200);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;" onchange="updBadge(${a.id},this.value)"><option value="pending" ${a.b==='pending'?'selected':''}>⏳ Pending</option><option value="printing" ${a.b==='printing'?'selected':''}>🖨 Printing</option><option value="printed" ${a.b==='printed'?'selected':''}>✅ Printed</option></select></td></tr>`).join('');}
-function updBadge(id,s){const a=ATT.find(x=>x.id===id);if(a){a.b=s;updStats();toast('Badge status updated','success');}}
+async async function updBadge(id,s){
+  const a=ATT.find(function(x){return x.id===id;});
+  if(a){
+    a.b=s;
+    try{await supaFetch('/rest/v1/attendees?id=eq.'+id,
+      {method:'PATCH',body:JSON.stringify({badge_status:s})});}catch(e){}
+    updStats();renderBadges();toast('Badge status updated','success');
+  }
+});
+  if(a){
+    a.b=s;
+    try{await supaFetch('/rest/v1/attendees?id=eq.'+id,
+      {method:'PATCH',body:JSON.stringify({badge_status:s})});}catch(e){}
+    updStats();renderBadges();toast('Badge status updated','success');
+  }
+}}
 function renderAnalytics(){
   function doDay(slots,cid){document.getElementById(cid).innerHTML=slots.map(slot=>`<div style="margin-bottom:18px;"><div style="font-weight:700;font-size:11px;color:var(--navy);margin-bottom:9px;padding-bottom:5px;border-bottom:1px solid var(--gray-200);">${slot.time}</div>${slot.sess.filter(s=>!s.s.includes('9/10')).map(s=>{const n=Math.floor(Math.random()*18)+4;const p=Math.round(n/ATT.length*100);return`<div class="sbar-wrap"><div class="sbar-label"><span class="st">${s.s}: ${s.t.substring(0,24)}…</span><span class="sc">${n}</span></div><div class="sbar"><div class="sbar-fill" style="width:${p}%"></div></div></div>`;}).join('')}</div>`).join('');}
   doDay(SLOTS.filter(s=>s.day===1),'an-d1');doDay(SLOTS.filter(s=>s.day===2),'an-d2');
