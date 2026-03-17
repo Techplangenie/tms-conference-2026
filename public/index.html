@@ -453,135 +453,115 @@ tr:hover td{background:var(--gray-50)}
     <div style="font-family:Outfit;font-weight:900;font-size:28px;color:var(--navy)">Conference Floor Map</div>
     <div style="font-size:13px;color:var(--gray-600)">Wyndham Rio Mar Convention Hall &middot; Rio Grande, Puerto Rico</div>
   </div>
-  <div class="map-svg-wrap"><svg class="venue-svg" viewBox="0 0 1200 680" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:960px;border-radius:8px;display:block;margin:0 auto;font-family:'DM Sans',Arial,sans-serif">
+  <div class="map-svg-wrap"><svg class="venue-svg" viewBox="0 0 1140 720" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:960px;border-radius:8px;display:block;margin:0 auto;font-family:'DM Sans',Arial,sans-serif;background:#f0ebe0">
 
-  <!-- ============ BACKGROUND ============ -->
-  <rect width="1200" height="680" fill="#f2ece0"/>
+  <!-- ── TOP LABELS ── -->
+  <text x="560" y="13" text-anchor="middle" font-size="10" fill="#aaa" font-weight="600" letter-spacing="2">CONFERENCE CENTER LOADING DOCK</text>
+  <text x="940" y="13" text-anchor="middle" font-size="10" fill="#aaa" font-weight="600" letter-spacing="1">SERVICE</text>
 
-  <!-- ============ LOADING DOCK LABEL (top) ============ -->
-  <text x="560" y="14" text-anchor="middle" font-size="10" fill="#999" font-weight="600" letter-spacing="2">CONFERENCE CENTER LOADING DOCK</text>
-  <text x="900" y="14" text-anchor="middle" font-size="10" fill="#999" font-weight="600" letter-spacing="1">SERVICE</text>
+  <!-- ── RESTROOMS TOP RIGHT (outside building) ── -->
+  <rect x="1065" y="18" width="70" height="68" rx="4" fill="#d4edda" stroke="#4caf50" stroke-width="2"/>
+  <text x="1100" y="40" text-anchor="middle" font-size="20">🚻</text>
+  <text x="1100" y="58" text-anchor="middle" font-size="9" font-weight="800" fill="#2e7d32">RESTROOMS</text>
+  <text x="1100" y="70" text-anchor="middle" font-size="8" fill="#388e3c">Caribbean Foyer</text>
 
-  <!-- ============ OUTER WALLS ============ -->
-  <rect x="60" y="18" width="1080" height="480" fill="none" stroke="#666" stroke-width="2.5"/>
+  <!-- ── LEFT FOYER STRIP (Rio Mar East Foyer) ── -->
+  <rect x="10" y="18" width="55" height="506" fill="#e2dccf" stroke="#999" stroke-width="1.5"/>
+  <text transform="translate(36,285) rotate(-90)" text-anchor="middle" font-size="10" font-weight="700" fill="#888" letter-spacing="1.5">RIO MAR BALLROOM EAST FOYER</text>
+  <!-- Restrooms LEFT top -->
+  <rect x="10" y="18" width="55" height="80" rx="0" fill="#d4edda" stroke="#4caf50" stroke-width="2"/>
+  <text x="37" y="42" text-anchor="middle" font-size="20">🚻</text>
+  <text x="37" y="60" text-anchor="middle" font-size="9" font-weight="800" fill="#2e7d32">RESTROOMS</text>
+  <text x="37" y="72" text-anchor="middle" font-size="8" fill="#388e3c">Telephones</text>
+  <!-- Escalators -->
+  <rect x="10" y="340" width="55" height="60" fill="#d8d2c3" stroke="#aaa" stroke-width="1"/>
+  <text x="37" y="367" text-anchor="middle" font-size="9" font-weight="700" fill="#777">ESCA-</text>
+  <text x="37" y="380" text-anchor="middle" font-size="9" font-weight="700" fill="#777">LATORS</text>
 
-  <!-- ============ LEFT FOYER STRIP ============ -->
-  <rect x="60" y="18" width="55" height="480" fill="#e5dfd0" stroke="#888" stroke-width="1"/>
-  <!-- Foyer label vertical -->
-  <text transform="translate(82,290) rotate(-90)" text-anchor="middle" font-size="10" font-weight="700" fill="#888" letter-spacing="1.5">RIO MAR BALLROOM EAST FOYER</text>
+  <!-- ── SALONS 1, 2, 3 ── -->
+  <rect x="65" y="18" width="185" height="116" fill="#ece5d5" stroke="#aaa" stroke-width="1.5"/>
+  <text x="157" y="52" text-anchor="middle" font-size="11" font-weight="700" fill="#888" letter-spacing="1">SALONS</text>
+  <text x="157" y="96" text-anchor="middle" font-size="44" font-weight="900" fill="#ccc5b3">1</text>
 
-  <!-- Restrooms LEFT (top of left foyer) -->
-  <rect x="60" y="18" width="55" height="80" fill="#e5dfd0" stroke="#888" stroke-width="1"/>
-  <text x="87" y="40" text-anchor="middle" font-size="18">🚻</text>
-  <text x="87" y="58" text-anchor="middle" font-size="8" font-weight="800" fill="#444" letter-spacing="0.5">RESTROOMS</text>
-  <text x="87" y="70" text-anchor="middle" font-size="8" fill="#666">Telephones</text>
-  <text x="87" y="82" text-anchor="middle" font-size="16">🚻</text>
+  <rect x="65" y="134" width="185" height="122" fill="#ece5d5" stroke="#aaa" stroke-width="1.5"/>
+  <text x="157" y="208" text-anchor="middle" font-size="48" font-weight="900" fill="#ccc5b3">2</text>
 
-  <!-- Escalators in left foyer -->
-  <rect x="60" y="320" width="55" height="60" fill="#ddd7c8" stroke="#999" stroke-width="1"/>
-  <text x="87" y="345" text-anchor="middle" font-size="8" font-weight="700" fill="#777">ESCA-</text>
-  <text x="87" y="358" text-anchor="middle" font-size="8" font-weight="700" fill="#777">LATORS</text>
-  <rect x="68" y="363" width="38" height="12" fill="#bbb" rx="2"/>
+  <rect x="65" y="256" width="185" height="122" fill="#ece5d5" stroke="#aaa" stroke-width="1.5"/>
+  <text x="157" y="330" text-anchor="middle" font-size="48" font-weight="900" fill="#ccc5b3">3</text>
 
-  <!-- ============ SALONS 1-3 ============ -->
-  <!-- Salon 1 -->
-  <rect x="115" y="18" width="175" height="120" fill="#ece6d8" stroke="#999" stroke-width="1.5"/>
-  <text x="202" y="58" text-anchor="middle" font-size="11" font-weight="700" fill="#777" letter-spacing="1">SALONS</text>
-  <text x="202" y="95" text-anchor="middle" font-size="38" font-weight="900" fill="#c8c0b0">1</text>
+  <!-- ── SALON 4 — Tech Disruptors ── -->
+  <rect x="65" y="378" width="185" height="146" fill="#fff3ee" stroke="#d95c30" stroke-width="2.5"/>
+  <text x="70" y="398" font-size="10" fill="#d95c30" font-weight="700">4</text>
+  <text x="157" y="444" text-anchor="middle" font-size="13" font-weight="800" fill="#d95c30">Tech Disruptors</text>
+  <text x="157" y="494" text-anchor="middle" font-size="36" font-weight="900" fill="#d95c30" opacity="0.25">4</text>
 
-  <!-- Salon 2 -->
-  <rect x="115" y="138" width="175" height="125" fill="#ece6d8" stroke="#999" stroke-width="1.5"/>
-  <text x="202" y="212" text-anchor="middle" font-size="40" font-weight="900" fill="#c8c0b0">2</text>
+  <!-- ── CORRIDOR A ── -->
+  <rect x="250" y="18" width="32" height="506" fill="#d5cfc0" stroke="#bbb" stroke-width="1"/>
+  <text transform="translate(266,275) rotate(-90)" text-anchor="middle" font-size="9" font-weight="800" fill="#999" letter-spacing="3">CORRIDOR A</text>
 
-  <!-- Salon 3 -->
-  <rect x="115" y="263" width="175" height="125" fill="#ece6d8" stroke="#999" stroke-width="1.5"/>
-  <text x="202" y="337" text-anchor="middle" font-size="40" font-weight="900" fill="#c8c0b0">3</text>
+  <!-- ── RIO MAR BALLROOM header ── -->
+  <text x="594" y="44" text-anchor="middle" font-size="17" font-weight="900" fill="#666" letter-spacing="1.5">RIO MAR BALLROOM</text>
 
-  <!-- Salon 4 — Tech Disruptors (orange highlight) -->
-  <rect x="115" y="388" width="175" height="110" fill="#fff3ee" stroke="#d95c30" stroke-width="2.5"/>
-  <text x="202" y="432" text-anchor="middle" font-size="12" font-weight="800" fill="#d95c30">Tech Disruptors</text>
-  <text x="202" y="464" text-anchor="middle" font-size="28" font-weight="900" fill="#d95c30" opacity="0.35">4</text>
+  <!-- Salon 5 (left half of ballroom) -->
+  <rect x="282" y="55" width="312" height="469" fill="#ece5d5" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="594" y1="55" x2="594" y2="524" stroke="#bbb" stroke-width="1.5" stroke-dasharray="8,5"/>
+  <text x="438" y="310" text-anchor="middle" font-size="80" font-weight="900" fill="#ccc5b3" opacity="0.55">5</text>
 
-  <!-- Salon 4 small label -->
-  <text x="120" y="410" font-size="9" fill="#d95c30" font-weight="700">4</text>
+  <!-- Salon 6 (right half of ballroom) -->
+  <rect x="594" y="55" width="312" height="469" fill="#ece5d5" stroke="#aaa" stroke-width="1.5"/>
+  <text x="750" y="310" text-anchor="middle" font-size="80" font-weight="900" fill="#ccc5b3" opacity="0.55">6</text>
 
-  <!-- ============ CORRIDOR A ============ -->
-  <rect x="290" y="18" width="32" height="480" fill="#d8d2c2" stroke="#aaa" stroke-width="1"/>
-  <text transform="translate(306,270) rotate(-90)" text-anchor="middle" font-size="9" font-weight="800" fill="#888" letter-spacing="2.5">CORRIDOR A</text>
+  <!-- ── CORRIDOR B ── -->
+  <rect x="906" y="18" width="32" height="506" fill="#d5cfc0" stroke="#bbb" stroke-width="1"/>
+  <text transform="translate(922,275) rotate(90)" text-anchor="middle" font-size="9" font-weight="800" fill="#999" letter-spacing="3">CORRIDOR B</text>
 
-  <!-- ============ RIO MAR BALLROOM (5 + 6) ============ -->
-  <!-- Header label spanning both salons -->
-  <text x="610" y="46" text-anchor="middle" font-size="17" font-weight="900" fill="#666" letter-spacing="1.5">RIO MAR BALLROOM</text>
+  <!-- ── ROOM 10 — TMS Sessions (top right, green) ── -->
+  <rect x="938" y="18" width="195" height="195" fill="#e8f5e9" stroke="#00A651" stroke-width="3"/>
+  <rect x="944" y="24" width="183" height="183" fill="none" stroke="#00A651" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="1036" y="50" text-anchor="middle" font-size="15" font-weight="900" fill="#00A651">10</text>
+  <text x="1036" y="74" text-anchor="middle" font-size="11" font-weight="700" fill="#333">Session 1, 3</text>
+  <text x="1036" y="93" text-anchor="middle" font-size="11" font-weight="700" fill="#333">TMS Code&amp;Play</text>
+  <text x="1036" y="112" text-anchor="middle" font-size="11" font-weight="700" fill="#333">Session 2, 4</text>
+  <text x="1036" y="131" text-anchor="middle" font-size="11" font-weight="700" fill="#333">Fonz Podcast</text>
+  <!-- Room 9 sub-label -->
+  <rect x="938" y="163" width="100" height="50" fill="#dff0e0" stroke="#00A651" stroke-width="1.5"/>
+  <text x="988" y="194" text-anchor="middle" font-size="22" font-weight="900" fill="#00A651" opacity="0.5">9</text>
 
-  <!-- Salon 5 — left half of ballroom -->
-  <rect x="322" y="55" width="288" height="443" fill="#ece6d8" stroke="#aaa" stroke-width="1.5"/>
-  <!-- Dotted right edge of 5 (divider) -->
-  <line x1="610" y1="55" x2="610" y2="498" stroke="#aaa" stroke-width="1" stroke-dasharray="6,4"/>
-  <text x="466" y="295" text-anchor="middle" font-size="70" font-weight="900" fill="#c8c0b0" opacity="0.6">5</text>
+  <!-- ── ROOM 8 ── -->
+  <rect x="938" y="213" width="195" height="155" fill="#ece5d5" stroke="#aaa" stroke-width="1.5"/>
+  <text x="1036" y="302" text-anchor="middle" font-size="50" font-weight="900" fill="#ccc5b3">8</text>
 
-  <!-- Salon 6 — right half of ballroom -->
-  <rect x="610" y="55" width="288" height="443" fill="#ece6d8" stroke="#aaa" stroke-width="1.5"/>
-  <text x="754" y="295" text-anchor="middle" font-size="70" font-weight="900" fill="#c8c0b0" opacity="0.6">6</text>
+  <!-- ── ROOM 7 ── -->
+  <rect x="938" y="368" width="195" height="156" fill="#ece5d5" stroke="#aaa" stroke-width="1.5"/>
+  <text x="1036" y="460" text-anchor="middle" font-size="50" font-weight="900" fill="#ccc5b3">7</text>
 
-  <!-- ============ CORRIDOR B ============ -->
-  <rect x="898" y="18" width="32" height="480" fill="#d8d2c2" stroke="#aaa" stroke-width="1"/>
-  <text transform="translate(914,270) rotate(90)" text-anchor="middle" font-size="9" font-weight="800" fill="#888" letter-spacing="2.5">CORRIDOR B</text>
+  <!-- ── CARIBBEAN BALLROOM FOYER (right strip) ── -->
+  <rect x="1133" y="18" width="7" height="506" fill="#e2dccf" stroke="#999" stroke-width="1"/>
+  <text transform="translate(1120,285) rotate(90)" text-anchor="middle" font-size="9" font-weight="700" fill="#888" letter-spacing="1.5">CARIBBEAN BALLROOM FOYER</text>
 
-  <!-- ============ RIGHT ROOMS ============ -->
-  <!-- Room 10 — TMS Sessions (green highlight, top right) -->
-  <rect x="930" y="18" width="200" height="220" fill="#e8f5e9" stroke="#00A651" stroke-width="3"/>
-  <!-- Inner double border effect -->
-  <rect x="936" y="24" width="188" height="208" fill="none" stroke="#00A651" stroke-width="1.5" stroke-dasharray="4,3"/>
-  <text x="1030" y="50" text-anchor="middle" font-size="16" font-weight="900" fill="#00A651">10</text>
-  <text x="1030" y="74" text-anchor="middle" font-size="11" font-weight="700" fill="#333">Session 1, 3</text>
-  <text x="1030" y="94" text-anchor="middle" font-size="11" font-weight="700" fill="#333">TMS Code&amp;Play</text>
-  <text x="1030" y="114" text-anchor="middle" font-size="11" font-weight="700" fill="#333">Session 2, 4</text>
-  <text x="1030" y="134" text-anchor="middle" font-size="11" font-weight="700" fill="#333">Fonz Podcast</text>
-  <!-- Room 9 label (sub-room) -->
-  <rect x="930" y="175" width="100" height="63" fill="#dff0e0" stroke="#00A651" stroke-width="1.5"/>
-  <text x="980" y="213" text-anchor="middle" font-size="22" font-weight="900" fill="#00A651" opacity="0.5">9</text>
+  <!-- ── HORIZONTAL HALLWAY (between rooms and ocean terrace) ── -->
+  <rect x="10" y="524" width="1123" height="42" fill="#ddd8cc" stroke="#aaa" stroke-width="1.5"/>
+  <text x="300" y="550" font-size="9" fill="#888" font-weight="600">← TO LAS BRISAS PATIO</text>
 
-  <!-- Room 8 -->
-  <rect x="930" y="238" width="200" height="140" fill="#ece6d8" stroke="#aaa" stroke-width="1.5"/>
-  <text x="1030" y="317" text-anchor="middle" font-size="42" font-weight="900" fill="#c8c0b0">8</text>
+  <!-- ── REGISTRATION (in hallway, left side entrance) ── -->
+  <rect x="155" y="530" width="130" height="28" rx="14" fill="#00A651" stroke="#007a3d" stroke-width="1.5"/>
+  <text x="220" y="548" text-anchor="middle" font-size="11" font-weight="800" fill="white" letter-spacing="0.5">REGISTRATION</text>
 
-  <!-- Room 7 -->
-  <rect x="930" y="378" width="200" height="120" fill="#ece6d8" stroke="#aaa" stroke-width="1.5"/>
-  <text x="1030" y="447" text-anchor="middle" font-size="42" font-weight="900" fill="#c8c0b0">7</text>
+  <!-- ── LAS BRISAS PATIO (circle, far bottom left) ── -->
+  <circle cx="55" cy="630" r="48" fill="#d5edcf" stroke="#aaa" stroke-width="1.5"/>
+  <text x="55" y="623" text-anchor="middle" font-size="9" font-weight="700" fill="#555">LAS BRISAS</text>
+  <text x="55" y="637" text-anchor="middle" font-size="9" font-weight="700" fill="#555">PATIO</text>
 
-  <!-- ============ RIGHT FOYER STRIP ============ -->
-  <rect x="1130" y="18" width="10" height="480" fill="#e5dfd0" stroke="#888" stroke-width="1"/>
-  <text transform="translate(1148,290) rotate(90)" text-anchor="middle" font-size="10" font-weight="700" fill="#888" letter-spacing="1.5">CARIBBEAN BALLROOM FOYER</text>
+  <!-- ── OCEAN TERRACE ── -->
+  <rect x="110" y="566" width="1023" height="52" rx="4" fill="#cce5f5" stroke="#7ab0cc" stroke-width="1.5"/>
+  <text x="621" y="598" text-anchor="middle" font-size="15" font-weight="800" fill="#3a7a9c" letter-spacing="2.5">OCEAN TERRACE</text>
 
-  <!-- Restrooms RIGHT (top right, outside foyer) -->
-  <rect x="1145" y="18" width="55" height="70" fill="#e5dfd0" stroke="#888" stroke-width="1"/>
-  <text x="1172" y="42" text-anchor="middle" font-size="18">🚻</text>
-  <text x="1172" y="60" text-anchor="middle" font-size="8" font-weight="800" fill="#444">RESTROOMS</text>
-  <text x="1172" y="72" text-anchor="middle" font-size="7" fill="#666">Caribbean Foyer</text>
+  <!-- ── VISTA VERDE GARDENS ── -->
+  <rect x="110" y="625" width="488" height="40" rx="4" fill="#c5e8c5" stroke="#7ab87a" stroke-width="1.5"/>
+  <text x="354" y="650" text-anchor="middle" font-size="11" font-weight="700" fill="#2e7d32" letter-spacing="1">VISTA VERDE GARDEN</text>
 
-  <!-- ============ REGISTRATION ============ -->
-  <rect x="130" y="508" width="120" height="24" rx="12" fill="#00A651"/>
-  <text x="190" y="524" text-anchor="middle" font-size="10" font-weight="800" fill="white" letter-spacing="0.5">REGISTRATION</text>
-  <text x="190" y="542" text-anchor="middle" font-size="8" fill="#666">↑ REGISTRATION</text>
-
-  <!-- ============ LAS BRISAS PATIO ============ -->
-  <circle cx="35" cy="575" r="42" fill="#daeeda" stroke="#aaa" stroke-width="1.5"/>
-  <text x="35" y="568" text-anchor="middle" font-size="9" font-weight="700" fill="#555">LAS BRISAS</text>
-  <text x="35" y="581" text-anchor="middle" font-size="9" font-weight="700" fill="#555">PATIO</text>
-
-  <!-- Arrow to Las Brisas -->
-  <text x="170" y="570" font-size="9" fill="#888">← TO LAS BRISAS PATIO</text>
-
-  <!-- ============ OCEAN TERRACE ============ -->
-  <rect x="80" y="505" width="1050" height="48" rx="4" fill="#d4eaf5" stroke="#8abcd1" stroke-width="1.5"/>
-  <text x="605" y="534" text-anchor="middle" font-size="14" font-weight="800" fill="#3a7fa8" letter-spacing="2.5">OCEAN TERRACE</text>
-
-  <!-- ============ VISTA VERDE GARDENS ============ -->
-  <rect x="80" y="558" width="500" height="38" rx="4" fill="#c8e6c9" stroke="#7ab87a" stroke-width="1.5"/>
-  <text x="330" y="582" text-anchor="middle" font-size="11" font-weight="700" fill="#2d7a2d" letter-spacing="1">VISTA VERDE GARDEN</text>
-
-  <rect x="630" y="558" width="500" height="38" rx="4" fill="#c8e6c9" stroke="#7ab87a" stroke-width="1.5"/>
-  <text x="880" y="582" text-anchor="middle" font-size="11" font-weight="700" fill="#2d7a2d" letter-spacing="1">VISTA VERDE GARDEN</text>
+  <rect x="645" y="625" width="488" height="40" rx="4" fill="#c5e8c5" stroke="#7ab87a" stroke-width="1.5"/>
+  <text x="889" y="650" text-anchor="middle" font-size="11" font-weight="700" fill="#2e7d32" letter-spacing="1">VISTA VERDE GARDEN</text>
 
 </svg></div>
   <div style="font-family:Outfit;font-weight:800;font-size:18px;color:var(--navy);margin-bottom:14px">Room Directory</div>
