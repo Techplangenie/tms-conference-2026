@@ -14,3 +14,4 @@ Conference web app for the 2026 Spring Educators EdTech Conference.
 
 Live at: https://tms-conference.vercel.app
 # Updated Tue Mar 17 17:59:48 UTC 2026
+# Linked to Vercel Tue Mar 17 18:02:32 UTC 2026
