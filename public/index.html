@@ -921,8 +921,8 @@ function renderSess(){
       var sp2=SPK.find(function(x){return x.id===s.sp;});
       var chosen=curAtt&&dayPick[slot.id]===s.s;
       html+='<div class="sess-card'+(chosen?' chosen':'')+'" '
-        +(curAtt?'onclick="pickSess(\''+slot.id+'\',\''+slot.day+'\',\''+(s.sp&&s.sp.length?s.sp[0]+' - ':'')+s.t+'\');"':'')+'>'
-        +'<div class="sess-salon">'+(s.sp&&s.sp.length?s.sp[0]+' - ':'')+s.t+'</div>'
+        +(curAtt?'onclick="pickSess(\''+slot.id+'\',\''+slot.day+'\',\''+s.t+'\');"':'')+'>'
+        +'<div class="sess-salon">'+s.t+'</div>'
         +'<div class="sess-spk-row">'
           +'<div class="sess-spk-ph">'+phSmall(s.sp)+'</div>'
           +'<div><div class="sess-spk-name">'+(sp2?sp2.n.split(' ').slice(0,2).join(' '):'Presenter')+'</div></div>'
@@ -1000,9 +1000,9 @@ function renderSelect(){
       +'<div class="sel-grid">';
     slot.sess.forEach(function(s){
       var chosen=dayPick[slot.id]===s.s;
-      html+='<div class="sel-card'+(chosen?' chosen':'')+'" onclick="pickSess2(\''+slot.id+'\','+slot.day+',\''+(s.sp&&s.sp.length?s.sp[0]+' - ':'')+s.t+'\');">'
+      html+='<div class="sel-card'+(chosen?' chosen':'')+'" onclick="pickSess2(\''+slot.id+'\','+slot.day+',\''+s.t+'\');">'
         +'<div class="sel-chk">✓</div>'
-        +'<div class="sel-salon">'+(s.sp&&s.sp.length?s.sp[0]+' - ':'')+s.t+'</div>'
+        +'<div class="sel-salon">'+s.t+'</div>'
         +'<div class="sel-title">'+s.t+'</div>'
         +'<div class="sel-pres"><div class="sel-ph">'+phSmall(s.sp)+'</div>'
           +'<span class="sel-pname">'+s.sp+'</span>'
@@ -1291,7 +1291,7 @@ function renderSessionsTab(){
           var cnt=slotPicks[s.s]||0;
           var pct=max2?Math.round(cnt/max2*100):0;
           html2+='<div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">'
-            +'<div style="width:80px;font-size:10px;font-weight:700;color:var(--teal);flex-shrink:0">'+(s.sp&&s.sp.length?s.sp[0]+' - ':'')+s.t+'</div>'
+            +'<div style="width:80px;font-size:10px;font-weight:700;color:var(--teal);flex-shrink:0">'+s.t+'</div>'
             +'<div style="flex:1;height:18px;background:var(--gray-100);border-radius:100px;overflow:hidden">'
               +'<div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:100px;transition:width .6s ease"></div>'
             +'</div>'
