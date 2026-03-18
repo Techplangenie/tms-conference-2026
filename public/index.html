@@ -963,7 +963,7 @@ async function doRegister(){
   var s=document.getElementById('rs').value.trim();
   var c=document.getElementById('rc').value.trim();
   var e=document.getElementById('re').value.trim();
-  if(!n||!s||!c){toast('Please fill in all required fields','error');return;}
+  if(!n||!s||!c){toast('Please fill in all required fields','error');return; document.querySelectorAll('.sess-card').forEach(function(c){var oc=c.getAttribute('onclick')||'';if(oc.indexOf('"'+slotId+'"')>=0&&oc.indexOf('"'+day+'"')>=0){c.classList.add('chosen');}else if(oc.indexOf('"'+day+'"')>=0){c.classList.remove('chosen');}});}
   try{
     var d=await supaFetch('/rest/v1/attendees',{method:'POST',
       headers:{'Prefer':'return=representation'},
