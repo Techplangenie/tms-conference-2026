@@ -1211,7 +1211,7 @@ function renderAnalytics(){
     if(a.picks){
       Object.values(a.picks).forEach(function(day){
         Object.values(day).forEach(function(salon){
-          sessCounts[salon]=(sessCounts[salon]||0)+1;
+          var sTitle=(window.ALLSESS||[]).find(function(s){return s.salon===salon||s.room===salon;});var sKey=sTitle?(sTitle.title||sTitle.session_title||sTitle.name||salon):salon;sessCounts[sKey]=(sessCounts[sKey]||0)+1;
         });
       });
     }
@@ -1219,7 +1219,7 @@ function renderAnalytics(){
   // Also count local picks if we have them
   Object.values(picks).forEach(function(day){
     Object.values(day).forEach(function(salon){
-      sessCounts[salon]=(sessCounts[salon]||0)+1;
+      var sTitle=(window.ALLSESS||[]).find(function(s){return s.salon===salon||s.room===salon;});var sKey=sTitle?(sTitle.title||sTitle.session_title||sTitle.name||salon):salon;sessCounts[sKey]=(sessCounts[sKey]||0)+1;
     });
   });
   var sessData=Object.entries(sessCounts).sort(function(a,b){return b[1]-a[1];}).slice(0,10);
@@ -1239,14 +1239,14 @@ function renderSessionsTab(){
     if(a.picks){
       Object.values(a.picks).forEach(function(day){
         Object.values(day).forEach(function(salon){
-          sessCounts[salon]=(sessCounts[salon]||0)+1;
+          var sTitle=(window.ALLSESS||[]).find(function(s){return s.salon===salon||s.room===salon;});var sKey=sTitle?(sTitle.title||sTitle.session_title||sTitle.name||salon):salon;sessCounts[sKey]=(sessCounts[sKey]||0)+1;
         });
       });
     }
   });
   Object.values(picks).forEach(function(day){
     Object.values(day).forEach(function(salon){
-      sessCounts[salon]=(sessCounts[salon]||0)+1;
+      var sTitle=(window.ALLSESS||[]).find(function(s){return s.salon===salon||s.room===salon;});var sKey=sTitle?(sTitle.title||sTitle.session_title||sTitle.name||salon):salon;sessCounts[sKey]=(sessCounts[sKey]||0)+1;
     });
   });
 
