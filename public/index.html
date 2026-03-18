@@ -472,6 +472,656 @@ tr:hover td{background:var(--gray-50)}
     <div style="font-family:Outfit;font-weight:900;font-size:28px;color:var(--navy)">Conference Floor Map</div>
     <div style="font-size:13px;color:var(--gray-600)">Wyndham Rio Mar Convention Hall · Rio Grande, Puerto Rico</div>
   </div>
-  <div class="map-svg-wrap"><img src="TMS_Conference_Map.png" alt="Conference Venue Map" style="width:100%;max-width:900px;display:block;margin:0 auto;border-radius:8px;" />
+  <div class="map-svg-wrap"><img src="TMS_Conference_Map.png" alt="Conference Venue Map" style="width:100%;max-width:960px;display:block;margin:0 auto;border-radius:8px;" />
+<script>
+
+const PHOTOS={'gerardo-vazquez':'https://drive.google.com/thumbnail?id=1HFNS50B4_KPB4Ag48bmp9kczfmMchbVP&sz=w400','estefania-padro':'https://drive.google.com/thumbnail?id=1ecgiG9SWwOlmouYcFY3XkaqfJNYdu4AK&sz=w400','ivonne-rosa':'https://drive.google.com/thumbnail?id=1X0PTHq8kRlcmrv2YASrj-M2uKXu1UxgE&sz=w400','rosanna-castro':'https://drive.google.com/thumbnail?id=18D4VZxC574510iBjhjzv-MpwPZU8EAbK&sz=w400','evan-harris':'https://drive.google.com/thumbnail?id=10sSmfoX-57g9vdlWqFuCqFZ6wBxTnNem&sz=w400','armanie-cordero':'https://drive.google.com/thumbnail?id=1SwDvXnkpMUlDiepf1MdTFudSb15pC-4F&sz=w400','bryan-rivera':'https://drive.google.com/thumbnail?id=1ziph_WTbC7C66U9yUW348vkqvKaCI9BV&sz=w400','fonz-mendoza':'https://drive.google.com/thumbnail?id=1ZjKqamj_bxfgShTgsn--THIh07B5AO4r&sz=w400','marcos-velez':'https://drive.google.com/thumbnail?id=1IlGnzzAx7dNkGMjrHvIrC8d_9yZMp8b-&sz=w400','christine-dyer':'https://drive.google.com/thumbnail?id=1k7OO6uNfAdxGqP88T4rxfBjEP9AySrKv&sz=w400','stephanie-delpino':'https://drive.google.com/thumbnail?id=1iOYZh8DmzSmDmF0q3rf5tTWmHwpndXKa&sz=w400','wilmayris-valentin':'https://drive.google.com/thumbnail?id=1yQQn894UFrvusiDbnabc-skWCdfjkFLv&sz=w400','lori-menning':'https://drive.google.com/thumbnail?id=1v2pqXPp1T9t2rX0NkMEWE3Xa2zoLbGD9&sz=w400','luz-evimar':'https://drive.google.com/thumbnail?id=1Blptl1eIb29ca_CEjno_-h54WFprpTXT&sz=w400','alberto-chiecchio':'https://drive.google.com/thumbnail?id=1gSsUOy0qBphvSXTbBsxB6eq72zDLf6lE&sz=w400','rachelle-poth':'https://drive.google.com/thumbnail?id=11hjRgYwaUJaHpVC4roEyV0VgoLky_uxy&sz=w400','bilma-paez':'https://drive.google.com/thumbnail?id=1iMdrj7a4SDnEZLj8N61f3q6upwxH6O88&sz=w400','ronnie-caldwell':'https://drive.google.com/thumbnail?id=1f7w-P71SfGMpfFJ2oT0XOPJIaEx05dYB&sz=w400','kathleen-mcglone':'https://drive.google.com/thumbnail?id=1i6m9vN-h1iDDvv_dOHNV8DUoCotj9Ria&sz=w400','alex-shorter':'https://drive.google.com/thumbnail?id=1PGVAUdPqIII0MfVjPxys_gje9F5m7IWC&sz=w400','darlene-colon':'https://drive.google.com/thumbnail?id=1OAoQ1bwRIgm2RrjzWnuIB4mX2fzeIzHn&sz=w400','edna-torres':'https://drive.google.com/thumbnail?id=1J4LD1IiT_tCioMAEgY47xAzSPflFPBQs&sz=w400','wellington-gomez':'https://drive.google.com/thumbnail?id=1sxwL-PlB7U0vQsv0A2KKFfrgdTQuCVyV&sz=w400','jose-alicea':'https://drive.google.com/thumbnail?id=1vN64fRphq0VS7cCQ_Vg86d3hWPKm7zQw&sz=w400'};
+document.querySelectorAll('#ph span[data-src]').forEach(function(el){PHOTOS[el.id]=el.getAttribute('data-src');});
+const SPK=[
+  {id:'george-couros',n:'George Couros',t:'Keynote - Panelist - Presenter',r:'keynote',o:'University of Pennsylvania',p:'george-couros',li:'https://www.linkedin.com/in/georgecourosim/'},
+  {id:'eliezer-ramos',n:'Eliezer Ramos Pares',t:'Keynote Speaker',r:'keynote',o:'PR Secretary of Education',p:'eliezer-ramos',li:'https://www.linkedin.com/company/techmyschool/'},
+  {id:'rachelle-poth',n:'Dr. Rachelle Dene Poth',t:'Panel Moderator',r:'moderator',o:'Riverview School District',p:'rachelle-poth',li:'https://www.linkedin.com/in/rachelledenepoth/'},
+  {id:'fonz-mendoza',n:'Dr. Fonz Mendoza',t:'Panel Moderator',r:'moderator',o:'My EdTech Life Podcast',p:'fonz-mendoza',li:'https://www.linkedin.com/in/amendoza1381/'},
+  {id:'lori-menning',n:'Lori Menning, M.Ed',t:'Panelist',r:'panelist',o:'CESA 6',p:'lori-menning',li:'https://www.linkedin.com/in/lori-menning-888111b5/'},
+  {id:'evan-harris',n:'Evan Harris',t:'Panelist',r:'panelist',o:'Pathos Consulting Group',p:'evan-harris',li:'https://www.linkedin.com/in/evanharrisai/'},
+  {id:'marcos-velez',n:'Dr. Marcos A. Velez Rivera',t:'Panelist',r:'panelist',o:'Higher Education',p:'marcos-velez',li:'https://www.linkedin.com/in/marcosvelezrivera/'},
+  {id:'ronnie-caldwell',n:'Ronnie Caldwell',t:'Panelist',r:'panelist',o:'School Leadership Coach',p:'ronnie-caldwell',li:'https://www.linkedin.com/in/ronnie-caldwell/'},
+  {id:'olga-joglar',n:'Dra. Olga A. Joglar Billoch',t:'Panelist',r:'panelist',o:'CaGin Laboratory School',p:'olga-joglar',li:'https://www.linkedin.com/in/olga-joglar-billoch-98389431b/'},
+  {id:'tania-morales',n:'Tania Morales',t:'Panelist',r:'panelist',o:'PR Dept. of Education',p:'tania-morales',li:'https://www.linkedin.com/in/tania-morales-9445b2a3/'},
+  {id:'bilma-paez',n:'Bilma Paez',t:'Panelist',r:'panelist',o:'Lamar University',p:'bilma-paez',li:'https://www.linkedin.com/in/bilma-paez-m-ed-924a82136/'},
+  {id:'robert-cobbs',n:'Robert Cobbs M.Ed',t:'Presenter',r:'presenter',o:'Tech My School',p:'robert-cobbs',li:'https://www.linkedin.com/in/robertcobbs/'},
+  {id:'ivonne-rosa',n:'Ivonne M. Rosa Fernandez',t:'Presenter',r:'presenter',o:'Tech My School',p:'ivonne-rosa',li:'https://www.linkedin.com/in/ivonne-rosa-fern%C3%A1ndez-7b0a36275/'},
+  {id:'armanie-cordero',n:'Armanie Cordero',t:'Presenter',r:'presenter',o:'Tech My School',p:'armanie-cordero',li:'https://www.linkedin.com/in/armanie-cordero-56a447281/'},
+  {id:'darlene-colon',n:'Darlene Colon Vazquez, MA',t:'Presenter',r:'presenter',o:'Tech My School',p:'darlene-colon',li:'https://www.linkedin.com/in/darlenecolon/'},
+  {id:'alex-shorter',n:'Rev. Alex Shorter',t:'Presenter',r:'presenter',o:'Smart City Specialist',p:'alex-shorter',li:'https://www.linkedin.com/in/alex-shorter-b764241a/'},
+  {id:'luz-evimar',n:'Luz Evimar Santiago Rivera',t:'Presenter',r:'presenter',o:'The Baldwin School of PR',p:'luz-evimar',li:'https://www.linkedin.com/company/techmyschool/'},
+  {id:'gerardo-vazquez',n:'Gerardo Vazquez',t:'Presenter',r:'presenter',o:'Paradiso College Prep',p:'gerardo-vazquez',li:'https://www.linkedin.com/company/techmyschool/'},
+  {id:'bryan-rivera',n:'Bryan Rivera Medina M.Ed',t:'Presenter',r:'presenter',o:'Special Educator & Innovator',p:'bryan-rivera',li:'https://www.linkedin.com/in/inclusionfueradelacaja/'},
+  {id:'rosanna-castro',n:'Lic. Rosanna Sofia De Castro',t:'Presenter',r:'presenter',o:'Speech Therapy PR',p:'rosanna-castro',li:'https://www.linkedin.com/in/rosanna-sof%C3%ADa-de-castro-ms-ccc-slp-40b8a0127/'},
+  {id:'alberto-chiecchio',n:'Dr. Alberto Chiecchio',t:'Presenter',r:'presenter',o:'Pure Mathematics',p:'alberto-chiecchio',li:'https://www.linkedin.com/in/alberto-chiecchio-phd-he-him-0b910190/'},
+  {id:'edna-torres',n:'Edna Torres-Lopez',t:'Presenter',r:'presenter',o:'CaGin Lab / Inter-American U.',p:'edna-torres',li:'https://www.linkedin.com/company/techmyschool/'},
+  {id:'stephanie-delpino',n:'Stephanie Del Pino Reyes, M.Ed',t:'Presenter',r:'presenter',o:'Saint Johns School PR',p:'stephanie-delpino',li:'https://www.linkedin.com/in/stephanie-parga-56b280326/'},
+  {id:'wilmayris-valentin',n:'Wilmayris Valentin',t:'Presenter',r:'presenter',o:'History Teacher',p:'wilmayris-valentin',li:'https://www.linkedin.com/in/wilmayris-valentin-47304a188/'},
+  {id:'kathleen-mcglone',n:'Ms. Kathleen McGlone',t:'Presenter',r:'presenter',o:'Educator',p:'kathleen-mcglone',li:'https://www.linkedin.com/in/kathleen-mcglone-047a919b/'},
+  {id:'wellington-gomez',n:'Wellington Gomez Mendez, M.Ed',t:'Presenter',r:'presenter',o:'Math Educator',p:'wellington-gomez',li:'https://www.linkedin.com/in/wellington-g%C3%B3mez-9aa2249b/'},
+  {id:'cristina-rodriguez',n:'Cristina Rodriguez Molina',t:'Presenter',r:'presenter',o:'Educator',p:'cristina-rodriguez',li:'https://www.linkedin.com/company/techmyschool/'},
+  {id:'estefania-padro',n:'Estefania Padro M.Ed',t:'Presenter',r:'presenter',o:'Early Childhood Educator',p:'estefania-padro',li:'https://www.linkedin.com/company/techmyschool/'},
+  {id:'naisha-suarez',n:'Naisha Suarez',t:'Presenter',r:'presenter',o:'Educator',p:'naisha-suarez',li:'https://www.linkedin.com/company/techmyschool/'},
+  {id:'christine-dyer',n:'Christine Dulany Dyer',t:'Presenter',r:'presenter',o:'Educator',p:'christine-dyer',li:'https://www.linkedin.com/company/techmyschool/'},
+  {id:'jose-alicea',n:'Prof. Jose A. Alicea Soto M.Ed',t:'Presenter',r:'presenter',o:'Educator',p:'jose-alicea',li:'https://www.linkedin.com/company/techmyschool/'}
+];
+const SLOTS=[
+{id:'bs1',day:1,time:'10:30-11:20 AM',lbl:'Breakout 1',sess:[{s:'Salon 1',t:'SMARTERHOODS: Smart Cities and AI',sp:'alex-shorter',d:'Explore how AI-driven urban ecosystems shape the next generation of innovators.',lang:'english'},{s:'Salon 2',t:'Memorable Teaching: Brain-Based Strategies',sp:'luz-evimar',d:'Neuroscience, technology, and AI literacy to create brain-centered learning experiences.',lang:'spanish'},{s:'Salon 3',t:'Embracing Innovation for Every Learner',sp:'george-couros',d:'Rethink learning environments and build cultures that empower every student to grow.',lang:'english'},{s:'Salon 5',t:'BYO EdTech Tool with PlayLab AI',sp:'stephanie-delpino',d:'Build Your Own EdTech Tool - educators design AI-powered solutions for real school challenges.',lang:'english'},{s:'Salon 6',t:'Empowering Multilingual Learners',sp:'lori-menning',d:'Free edtech tools that elevate student voice and support multilingual learners.',lang:'spanish'},{s:'Ballroom',t:'Beyond ChatGPT: Training Critical Thinkers',sp:'marcos-velez',d:'Strategic AI use to strengthen critical thinking, creativity and digital literacy.',lang:'spanish'},{s:'Salon 7',t:'NotebookLM: From Planning to Learning',sp:'gerardo-vazquez',d:'How NotebookLM can responsibly integrate AI to help teachers plan and personalize instruction.',lang:'english'},{s:'Salon 8',t:'Taste4All: FoodTech Space for Learning',sp:'bryan-rivera',d:'Integrating health, technology and inclusive education to transform learning.',lang:'english'},{s:'Salon 9/10',t:'The Coding Reset: Hands-On Tech',sp:'armanie-cordero',d:'VR, Kai Bots, Osmo, Dash and Lego Spike rotation - tools used in TMS service schools.',lang:'english'}]},
+{id:'bs2',day:1,time:'11:30 AM-12:20 PM',lbl:'Breakout 2',sess:[{s:'Salon 1',t:'AI in School: The Good, Bad and Ugly',sp:'rosanna-castro',d:'What AI tools do well, where they fall short, and how to use them responsibly.',lang:'spanish'},{s:'Salon 2',t:'Building Trust in 100 Days or Less',sp:'ronnie-caldwell',d:'Practical deep dive into behaviors and mindsets that build real school culture.',lang:'english'},{s:'Salon 3',t:'Developing Ethical Intelligence',sp:'alberto-chiecchio',d:'The concept of ethical debt in AI and developing Ethical Intelligence in students.',lang:'english'},{s:'Salon 5',t:'Modernizing History with Technology',sp:'wilmayris-valentin',d:'Project-based learning transforms History classes through podcasts and digital projects.',lang:'spanish'},{s:'Salon 6',t:'From Scrolling to Thinking: Deep Reading',sp:'ivonne-rosa',d:'Use Newzela to turn digital articles into close-reading experiences.',lang:'english'},{s:'Ballroom',t:'Introduction to Deepfake Safety',sp:'evan-harris',d:'Deepfakes are impacting schools through bullying and extortion. Protect your students.',lang:'english'},{s:'Salon 7',t:'Unleash Podcasting in Your Classroom',sp:'fonz-mendoza',d:'Podcasting transforms your classroom into a space where every student voice matters.',lang:'english'},{s:'Salon 8',t:'Love + Values = Ethics in Education',sp:'edna-torres',d:'How love and values guide ethical technology use in education.',lang:'english'},{s:'Salon 9/10',t:'The Coding Reset: Hands-On Tech',sp:'armanie-cordero',d:'VR, Kai Bots, Osmo, Dash and Lego Spike rotation experience.',lang:'english'}]},
+{id:'bs3',day:1,time:'1:30-2:20 PM',lbl:'Breakout 3',sess:[{s:'Salon 1',t:'AI Tools Every Educator Should Know in 2026',sp:'fonz-mendoza',d:'The most powerful AI tools for educators - a fast-paced practical rundown.',lang:'english'},{s:'Salon 2',t:'Digital Learning Strategies for Every Student',sp:'wellington-gomez',d:'Integrating technology and e-learning strategies to create engaging, innovative learning.',lang:'spanish'},{s:'Salon 3',t:'Unlocking Revision History for Accountability',sp:'kathleen-mcglone',d:'Google Docs Revision History to support academic integrity and verify authentic work.',lang:'english'},{s:'Salon 5',t:'Early Childhood and Technology Integration',sp:'estefania-padro',d:'Strategies for integrating technology into early childhood learning environments.',lang:'spanish'},{s:'Salon 6',t:'Student Engagement Through Technology',sp:'naisha-suarez',d:'Digital tools to amplify student voice and increase meaningful participation.',lang:'spanish'},{s:'Ballroom',t:'BYO EdTech Tool with PlayLab AI',sp:'stephanie-delpino',d:'Build Your Own EdTech Tool with PlayLab AI to solve real school challenges.',lang:'english'},{s:'Salon 7',t:'Empowering Teachers to Transform Learning',sp:'cristina-rodriguez',d:'Practical strategies and innovative ideas to maximize student learning impact.',lang:'spanish'},{s:'Salon 8',t:'Revolutionizing Classroom Discussions',sp:'christine-dyer',d:'Amplify student voice with activities for building confidence and collaborative learning.',lang:'english'},{s:'Salon 9/10',t:'The Coding Reset: Hands-On Tech',sp:'armanie-cordero',d:'Hands-on tech rotation with VR, coding and robotics tools.',lang:'english'}]},
+{id:'bs4',day:1,time:'2:30-3:20 PM',lbl:'Breakout 4',sess:[{s:'Salon 1',t:'Snorkl: Making Student Thinking Visible',sp:'jose-alicea',d:'AI-powered feedback removes student thinking and gives teachers instant insights.',lang:'english'},{s:'Salon 2',t:'Building Trust in 100 Days or Less',sp:'ronnie-caldwell',d:'Powerful mindsets from history, philosophy and leadership to build school culture.',lang:'english'},{s:'Salon 3',t:'Developing Ethical Intelligence',sp:'alberto-chiecchio',d:'Ethical debt in AI and developing Ethical Intelligence through critical thinking.',lang:'english'},{s:'Salon 5',t:'Love + Values = Ethics in Education',sp:'edna-torres',d:'How love and values guide ethical technology use, creating joyful learning experiences.',lang:'english'},{s:'Salon 6',t:'Empowering Multilingual Learners',sp:'lori-menning',d:'Free edtech tools that elevate student voice and support multilingual learners.',lang:'spanish'},{s:'Ballroom',t:'Beyond the Prompt: Intentional AI',sp:'darlene-colon',d:'Using AI with purpose - ChatGPT, MagicSchool, Curipod and Canva for educators.',lang:'english'},{s:'Salon 7',t:'Unlocking Revision History for Accountability',sp:'kathleen-mcglone',d:'Google Docs Revision History to verify authentic student work.',lang:'english'},{s:'Salon 8',t:'From Scrolling to Thinking: Deep Reading',sp:'ivonne-rosa',d:'Turn digital articles into close-reading experiences with Newzela.',lang:'english'},{s:'Salon 9/10',t:'Code and Play Final Session',sp:'armanie-cordero',d:'Final Coding Reset rotation session.',lang:'english'}]},
+{id:'bs5',day:2,time:'10:30-11:20 AM',lbl:'Breakout 5',sess:[{s:'Salon 1',t:'AI Tools Every Educator Should Know in 2026',sp:'fonz-mendoza',d:'The most powerful AI tools for educators - a fast-paced practical rundown.',lang:'english'},{s:'Salon 2',t:'Digital Learning Strategies for Every Student',sp:'wellington-gomez',d:'Technology and e-learning strategies to create engaging, innovative learning.',lang:'spanish'},{s:'Salon 3',t:'Introduction to Deepfake Safety',sp:'evan-harris',d:'Deepfakes impacting schools through bullying and extortion. How to protect students.',lang:'english'},{s:'Salon 5',t:'Memorable Teaching: Brain-Based Strategies',sp:'luz-evimar',d:'Neuroscience, technology and AI literacy to create brain-centered learning.',lang:'spanish'},{s:'Salon 6',t:'NotebookLM: From Planning to Learning',sp:'gerardo-vazquez',d:'How NotebookLM helps teachers plan lessons and personalize instruction.',lang:'english'},{s:'Ballroom',t:'Beyond ChatGPT: Training Critical Thinkers',sp:'marcos-velez',d:'Strategic AI use to strengthen critical thinking and digital literacy.',lang:'spanish'},{s:'Salon 7',t:'Taste4All: FoodTech Space for Learning',sp:'bryan-rivera',d:'Health, technology and inclusive education to transform selective eating into learning.',lang:'english'},{s:'Salon 8',t:'SMARTERHOODS: Smart Cities and AI',sp:'alex-shorter',d:'How smart city innovation shapes the next generation of innovators.',lang:'english'},{s:'Salon 9/10',t:'Code and Play',sp:'armanie-cordero',d:'Hands-on Code and Play session with VR, coding and robotics tools.',lang:'english'}]},
+{id:'bs6',day:2,time:'11:30 AM-12:20 PM',lbl:'Breakout 6',sess:[{s:'Salon 1',t:'Empowering Teachers to Transform Learning',sp:'cristina-rodriguez',d:'Empowering teachers to recognize their powerful impact on student learning.',lang:'spanish'},{s:'Salon 2',t:'Early Childhood and Technology Integration',sp:'estefania-padro',d:'Strategies for integrating technology into early childhood learning environments.',lang:'spanish'},{s:'Salon 3',t:'Snorkl: Making Student Thinking Visible',sp:'jose-alicea',d:'How Snorkl helps students think out loud and gives teachers instant insights.',lang:'english'},{s:'Salon 5',t:'BYO EdTech Tool with PlayLab AI',sp:'stephanie-delpino',d:'Build AI-powered tools to solve real school challenges.',lang:'english'},{s:'Salon 6',t:'Modernizing History with Technology',sp:'wilmayris-valentin',d:'Technology and project-based learning transform History classes.',lang:'spanish'},{s:'Ballroom',t:'Unleash Podcasting in Your Classroom',sp:'fonz-mendoza',d:'Podcasting transforms your classroom where every student voice matters.',lang:'english'},{s:'Salon 7',t:'Beyond the Prompt: Intentional AI',sp:'darlene-colon',d:'Using AI with purpose - ChatGPT, MagicSchool, Curipod and Canva.',lang:'english'},{s:'Salon 8',t:'Revolutionizing Classroom Discussions',sp:'christine-dyer',d:'Amplify student voice with activities for collaborative global learning.',lang:'english'},{s:'Salon 9/10',t:'Code and Play',sp:'armanie-cordero',d:'Hands-on Code and Play session.',lang:'english'}]},
+{id:'bs7',day:2,time:'1:30-2:20 PM',lbl:'Breakout 7',sess:[{s:'Salon 1',t:'Early Childhood and Technology Integration',sp:'estefania-padro',d:'Strategies for integrating technology into early childhood learning environments.',lang:'spanish'},{s:'Salon 2',t:'Student Engagement Through Technology',sp:'naisha-suarez',d:'Digital tools to amplify student voice and increase meaningful participation.',lang:'spanish'},{s:'Salon 3',t:'Love + Values = Ethics in Education',sp:'edna-torres',d:'How love and values guide ethical technology use, creating joyful learning.',lang:'english'},{s:'Salon 5',t:'Building Trust in 100 Days or Less',sp:'ronnie-caldwell',d:'Behaviors and mindsets from history and leadership to build school culture.',lang:'english'},{s:'Salon 6',t:'From Scrolling to Thinking: Deep Reading',sp:'ivonne-rosa',d:'Turn digital articles into close-reading experiences that build comprehension.',lang:'english'},{s:'Ballroom',t:'Empowering Multilingual Learners',sp:'lori-menning',d:'Free edtech tools that elevate student voice and support multilingual learners.',lang:'spanish'},{s:'Salon 7',t:'Taste4All: FoodTech Space for Learning',sp:'bryan-rivera',d:'Integrating health, technology and inclusive education for meaningful learning.',lang:'english'},{s:'Salon 8',t:'SMARTERHOODS: Smart Cities and AI',sp:'alex-shorter',d:'Smart city innovation and how students can thrive in AI-driven ecosystems.',lang:'english'},{s:'Salon 9/10',t:'Code and Play',sp:'armanie-cordero',d:'Hands-on Code and Play rotation.',lang:'english'}]},
+{id:'bs8',day:2,time:'2:30-3:20 PM',lbl:'Breakout 8',sess:[{s:'Salon 1',t:'Snorkl: Making Student Thinking Visible',sp:'jose-alicea',d:'AI-powered feedback gives teachers instant insights into student thinking.',lang:'english'},{s:'Salon 2',t:'AI in School: The Good, Bad and Ugly',sp:'rosanna-castro',d:'What AI tools do well, where they fall short, how to use them responsibly.',lang:'spanish'},{s:'Salon 3',t:'Developing Ethical Intelligence',sp:'alberto-chiecchio',d:'Ethical debt in AI and developing Ethical Intelligence in students.',lang:'english'},{s:'Salon 5',t:'Digital Learning Strategies for Every Student',sp:'wellington-gomez',d:'Technology and e-learning strategies to create engaging, innovative learning.',lang:'spanish'},{s:'Salon 6',t:'Unlocking Revision History for Accountability',sp:'kathleen-mcglone',d:'Google Docs Revision History to support academic integrity.',lang:'english'},{s:'Ballroom',t:'Beyond the Prompt: Intentional AI',sp:'darlene-colon',d:'Using AI with purpose and pedagogical clarity for planning and differentiation.',lang:'english'},{s:'Salon 7',t:'Revolutionizing Classroom Discussions',sp:'christine-dyer',d:'Strategies that amplify student voice and build collaborative learning.',lang:'english'},{s:'Salon 8',t:'From Scrolling to Thinking: Deep Reading',sp:'ivonne-rosa',d:'Turn digital articles into close-reading experiences with Newzela.',lang:'english'},{s:'Salon 9/10',t:'Code and Play Final',sp:'armanie-cordero',d:'Final Code and Play session.',lang:'english'}]}
+];
+
+const SUPA_URL='https://katheqekgsmyvfknxbqj.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthdGhlcWVrZ3NteXZma254YnFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MDg5NjcsImV4cCI6MjA4OTI4NDk2N30.VsBqlRjHmVE9zarkLgjmid5d3r3uZEWAz4hGmYFF7rk';
+async function supaFetch(path,opts){
+  opts=opts||{};
+  var hdrs={'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json'};
+  if(opts.headers)Object.assign(hdrs,opts.headers);
+  var r=await fetch(SUPA_URL+path,Object.assign({},opts,{headers:hdrs}));
+  return r.json();
+}
+
+let ATT=[];
+let curAtt=null;
+let SI={};
+let adminLoggedIn=false;
+let curAdminTab='dashboard';
+let selDay=1;
+let sessFilter='all';
+let picks={};
+
+function gi(n){var p=n.trim().split(' ');return(p[0][0]+(p[p.length-1][0]||'')).toUpperCase();}
+
+function ph(sp){
+  var u=sp&&sp.p?PHOTOS[sp.p]||'':'';
+  if(!u)return '<span class="ini">'+gi(sp.n)+'</span>';
+  return '<img src="'+u+'" onerror="this.parentElement.innerHTML=\'<span class=ini>'+gi(sp.n)+'</span>\'" alt="'+sp.n+'"/>';
+}
+
+function phSmall(sid){
+  var sp=SPK.find(function(x){return x.id===sid;});
+  if(!sp)return '<span class="ini" style="font-size:9px">?</span>';
+  var u=sp.p?PHOTOS[sp.p]||'':'';
+  if(!u)return '<span class="ini" style="font-size:9px">'+gi(sp.n)+'</span>';
+  return '<img src="'+u+'" onerror="this.parentElement.innerHTML=\'<span class=ini style=font-size:9px>'+gi(sp.n)+'</span>\'" alt="'+sp.n+'"/>';
+}
+
+function filterSpk(role){
+  document.querySelectorAll('[data-sf]').forEach(function(c){c.classList.toggle('active',c.dataset.sf===role);});
+  var grid=document.getElementById('speakers-grid');
+  var filtered=role==='all'?SPK:SPK.filter(function(s){return s.r===role;});
+  grid.innerHTML=filtered.map(function(sp){
+    var link=sp.li?'onclick="window.open(\''+sp.li+'\',\'_blank\')" title="View on LinkedIn" style="cursor:pointer"':'';
+    return '<div class="spk-card" '+link+'>'
+      +'<div class="spk-av">'+ph(sp)+'</div>'
+      +'<div class="spk-name">'+sp.n+'</div>'
+      +'<div class="spk-org">'+sp.o+'</div>'
+      +'<span class="spk-role r-'+sp.r.substring(0,3)+'">'+sp.r+'</span>'
+      +(sp.li?'<div style="font-size:9px;color:#0077b5;margin-top:5px;font-weight:600;">LinkedIn</div>':'')
+      +'</div>';
+  }).join('');
+}
+function go(v){
+  document.querySelectorAll('.view').forEach(function(el){el.classList.remove('active');});
+  var el=document.getElementById('view-'+v);
+  if(el){el.classList.add('active');window.scrollTo(0,0);}
+  if(v==='sessions')renderSess();
+  if(v==='speakers'){initHome();filterSpk('all');}
+  if(v==='admin'){if(!adminLoggedIn){go('admin-login');return;}refreshAdmin();}
+  if(v==='select')renderSelect();
+}
+
+function toast(msg,type){
+  var c=document.getElementById('toast-cont');
+  var t=document.createElement('div');
+  t.className='toast '+(type||'');
+  t.textContent=msg;
+  c.appendChild(t);
+  setTimeout(function(){t.remove();},3000);
+}
+
+// ── HOME ─────────────────────────────────────────────────────────────
+function initHome(){
+  document.getElementById('speakers-grid').innerHTML=SPK.map(function(sp){
+    var link=sp.li?'onclick="window.open(\''+sp.li+'\',\'_blank\')" title="View on LinkedIn" style="cursor:pointer"':'';
+    return '<div class="spk-card" '+link+'>'
+      +'<div class="spk-av">'+ph(sp)+'</div>'
+      +'<div class="spk-name">'+sp.n+'</div>'
+      +'<div class="spk-org">'+sp.o+'</div>'
+      +'<span class="spk-role r-'+sp.r.substring(0,3)+'">'+sp.r+'</span>'
+      +(sp.li?'<div style="font-size:9px;color:#0077b5;margin-top:5px;font-weight:600;">LinkedIn</div>':'')
+      +'</div>';
+  }).join('');
+}
+
+// ── SESSIONS ─────────────────────────────────────────────────────────
+function renderSess(){if(!window.ALLSPK||!window.ALLSPK.length){Promise.all([supaFetch('/rest/v1/speakers?select=*'),supaFetch('/rest/v1/session_speakers?select=*'),supaFetch('/rest/v1/locations?select=*')]).then(function(r){if(Array.isArray(r[0]))window.ALLSPK=r[0];if(Array.isArray(r[1]))window.ALLSS=r[1];if(Array.isArray(r[2]))window.ALLLOCS=r[2];renderSess();});return;}
+  var slots=SLOTS.filter(function(s){return s.day===selDay;});
+  if(sessFilter!=='all')slots=slots.filter(function(s){
+    if(sessFilter==='keynote')return s.id.indexOf('kn')>=0;
+    if(sessFilter==='panel')return s.id.indexOf('pan')>=0;
+    return true;
+  });
+  var html='';
+  // Keynote card
+  if(selDay===1){
+    var ksp=SPK.find(function(x){return x.id==='george-couros';});
+    html+='<div class="kn-card">'
+      +'<div class="kn-photo">'+ph(ksp)+'</div>'
+      +'<div>'
+        +'<div class="kn-label">Day 1 Opening Keynote - Friday Apr 10</div>'
+        +'<div class="kn-title">Embracing Innovation to Help Every Learner Find Success in Their Own Way</div>'
+        +'<div class="kn-pres">George Couros - Keynote, Panelist &amp; Presenter</div>'
+        +'<div class="kn-time">8:20 - 9:20 AM - Rio Mar Ballroom</div>'
+      +'</div></div>';
+    var psp=['rachelle-poth','ronnie-caldwell','evan-harris','lori-menning','marcos-velez','tania-morales'].map(function(sid){
+      var s=SPK.find(function(x){return x.id===sid;});
+      return s?'<div class="pan-spk"><div class="pan-spk-ph">'+phSmall(sid)+'</div><span class="pan-spk-n">'+s.n.split(' ')[0]+' '+s.n.split(' ')[s.n.split(' ').length-1]+'</span></div>':'';
+    }).join('');
+    html+='<div class="panel-card">'
+      +'<div class="pan-label">EdTech Leadership Panel - Day 1</div>'
+      +'<div class="pan-title">When AI Works: What Should Humans Learn?</div>'
+      +'<div style="font-size:11px;color:#666;margin-bottom:10px;">9:20-10:00 AM - Rio Mar Ballroom - Moderated by Dr. Rachelle Dene Poth</div>'
+      +'<div class="pan-spks">'+psp+'</div></div>';
+  }
+  if(selDay===2){
+    var k2sp=SPK.find(function(x){return x.id==='eliezer-ramos';});
+    html+='<div class="kn-card">'
+      +'<div class="kn-photo">'+ph(k2sp)+'</div>'
+      +'<div>'
+        +'<div class="kn-label">Day 2 Keynote - Saturday Apr 11</div>'
+        +'<div class="kn-title">The Future of Education in Puerto Rico</div>'
+        +'<div class="kn-pres">Eliezer Ramos Pares - Secretary of Education, PR</div>'
+        +'<div class="kn-time">8:20 - 9:20 AM - Rio Mar Ballroom</div>'
+      +'</div></div>';
+    var p2sp=['fonz-mendoza','george-couros','marcos-velez','lori-menning','bilma-paez','olga-joglar'].map(function(sid){
+      var s=SPK.find(function(x){return x.id===sid;});
+      return s?'<div class="pan-spk"><div class="pan-spk-ph">'+phSmall(sid)+'</div><span class="pan-spk-n">'+s.n.split(' ')[0]+' '+s.n.split(' ')[s.n.split(' ').length-1]+'</span></div>':'';
+    }).join('');
+    html+='<div class="panel-card">'
+      +'<div class="pan-label">EdTech Leadership Panel - Day 2</div>'
+      +'<div class="pan-title">When AI Works: What Should Humans Learn?</div>'
+      +'<div style="font-size:11px;color:#666;margin-bottom:10px;">9:20-10:00 AM - Rio Mar Ballroom - Moderated by Dr. Fonz Mendoza</div>'
+      +'<div class="pan-spks">'+p2sp+'</div></div>';
+  }
+  slots.forEach(function(slot){
+    var dayPick=picks['d'+slot.day]||{};
+    html+='<div class="slot-block">'
+      +'<div class="slot-hdr">'
+        +'<span class="slot-time-badge">'+slot.time+'</span>'
+        +'<span class="slot-nm">'+slot.lbl+'</span>'
+        +'<div class="slot-line"></div>'
+        +(curAtt?'<span style="font-size:11px;color:#666;">Day '+slot.day+' - Pick one</span>':'')
+      +'</div>'
+      +'<div class="sess-grid">';
+    slot.sess.forEach(function(s){
+      var sp2=SPK.find(function(x){return x.id===s.sp;});
+      var chosen=curAtt&&dayPick[slot.id]===s.s;
+      html+='<div class="sess-card'+(chosen?' chosen':'')+'" '
+        +(curAtt?'onclick="pickSess(\''+slot.id+'\','+slot.day+',\''+s.s+'\');"':'')+'>'
+        +'<div class="sess-salon">'+s.t+'</div>'
+        +'<div class="sess-spk-row">'
+          +'<div class="sess-spk-ph">'+phSmall(s.sp)+'</div>'
+          +'<div><div class="sess-spk-name">'+(sp2?sp2.n.split(' ').slice(0,2).join(' '):'Presenter')+'</div></div>'
+        +'</div>'
+        +'<div class="sess-title">'+s.t+'</div>'
+        +'<div class="sess-desc">'+s.d.substring(0,90)+(s.d.length>90?'...':'')+'</div>'
+        +'<span class="sess-lang'+(s.lang==='spanish'?' es':'')+'">'+s.lang+'</span>'
+        +(chosen?'<div style="color:var(--green);font-size:10px;font-weight:700;margin-top:6px;">Selected</div>':'')
+        +'</div>';
+    });
+    html+='</div></div>';
+  });
+  document.getElementById('sess-list').innerHTML=html;
+}
+
+function setDay(d){
+  selDay=d;
+  document.querySelectorAll('.d-tab').forEach(function(t,i){t.classList.toggle('active',i+1===d);});
+  renderSess();
+}
+
+function setFilter(f){
+  sessFilter=f;
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('active',c.dataset.f===f);});
+  renderSess();
+}
+
+function pickSess(slotId,day,salon){
+  var d='d'+day;
+  if(!picks[d])picks[d]={};
+  picks[d][slotId]=salon;
+  renderSess();
+}
+
+// ── REGISTRATION ───────────────────────────────────────────────────────
+async function doRegister(){
+  var n=document.getElementById('rn').value.trim();
+  var s=document.getElementById('rs').value.trim();
+  var c=document.getElementById('rc').value.trim();
+  var e=document.getElementById('re').value.trim();
+  if(!n||!s||!c){toast('Please fill in all required fields','error');return;}
+  try{
+    var d=await supaFetch('/rest/v1/attendees',{method:'POST',
+      headers:{'Prefer':'return=representation'},
+      body:JSON.stringify({full_name:n,school:s,city:c,badge_status:'pending'})
+    });
+    var saved=Array.isArray(d)?d[0]:d;
+    curAtt={id:saved&&saved.id?saved.id:Date.now(),n:n,s:s,c:c,b:'pending',
+      t:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),sel:0};
+  }catch(err){
+    curAtt={id:Date.now(),n:n,s:s,c:c,b:'pending',
+      t:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),sel:0};
+  }
+  ATT.unshift(curAtt);
+  document.getElementById('bn').textContent=n;
+  document.getElementById('bsc').textContent=s;
+  document.getElementById('bcy').textContent=c;
+  document.getElementById('reg-form').classList.add('hidden');
+  document.getElementById('reg-success').classList.remove('hidden');
+  toast('Welcome, '+n.split(' ')[0]+'!','success');
+}
+
+// ── SESSION SELECT ─────────────────────────────────────────────────────
+function renderSelect(){
+  if(!curAtt){go('register');return;}
+  document.getElementById('sel-att-name').textContent=curAtt.n;
+  var html='';
+  SLOTS.forEach(function(slot){
+    var dayPick=picks['d'+slot.day]||{};
+    html+='<div class="sel-slot">'
+      +'<div class="sel-slot-hdr">'
+        +'<span class="sel-time">'+slot.time+'</span>'
+        +'<span class="sel-lbl">'+slot.lbl+' - Day '+slot.day+'</span>'
+      +'</div>'
+      +'<div class="sel-grid">';
+    slot.sess.forEach(function(s){
+      var chosen=dayPick[slot.id]===s.s;
+      var spkName=(SPK.find(function(x){return x.id===s.sp;})||{n:s.sp.split('-').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(' ')}).n;
+      html+='<div class="sel-card'+(chosen?' chosen':'')+'" onclick="pickSess2(\''+slot.id+'\','+slot.day+',\''+s.s+'\');">'
+        +'<div class="sel-chk">✓</div>'
+        +'<div class="sel-pres"><div class="sel-ph">'+phSmall(s.sp)+'</div>'
+          +'<span class="sel-pname">'+spkName+'</span>'
+        +'</div>'
+        +'<div class="sel-title">'+s.t+'</div>'
+        +'</div>';
+    });
+    html+='</div></div>';
+  });
+  document.getElementById('sel-slots').innerHTML=html;
+}
+
+function pickSess2(slotId,day,salon){
+  if(!picks['d'+day])picks['d'+day]={};
+  picks['d'+day][slotId]=salon;
+  renderSelect();
+  savePicks();
+}
+
+async function savePicks(){
+  var count=0;
+  var allPicks=[];
+  Object.entries(picks).forEach(function(de){
+    Object.entries(de[1]).forEach(function(se){
+      count++;
+      allPicks.push(se[1]); // salon name
+    });
+  });
+  if(curAtt&&curAtt.id){
+    try{
+      await supaFetch('/rest/v1/attendees?id=eq.'+curAtt.id,{
+        method:'PATCH',
+        body:JSON.stringify({sessions_selected:count,session_picks:JSON.stringify(picks)})
+      });
+    }catch(e){}
+  }
+  toast('Saved '+count+' session selections!','success');
+}
+
+// ── ADMIN ──────────────────────────────────────────────────────────────
+function doAdminLogin(){
+  var u=document.getElementById('au').value.trim();
+  var p=document.getElementById('ap').value;
+  if((u==='admin@techmyschool.org'||u==='admin')&&p==='tms2026'){
+    adminLoggedIn=true;
+    document.getElementById('view-admin-login').classList.remove('active');
+    document.getElementById('view-admin').classList.add('active');
+    refreshAdmin();
+  }else{
+    document.getElementById('login-err').style.display='block';
+  }
+}
+
+async function refreshAdmin(){
+  try{
+    var data=await supaFetch('/rest/v1/attendees?select=*&order=registered_at.desc');
+    if(Array.isArray(data)&&data.length>0){
+      ATT=data.map(function(r){
+        return {id:r.id,n:r.full_name||r.name||'',s:r.school||'',c:r.city||'',
+          b:r.badge_status||'pending',
+          t:new Date(r.registered_at||r.created_at).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),
+          sel:r.sessions_selected||0,email:r.email||'',picks:(function(){try{if(r.session_picks)return JSON.parse(r.session_picks);}catch(e){}return {};})()};
+      });
+    }
+  }catch(e){console.log('Supabase error:',e);}
+  // Restore picks from Supabase into global picks variable
+  if(ATT.length > 0 && ATT[0].picks) picks = ATT[0].picks;
+  updStats();renderAtt();renderBadges();renderSchools();renderDash();renderAnalytics();renderSessionsTab();
+}
+
+function setAdminTab(t){
+  curAdminTab=t;
+  document.querySelectorAll('.admin-ni').forEach(function(n){n.classList.toggle('active',n.dataset.t===t);});
+  document.querySelectorAll('.admin-pane').forEach(function(p){p.classList.toggle('hidden',p.id!=='ap-'+t);});
+  if(t==='analytics')renderAnalytics();
+  if(t==='sessions')renderSessionsTab();
+  document.getElementById('admin-topbar-title').textContent={
+    dashboard:'Dashboard',attendees:'Attendees',badges:'Badge Management',sessions:'Session Selections',
+    schools:'Schools',analytics:'Analytics'
+  }[t]||t;
+}
+
+function updStats(){
+  var total=ATT.length;
+  var pend=ATT.filter(function(a){return a.b==='pending';}).length;
+  var prnt=ATT.filter(function(a){return a.b==='printing';}).length;
+  var done=ATT.filter(function(a){return a.b==='printed';}).length;
+  document.getElementById('stat-total').textContent=total;
+  document.getElementById('stat-pend').textContent=pend;
+  document.getElementById('stat-prnt').textContent=prnt;
+  document.getElementById('stat-done').textContent=done;
+}
+
+function renderAtt(){
+  document.getElementById('att-tbody').innerHTML=ATT.length===0
+    ?'<tr><td colspan="6" style="text-align:center;padding:40px;color:#999;">No registrations yet</td></tr>'
+    :ATT.map(function(a){
+      return '<tr>'
+        +'<td style="font-weight:700;">'+a.n+'</td>'
+        +'<td>'+a.s+'</td>'
+        +'<td>'+a.c+'</td>'
+        +'<td>'+a.t+'</td>'
+        +'<td><span class="bst '+a.b+'">'+a.b+'</span></td>'
+        +'<td>'
+          +'<select style="font-size:11px;padding:3px 6px;border-radius:6px;border:1px solid #ddd;" onchange="updBadge(\''+a.id+'\',this.value)">'
+          +'<option value="pending"'+(a.b==='pending'?' selected':'')+'>Pending</option>'
+          +'<option value="printing"'+(a.b==='printing'?' selected':'')+'>Printing</option>'
+          +'<option value="printed"'+(a.b==='printed'?' selected':'')+'>Printed</option>'
+          +'<option value="__del__" style="color:#dc3545;font-weight:700;">&#x2715; Delete</option>'
+          +'</select>'
+        +'</td>'
+        +'</tr>';
+    }).join('');
+}
+
+function renderBadges(){
+  var pend=ATT.filter(function(a){return a.b==='pending';});
+  var prnt=ATT.filter(function(a){return a.b==='printing';});
+  var done=ATT.filter(function(a){return a.b==='printed';});
+  function col(title,items,color){
+    return '<div style="flex:1;min-width:200px;">'
+      +'<div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:'+color+';margin-bottom:12px;">'+title+' ('+items.length+')</div>'
+      +'<div style="display:flex;flex-direction:column;gap:8px;">'
+      +items.map(function(a){
+        return '<div style="background:#fff;border-radius:10px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);">'
+          +'<div style="font-weight:700;font-size:13px;">'+a.n+'</div>'
+          +'<div style="font-size:11px;color:#666;">'+a.s+'</div>'
+          +'</div>';
+      }).join('')
+      +'</div></div>';
+  }
+  document.getElementById('badges-cont').innerHTML='<div style="display:flex;gap:16px;flex-wrap:wrap;">'
+    +col('Pending',pend,'#856404')
+    +col('Printing',prnt,'#0a3378')
+    +col('Printed',done,'#0a5c2e')
+    +'</div>';
+}
+
+function renderSchools(){
+  var counts={};
+  ATT.forEach(function(a){counts[a.s]=(counts[a.s]||0)+1;});
+  var sorted=Object.entries(counts).sort(function(a,b){return b[1]-a[1];});
+  var max=sorted.length?sorted[0][1]:1;
+  document.getElementById('schools-cont').innerHTML=sorted.length===0
+    ?'<p style="color:#999;text-align:center;padding:40px;">No registrations yet</p>'
+    :'<div style="display:flex;flex-direction:column;gap:10px;">'
+    +sorted.map(function(e){
+      var pct=Math.round(e[1]/max*100);
+      return '<div class="sbar-wrap">'
+        +'<div class="sbar-lbl"><span class="st">'+e[0]+'</span><span class="sc">'+e[1]+'</span></div>'
+        +'<div class="sbar"><div class="sbar-fill" style="width:'+pct+'%"></div></div>'
+        +'</div>';
+    }).join('')+'</div>';
+}
+
+function barChart(data, color){
+  if(!data||!data.length)return '<div style="color:#999;font-size:12px;padding:20px;text-align:center">No data yet</div>';
+  var max=data[0][1]||1;
+  return data.map(function(row){
+    var pct=Math.round(row[1]/max*100);
+    return '<div style="margin-bottom:12px">'
+      +'<div style="display:flex;justify-content:space-between;margin-bottom:5px">'
+        +'<span style="font-size:12px;font-weight:600;color:var(--navy);max-width:75%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+row[0]+'</span>'
+        +'<span style="font-size:12px;font-weight:800;color:'+color+'">'+row[1]+'</span>'
+      +'</div>'
+      +'<div style="height:8px;background:var(--gray-200);border-radius:100px;overflow:hidden">'
+        +'<div style="height:100%;width:'+pct+'%;background:'+color+';border-radius:100px;transition:width .6s ease"></div>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+}
+
+function renderAnalytics(){
+  // Badge chart
+  var pend=ATT.filter(function(a){return a.b==='pending';}).length;
+  var prnt=ATT.filter(function(a){return a.b==='printing';}).length;
+  var done=ATT.filter(function(a){return a.b==='printed';}).length;
+  var badgeData=[['Pending',pend],['Printing',prnt],['Printed',done]].filter(function(d){return d[1]>0;});
+  var badgeColors=['#856404','#0a3378','#0a5c2e'];
+  var bEl=document.getElementById('chart-badge');
+  if(bEl)bEl.innerHTML=badgeData.length?badgeData.map(function(row,i){
+    var pct=ATT.length?Math.round(row[1]/ATT.length*100):0;
+    return '<div style="margin-bottom:12px">'
+      +'<div style="display:flex;justify-content:space-between;margin-bottom:5px">'
+        +'<span style="font-size:12px;font-weight:600;color:var(--navy)">'+row[0]+'</span>'
+        +'<span style="font-size:12px;font-weight:800;color:'+badgeColors[i]+'">'+row[1]+' ('+pct+'%)</span>'
+      +'</div>'
+      +'<div style="height:10px;background:var(--gray-200);border-radius:100px;overflow:hidden">'
+        +'<div style="height:100%;width:'+pct+'%;background:'+badgeColors[i]+';border-radius:100px"></div>'
+      +'</div>'
+    +'</div>';
+  }).join(''):'<div style="color:#999;font-size:12px;padding:20px;text-align:center">No data yet</div>';
+
+  // Schools chart
+  var sc={};
+  ATT.forEach(function(a){sc[a.s]=(sc[a.s]||0)+1;});
+  var sData=Object.entries(sc).sort(function(a,b){return b[1]-a[1];}).slice(0,8);
+  var sEl=document.getElementById('chart-schools');
+  if(sEl)sEl.innerHTML=barChart(sData,'var(--green)');
+
+  // Speakers chart — count by actual speaker name from session picks
+  var spkCounts={};
+  ATT.forEach(function(a){
+    if(a.picks){
+      Object.keys(a.picks).forEach(function(dayKey){
+        var day=a.picks[dayKey];
+        Object.keys(day).forEach(function(slotId){
+          var salon=day[slotId];
+          var slot=SLOTS.find(function(sl){return sl.id===slotId;});
+          if(slot&&slot.sess){
+            var sess=slot.sess.find(function(s){return s.s===salon;});
+            if(sess&&sess.sp){
+              var spk=SPK.find(function(p){return p.id===sess.sp;});
+              var name=spk?spk.n:sess.sp;
+              spkCounts[name]=(spkCounts[name]||0)+1;
+            }
+          }
+        });
+      });
+    }
+  });
+  var spkData=Object.entries(spkCounts).sort(function(a,b){return b[1]-a[1];}).slice(0,8);
+  var cEl=document.getElementById('chart-cities');
+  if(cEl)cEl.innerHTML=spkData.length?barChart(spkData,'var(--teal)')
+    :'<div style="color:#999;font-size:12px;padding:20px;text-align:center">No session selections yet.</div>';
+
+  // Update stat-total2
+  var st2=document.getElementById('stat-total2');
+  if(st2)st2.textContent=ATT.length;
+}
+
+function renderSessionsTab(){
+  // Overall most-selected sessions
+  var sessCounts={};
+  ATT.forEach(function(a){
+    if(a.picks){
+      Object.values(a.picks).forEach(function(day){
+        Object.values(day).forEach(function(salon){
+          var sessMatch=null;SLOTS.forEach(function(sl){if(sl.sess)sl.sess.forEach(function(s){if(s.s===salon)sessMatch=s;});});var spkObj=sessMatch&&sessMatch.sp?SPK.find(function(p){return p.id===sessMatch.sp;}):null;var sKey=spkObj?spkObj.n+' — '+sessMatch.t:(sessMatch?sessMatch.t:salon);sessCounts[sKey]=(sessCounts[sKey]||0)+1;
+        });
+      });
+    }
+  });
+  Object.values(picks).forEach(function(day){
+    Object.values(day).forEach(function(salon){
+      var sessMatch=null;SLOTS.forEach(function(sl){if(sl.sess)sl.sess.forEach(function(s){if(s.s===salon)sessMatch=s;});});var spkObj=sessMatch&&sessMatch.sp?SPK.find(function(p){return p.id===sessMatch.sp;}):null;var sKey=spkObj?spkObj.n+' — '+sessMatch.t:(sessMatch?sessMatch.t:salon);sessCounts[sKey]=(sessCounts[sKey]||0)+1;
+    });
+  });
+
+  var sessData=Object.entries(sessCounts).sort(function(a,b){return b[1]-a[1];});
+  var ovEl=document.getElementById('sessions-overview');
+  if(ovEl)ovEl.innerHTML=sessData.length
+    ?'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">'
+      +sessData.map(function(row){
+        return '<div style="background:var(--gray-50);border-radius:10px;padding:14px;border-left:4px solid var(--green)">'
+          +'<div style="font-family:Outfit;font-weight:900;font-size:28px;color:var(--green)">'+row[1]+'</div>'
+          +'<div style="font-size:11px;font-weight:700;color:var(--navy)">'+row[0]+'</div>'
+        +'</div>';
+      }).join('')+'</div>'
+    :'<div style="color:#999;font-size:12px;padding:40px;text-align:center">No session selections yet.<br>Attendees choose sessions after check-in.</div>';
+
+  // Per-slot breakdown
+  var slEl=document.getElementById('sessions-slots');
+  if(slEl){
+    var html2='';
+    SLOTS.forEach(function(slot){
+      var slotPicks={};
+      ATT.forEach(function(a){
+        if(a.picks&&a.picks['d'+slot.day]&&a.picks['d'+slot.day][slot.id]){
+          var s=a.picks['d'+slot.day][slot.id];
+          slotPicks[s]=(slotPicks[s]||0)+1;
+        }
+      });
+      if(picks['d'+slot.day]&&picks['d'+slot.day][slot.id]){
+        var s2=picks['d'+slot.day][slot.id];
+        slotPicks[s2]=(slotPicks[s2]||0)+1;
+      }
+      var total=Object.values(slotPicks).reduce(function(a,b){return a+b;},0);
+      var max2=total?Math.max.apply(null,Object.values(slotPicks)):1;
+      html2+='<div style="margin-bottom:28px">'
+        +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">'
+          +'<span style="background:var(--navy);color:#fff;font-family:Outfit;font-weight:800;font-size:11px;padding:4px 11px;border-radius:100px">'+slot.time+'</span>'
+          +'<span style="font-family:Outfit;font-weight:700;font-size:14px;color:var(--navy)">'+slot.lbl+'</span>'
+          +'<span style="font-size:11px;color:var(--gray-600)">Day '+slot.day+' &middot; '+total+' selections</span>'
+        +'</div>';
+      if(Object.keys(slotPicks).length){
+        slot.sess.forEach(function(s){
+          var cnt=slotPicks[s.s]||0;
+          var pct=max2?Math.round(cnt/max2*100):0;
+          html2+='<div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">'
+            +'<div style="width:80px;font-size:10px;font-weight:700;color:var(--teal);flex-shrink:0">'+s.t+'</div>'
+            +'<div style="flex:1;height:18px;background:var(--gray-100);border-radius:100px;overflow:hidden">'
+              +'<div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,var(--green),var(--teal));border-radius:100px;transition:width .6s ease"></div>'
+            +'</div>'
+            +'<div style="width:50px;font-size:11px;font-weight:700;color:var(--navy);text-align:right">'+cnt+(cnt===1?' pick':' picks')+'</div>'
+          +'</div>';
+        });
+      }else{
+        html2+='<div style="font-size:12px;color:#999;padding:8px 0">No selections yet</div>';
+      }
+      html2+='</div>';
+    });
+    slEl.innerHTML=html2;
+  }
+}
+
+function renderDash(){
+  var cities={};
+  ATT.forEach(function(a){cities[a.c]=(cities[a.c]||0)+1;});
+  var cSorted=Object.entries(cities).sort(function(a,b){return b[1]-a[1];}).slice(0,5);
+  document.getElementById('dash-cities').innerHTML=cSorted.length===0
+    ?'<p style="color:#999;font-size:12px;">No data yet</p>'
+    :'<div style="display:flex;flex-direction:column;gap:8px;">'
+    +cSorted.map(function(e){
+      return '<div style="display:flex;justify-content:space-between;font-size:12px;padding:8px 12px;background:#fff;border-radius:8px;">'
+        +'<span style="font-weight:600;">'+e[0]+'</span><span style="color:var(--green);font-weight:700;">'+e[1]+'</span></div>';
+    }).join('')+'</div>';
+  var recent=ATT.slice(0,5);
+  document.getElementById('dash-recent').innerHTML=recent.length===0
+    ?'<p style="color:#999;font-size:12px;">No registrations yet</p>'
+    :'<div style="display:flex;flex-direction:column;gap:8px;">'
+    +recent.map(function(a){
+      return '<div style="background:#fff;border-radius:8px;padding:10px 12px;">'
+        +'<div style="font-weight:700;font-size:12px;">'+a.n+'</div>'
+        +'<div style="font-size:10px;color:#666;">'+a.s+' - '+a.t+'</div>'
+        +'</div>';
+    }).join('')+'</div>';
+}
+
+async function deleteAtt(id){
+  if(!confirm('Remove this registration permanently?'))return;
+  try{await supaFetch('/rest/v1/attendees?id=eq.'+id,{method:'DELETE'});}catch(e){}
+  ATT=ATT.filter(function(x){return x.id!==id;});
+  updStats();renderAtt();renderBadges();renderSchools();renderDash();renderAnalytics();renderSessionsTab();
+  toast('Registration deleted','success');
+}
+async function updBadge(id,status){
+  if(status==='__del__'){deleteAtt(id);return;}
+  var a=ATT.find(function(x){return x.id===id;});
+  if(a){
+    a.b=status;
+    try{await supaFetch('/rest/v1/attendees?id=eq.'+id,{method:'PATCH',body:JSON.stringify({badge_status:status})});}catch(e){}
+    updStats();renderBadges();toast('Badge status updated','success');
+  }
+}
+
+function exportCSV(){
+  var rows=[['Name','School','City','Badge Status','Time']].concat(
+    ATT.map(function(a){return [a.n,a.s,a.c,a.b,a.t];})
+  );
+  var csv=rows.map(function(r){return r.map(function(c){return '"'+c+'"';}).join(',');}).join('\n');
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='tms-attendees.csv';
+  a.click();
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────
+window.addEventListener('load',function(){
+  initHome();
+  renderSess();
+});
+
+// Set keynote photo on home page
+window.addEventListener('load', function() {
+  var gsp = SPK.find(function(x){return x.id==='george-couros';});
+  var u = gsp&&gsp.p?PHOTOS[gsp.p]||'':'';
+  if(u){
+    var ph = document.getElementById('kn-george-photo');
+    if(ph) ph.innerHTML = '<img src="'+u+'" style="width:100%;height:100%;object-fit:cover" alt="George Couros"/>';
+  }
+});
+</script>
+
       <span style="vertical-align: middle;">Stop Claude</span>
     </button></div></body></html>
