@@ -617,22 +617,22 @@ const SPK=[
   {id:'mehdi-amani',n:'Mehdi Amani',t:'Presenter',r:'presenter',o:'Educator & Comedian',p:'mehdi-amani',li:'https://www.linkedin.com/in/mehdi-amani/'},
   {id:'enid-camacho',n:'Enid Camacho',t:'Panelist',r:'panelist',o:'Tech My School',p:'enid-camacho',li:'https://www.linkedin.com/school/robinson-school/'}
 ,
-{id:'arlyn-roman',n:'Arlyn Roman, M.Ed',t:'Educator & Administrator',s:'Paradiso College Preparatory',p:'',li:''},
-{id:'ariana-colon',n:'Ariana Colón',t:'Educator & TMS Flock Leader',s:'Tech My School',p:'',li:''},
-{id:'zaicha-torres',n:'Zaicha Torres',t:'Technology Educator & TMS Flock Leader',s:'Tech My School',p:'',li:''},
-{id:'yahaira-murphy',n:'Yahaira Murphy Molina',t:'History & Geography Teacher',s:'Tech My School',p:'',li:''},
-{id:'jose-torres',n:'José David Torres Quiñones, Esq.',t:'Attorney & VP, PR AI Community',s:'PR Artificial Intelligence Community',p:'',li:''},
-{id:'alexander-santana',n:'Alexander Santana, B.Ed.',t:'Technology Teacher',s:'Paradiso College Preparatory',p:'',li:''},
-{id:'olivia-odileke',n:'Olivia Odileke, M.Ed',t:'Educator & Creator, Spark Curiosity AI Coach',s:'',p:'',li:''},
-{id:'izamar-rivera',n:'Izamar Rivera, M.Ed',t:'STEM Educator',s:'Escuela Alianza Especializada San Juan',p:'',li:''},
-{id:'rebecca-elias',n:'Rebecca Elias',t:'Director of Professional Development',s:'Summit K12',p:'',li:''},
-{id:'sandra-canuelas',n:'Sandra C. Cañuelas, M.I.S',t:'History Educator & Teacher-Librarian',s:'Paradiso College Preparatory',p:'',li:''},
-{id:'jason-generally',n:'Jason Generally, M.Ed.',t:'Chief Academic Officer',s:'Learning A-Z',p:'',li:''},
-{id:'norma-rivera-colon',n:'Prof. Norma I. Rivera Colón, M.Ed',t:'Library & Technology Professional',s:'Tech My School',p:'',li:''},
-{id:'christine-dulany',n:'Christine Dulany Dyer',t:'Educator & Founder, Seed to Tree',s:'',p:'',li:''},
-{id:'mariana-bermudez',n:'Mariana Bermúdez',t:'Technology Teacher',s:'East Point Academy',p:'',li:''},
-{id:'norma-munoz',n:'Prof. Norma I. Muñoz Varela, Ed.E',t:'Technology Teacher & TMS Flock Leader',s:'Puerto Rico Dept. of Education',p:'',li:''},
-{id:'marina-osorio',n:'Marina Osorio Perez, T.Ed.',t:'Teacher & Educational Therapist',s:'Tech My School',p:'',li:''}];
+{id:'arlyn-roman',n:'Arlyn Roman, M.Ed',r:'Educator & Administrator',o:'Paradiso College Preparatory',p:'',li:''},
+{id:'ariana-colon',n:'Ariana Colón',r:'Educator & TMS Flock Leader',o:'Tech My School',p:'',li:''},
+{id:'zaicha-torres',n:'Zaicha Torres',r:'Technology Educator & TMS Flock Leader',o:'Tech My School',p:'',li:''},
+{id:'yahaira-murphy',n:'Yahaira Murphy Molina',r:'History & Geography Teacher',o:'Tech My School',p:'',li:''},
+{id:'jose-torres',n:'José David Torres Quiñones, Esq.',r:'Attorney & VP, PR AI Community',o:'PR Artificial Intelligence Community',p:'',li:''},
+{id:'alexander-santana',n:'Alexander Santana, B.Ed.',r:'Technology Teacher',o:'Paradiso College Preparatory',p:'',li:''},
+{id:'olivia-odileke',n:'Olivia Odileke, M.Ed',r:'Educator & Creator, Spark Curiosity AI Coach',o:'',p:'',li:''},
+{id:'izamar-rivera',n:'Izamar Rivera, M.Ed',r:'STEM Educator',o:'Escuela Alianza Especializada San Juan',p:'',li:''},
+{id:'rebecca-elias',n:'Rebecca Elias',r:'Director of Professional Development',o:'Summit K12',p:'',li:''},
+{id:'sandra-canuelas',n:'Sandra C. Cañuelas, M.I.S',r:'History Educator & Teacher-Librarian',o:'Paradiso College Preparatory',p:'',li:''},
+{id:'jason-generally',n:'Jason Generally, M.Ed.',r:'Chief Academic Officer',o:'Learning A-Z',p:'',li:''},
+{id:'norma-rivera-colon',n:'Prof. Norma I. Rivera Colón, M.Ed',r:'Library & Technology Professional',o:'Tech My School',p:'',li:''},
+{id:'christine-dulany',n:'Christine Dulany Dyer',r:'Educator & Founder, Seed to Tree',o:'',p:'',li:''},
+{id:'mariana-bermudez',n:'Mariana Bermúdez',r:'Technology Teacher',o:'East Point Academy',p:'',li:''},
+{id:'norma-munoz',n:'Prof. Norma I. Muñoz Varela, Ed.E',r:'Technology Teacher & TMS Flock Leader',o:'Puerto Rico Dept. of Education',p:'',li:''},
+{id:'marina-osorio',n:'Marina Osorio Perez, T.Ed.',r:'Teacher & Educational Therapist',o:'Tech My School',p:'',li:''}];
 const SLOTS=[
 {id:'bs1',day:1,time:'10:30-11:20 AM',lbl:'Breakout 1',sess:[
   {s:'Salon 1',t:'SMARTERHOODS: Smart Cities and AI',sp:'alex-shorter',d:'Explore how AI-driven urban ecosystems shape the next generation of innovators and sustainable workforce.',lang:'english'},
@@ -770,7 +770,7 @@ function filterSpk(role){
       +'<div class="spk-av">'+ph(sp)+'</div>'
       +'<div class="spk-name">'+sp.n+'</div>'
       +'<div class="spk-org">'+sp.o+'</div>'
-      +'<span class="spk-role r-'+sp.r.substring(0,3)+'">'+sp.r+'</span>'
+      +'<span class="spk-role r-'+(sp.r||'').substring(0,3)+'">'+sp.r+'</span>'
       +(sp.li?'<div style="font-size:9px;color:#0077b5;margin-top:5px;font-weight:600;">LinkedIn</div>':'')
       +'</div>';
   }).join('');
