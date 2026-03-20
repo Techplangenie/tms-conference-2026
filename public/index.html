@@ -337,6 +337,56 @@ tr:hover td{background:var(--gray-50)}
 </div>
 
 <!-- SESSIONS -->
+<div class="view" id="view-register">
+<nav>
+  <div class="nav-brand" onclick="go('home')">
+    <div class="nav-logo"><img src="/Conference logo.png" alt="TMS" onerror="this.parentElement.innerHTML='🦜'"/></div>
+    <div><div class="nav-title">Tech My School</div><div class="nav-sub">SPRING EDUCATORS CONFERENCE</div></div>
+  </div>
+  <div class="nav-links">
+    <a class="nav-lnk" data-section="home" onclick="go('home')">Home</a>
+    <a class="nav-lnk" data-section="speakers" onclick="go('speakers')">Speakers</a>
+    <a class="nav-lnk" data-section="map" onclick="go('map')">Map</a>
+  </div>
+  <button id="logout-btn" style="display:none" onclick="doLogout()">Logout</button>
+  <button class="nav-cta" onclick="go('register')">Check In →</button>
+</nav>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:40px 20px;">
+  <div style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);padding:40px 36px;max-width:420px;width:100%;">
+    <div id="reg-form">
+      <div id="step-email">
+        <h2 style="color:var(--navy);margin-bottom:8px;font-size:1.5rem;">Welcome! 👋</h2>
+        <p style="color:#666;margin-bottom:24px;font-size:0.97rem;">Enter your email to check in or register for the conference.</p>
+        <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">Email Address</label>
+        <input id="re" type="email" placeholder="your@email.com" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;" onkeydown="if(event.key==='Enter')checkEmail()"/>
+        <div id="email-err" style="display:none;color:#e53e3e;font-size:0.88rem;margin-bottom:10px;padding:8px 12px;background:#fff5f5;border-radius:6px;border:1px solid #fed7d7;"></div>
+        <button onclick="checkEmail()" style="width:100%;padding:13px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;">Continue →</button>
+      </div>
+      <div id="step-profile" class="hidden">
+        <h2 style="color:var(--navy);margin-bottom:8px;font-size:1.5rem;">Almost there!</h2>
+        <p style="color:#666;margin-bottom:20px;font-size:0.97rem;">Complete your profile to finish registering.</p>
+        <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">Full Name</label>
+        <input id="rn" type="text" placeholder="Your full name" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
+        <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">School / Organization</label>
+        <input id="rs" type="text" placeholder="Your school or organization" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
+        <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">Role / Title</label>
+        <input id="rc" type="text" placeholder="e.g. Teacher, Principal" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
+        <div id="profile-err" style="display:none;color:#e53e3e;font-size:0.88rem;margin-bottom:10px;padding:8px 12px;background:#fff5f5;border-radius:6px;border:1px solid #fed7d7;"></div>
+        <button onclick="doRegister()" style="width:100%;padding:13px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;">Register & Check In →</button>
+        <button onclick="document.getElementById('step-profile').classList.add('hidden');document.getElementById('step-email').classList.remove('hidden');" style="width:100%;padding:10px;background:transparent;color:#666;border:1px solid #e2e8f0;border-radius:8px;font-size:0.9rem;cursor:pointer;margin-top:8px;">← Back</button>
+      </div>
+    </div>
+    <div id="reg-success" class="hidden" style="text-align:center;">
+      <div style="font-size:3rem;margin-bottom:12px;">🎉</div>
+      <h2 style="color:var(--navy);margin-bottom:8px;">You're checked in!</h2>
+      <p style="color:#666;margin-bottom:6px;">Welcome, <strong id="bn"></strong></p>
+      <p style="color:#999;font-size:0.9rem;" id="bsc"></p>
+      <p style="color:#999;font-size:0.9rem;" id="bcy"></p>
+      <p style="color:#aaa;font-size:0.85rem;margin-top:16px;">Taking you to sessions…</p>
+    </div>
+  </div>
+</div>
+</div>
 <div class="view" id="view-sessions">
 <nav>
   <div class="nav-brand" onclick="go('home')">
