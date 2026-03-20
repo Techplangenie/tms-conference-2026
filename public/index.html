@@ -895,7 +895,7 @@ function filterSpk(role){
   }).join('');
 }
 function go(v){
-  var prot=['sessions','map','schedule'];
+  var prot=['schedule'];
   if(prot.includes(v)&&!curAtt){go('register');return;}
   if(v==='admin'){if(!adminLoggedIn){go('admin-login');return;}else{setTimeout(refreshAdmin,100);}}
   document.querySelectorAll('.view').forEach(function(el){el.classList.remove('active');});
