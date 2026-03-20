@@ -73,7 +73,7 @@ nav{background:var(--navy);display:flex;align-items:center;justify-content:space
 .pan-spks{display:flex;gap:8px;flex-wrap:wrap}
 .pan-spk{display:flex;align-items:center;gap:7px;background:var(--gray-50);border-radius:100px;padding:4px 11px 4px 4px}
 .pan-spk-ph{width:28px;height:28px;border-radius:50%;overflow:hidden;background:var(--gray-200);display:flex;align-items:center;justify-content:center}
-.pan-spk-ph img{width:100%;height:100%;object-fit:cover}
+.pan-spk-ph img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
 .pan-spk-ph .ini{font-weight:800;font-size:10px;color:var(--navy)}
 .pan-spk-n{font-size:11px;font-weight:600;color:var(--navy)}
 .sessions-hero{background:var(--navy);padding:36px 24px 44px;text-align:center}
@@ -97,7 +97,7 @@ nav{background:var(--navy);display:flex;align-items:center;justify-content:space
 .sess-salon{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
 .sess-spk-row{display:flex;align-items:center;gap:9px;margin-bottom:9px}
 .sess-spk-ph{width:40px;height:40px;border-radius:50%;border:2px solid var(--green);overflow:hidden;background:var(--gray-100);flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.sess-spk-ph img{width:100%;height:100%;object-fit:cover}
+.sess-spk-ph img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
 .sess-spk-ph .ini{font-weight:800;font-size:12px;color:var(--navy)}
 .sess-spk-name{font-weight:600;font-size:11px;color:var(--navy)}
 .sess-spk-org{font-size:10px;color:var(--gray-600);margin-top:1px}
@@ -578,7 +578,51 @@ tr:hover td{background:var(--gray-50)}
 
 <script>
 
-const PHOTOS={'gerardo-vazquez':'https://drive.google.com/thumbnail?id=1HFNS50B4_KPB4Ag48bmp9kczfmMchbVP&sz=w400','estefania-padro':'https://drive.google.com/thumbnail?id=1ecgiG9SWwOlmouYcFY3XkaqfJNYdu4AK&sz=w400','ivonne-rosa':'https://drive.google.com/thumbnail?id=1X0PTHq8kRlcmrv2YASrj-M2uKXu1UxgE&sz=w400','rosanna-castro':'https://drive.google.com/thumbnail?id=18D4VZxC574510iBjhjzv-MpwPZU8EAbK&sz=w400','evan-harris':'https://drive.google.com/thumbnail?id=10sSmfoX-57g9vdlWqFuCqFZ6wBxTnNem&sz=w400','armanie-cordero':'https://drive.google.com/thumbnail?id=1SwDvXnkpMUlDiepf1MdTFudSb15pC-4F&sz=w400','bryan-rivera':'https://drive.google.com/thumbnail?id=1ziph_WTbC7C66U9yUW348vkqvKaCI9BV&sz=w400','fonz-mendoza':'https://drive.google.com/thumbnail?id=1ZjKqamj_bxfgShTgsn--THIh07B5AO4r&sz=w400','marcos-velez':'https://drive.google.com/thumbnail?id=1IlGnzzAx7dNkGMjrHvIrC8d_9yZMp8b-&sz=w400','christine-dyer':'https://drive.google.com/thumbnail?id=1k7OO6uNfAdxGqP88T4rxfBjEP9AySrKv&sz=w400','stephanie-delpino':'https://drive.google.com/thumbnail?id=1iOYZh8DmzSmDmF0q3rf5tTWmHwpndXKa&sz=w400','wilmayris-valentin':'https://drive.google.com/thumbnail?id=1yQQn894UFrvusiDbnabc-skWCdfjkFLv&sz=w400','lori-menning':'https://drive.google.com/thumbnail?id=1v2pqXPp1T9t2rX0NkMEWE3Xa2zoLbGD9&sz=w400','luz-evimar':'https://drive.google.com/thumbnail?id=1Blptl1eIb29ca_CEjno_-h54WFprpTXT&sz=w400','alberto-chiecchio':'https://drive.google.com/thumbnail?id=1gSsUOy0qBphvSXTbBsxB6eq72zDLf6lE&sz=w400','rachelle-poth':'https://drive.google.com/thumbnail?id=11hjRgYwaUJaHpVC4roEyV0VgoLky_uxy&sz=w400','bilma-paez':'https://drive.google.com/thumbnail?id=1iMdrj7a4SDnEZLj8N61f3q6upwxH6O88&sz=w400','kathleen-mcglone':'https://drive.google.com/thumbnail?id=1i6m9vN-h1iDDvv_dOHNV8DUoCotj9Ria&sz=w400','alex-shorter':'https://drive.google.com/thumbnail?id=1PGVAUdPqIII0MfVjPxys_gje9F5m7IWC&sz=w400','darlene-colon':'https://drive.google.com/thumbnail?id=1OAoQ1bwRIgm2RrjzWnuIB4mX2fzeIzHn&sz=w400','edna-torres':'https://drive.google.com/thumbnail?id=1J4LD1IiT_tCioMAEgY47xAzSPflFPBQs&sz=w400','wellington-gomez':'https://drive.google.com/thumbnail?id=1sxwL-PlB7U0vQsv0A2KKFfrgdTQuCVyV&sz=w400','jose-alicea':'https://drive.google.com/thumbnail?id=1vN64fRphq0VS7cCQ_Vg86d3hWPKm7zQw&sz=w400','jeff-utecht':'/images/Jeff_Utecht_red_long%20-%20Jeff%20Utecht.jpg'};
+const PHOTOS={
+'gerardo-vazquez':'https://drive.google.com/thumbnail?id=1HFNS50B4_KPB4Ag48bmp9kczfmMchbVP&sz=w400',
+'estefania-padro':'https://drive.google.com/thumbnail?id=1ecgiG9SWwOlmouYcFY3XkaqfJNYdu4AK&sz=w400',
+'ivonne-rosa':'https://drive.google.com/thumbnail?id=1X0PTHq8kRlcmrv2YASrj-M2uKXu1UxgE&sz=w400',
+'arlyn-roman':'https://drive.google.com/thumbnail?id=1ibhkwDQx00hQECo9YobM1TjUKxASCpUr&sz=w400',
+'rosanna-castro':'https://drive.google.com/thumbnail?id=18D4VZxC574510iBjhjzv-MpwPZU8EAbK&sz=w400',
+'ariana-colon':'https://drive.google.com/thumbnail?id=1T8SHwHqLGyL7Rmpx6VE76IougGBH45wc&sz=w400',
+'izamar-rivera':'https://drive.google.com/thumbnail?id=1Qeu93IBij4n1spFYhqyaqV08c1zA2uD_&sz=w400',
+'zaicha-torres':'https://drive.google.com/thumbnail?id=1ofkQFHsMEXC0oGm7X8UMFNT3qM3YTg-p&sz=w400',
+'wellington-gomez':'https://drive.google.com/thumbnail?id=1sxwL-PlB7U0vQsv0A2KKFfrgdTQuCVyV&sz=w400',
+'edna-torres':'https://drive.google.com/thumbnail?id=1J4LD1IiT_tCioMAEgY47xAzSPflFPBQs&sz=w400',
+'evan-harris':'https://drive.google.com/thumbnail?id=10sSmfoX-57g9vdlWqFuCqFZ6wBxTnNem&sz=w400',
+'jason-generally':'https://drive.google.com/thumbnail?id=1-am605IDcK4fFEoNzKIvpXMaXPjJLeNL&sz=w400',
+'armanie-cordero':'https://drive.google.com/thumbnail?id=1SwDvXnkpMUlDiepf1MdTFudSb15pC-4F&sz=w400',
+'bryan-rivera':'https://drive.google.com/thumbnail?id=1ziph_WTbC7C66U9yUW348vkqvKaCI9BV&sz=w400',
+'norma-munoz':'https://drive.google.com/thumbnail?id=1I1oieX1B_kHUzDpiFNnNdyLe3SXVqHVZ&sz=w400',
+'fonz-mendoza':'https://drive.google.com/thumbnail?id=1ZjKqamj_bxfgShTgsn--THIh07B5AO4r&sz=w400',
+'marcos-velez':'https://drive.google.com/thumbnail?id=1IlGnzzAx7dNkGMjrHvIrC8d_9yZMp8b-&sz=w400',
+'robert-cobbs':'https://drive.google.com/thumbnail?id=15Wqf0HFNBmH7gays-QscnOHhhqpCCJdh&sz=w400',
+'christine-dulany':'https://drive.google.com/thumbnail?id=19xPU2ubP_xbA2Co14HLXg1TFVmtIbUy5&sz=w400',
+'marina-osorio':'https://drive.google.com/thumbnail?id=1OWf0PTcp2e4t3d50rONlk1LHCYxV9Wbt&sz=w400',
+'stephanie-delpino':'https://drive.google.com/thumbnail?id=1iOYZh8DmzSmDmF0q3rf5tTWmHwpndXKa&sz=w400',
+'mariana-bermudez':'https://drive.google.com/thumbnail?id=15Wc2RainJAa832bvpVzR2QiveecF1a2b&sz=w400',
+'wilmayris-valentin':'https://drive.google.com/thumbnail?id=1yQQn894UFrvusiDbnabc-skWCdfjkFLv&sz=w400',
+'jeff-utecht':'https://drive.google.com/thumbnail?id=16ec484MOdVrmSqdSfQaVf1FYwuXPGy6I&sz=w400',
+'lori-menning':'https://drive.google.com/thumbnail?id=1v2pqXPp1T9t2rX0NkMEWE3Xa2zoLbGD9&sz=w400',
+'luz-evimar':'https://drive.google.com/thumbnail?id=1Blptl1eIb29ca_CEjno_-h54WFprpTXT&sz=w400',
+'alexander-santana':'https://drive.google.com/thumbnail?id=1K8hmXMdiZeh8_uncpMMafpsU6bFIXbrS&sz=w400',
+'olga-joglar':'https://drive.google.com/thumbnail?id=1hSScFzjcJHlGzFPWpYZdRI4UgEleqYea&sz=w400',
+'olivia-odileke':'https://drive.google.com/thumbnail?id=1JdZOGeH0YXBx9lZzntnOS82BIH2hCAaJ&sz=w400',
+'rebecca-elias':'https://drive.google.com/thumbnail?id=1Fc6YAaQ4vzI5-6S3cvNjQKSeoe8sSNXk&sz=w400',
+'alberto-chiecchio':'https://drive.google.com/thumbnail?id=1gSsUOy0qBphvSXTbBsxB6eq72zDLf6lE&sz=w400',
+'rachelle-poth':'https://drive.google.com/thumbnail?id=11hjRgYwaUJaHpVC4roEyV0VgoLky_uxy&sz=w400',
+'norma-rivera-colon':'https://drive.google.com/thumbnail?id=1iA1P30_N1Ff7zrZib8M-ClnsCrhPHhsv&sz=w400',
+'bilma-paez':'https://drive.google.com/thumbnail?id=1iMdrj7a4SDnEZLj8N61f3q6upwxH6O88&sz=w400',
+'cristina-rodriguez':'https://drive.google.com/thumbnail?id=1KakUHOL9jqKXpdzkdHoXBSVNaOgO3tq2&sz=w400',
+'kathleen-mcglone':'https://drive.google.com/thumbnail?id=1i6m9vN-h1iDDvv_dOHNV8DUoCotj9Ria&sz=w400',
+'alex-shorter':'https://drive.google.com/thumbnail?id=1PGVAUdPqIII0MfVjPxys_gje9F5m7IWC&sz=w400',
+'darlene-colon':'https://drive.google.com/thumbnail?id=1cbmGlo7unUQiXYSbvSQUULhsflI_ZisO&sz=w400',
+'tania-morales':'https://drive.google.com/thumbnail?id=1gdugnPiUtvDO0xzzO9dBetKoA5NS2HDl&sz=w400',
+'eliezer-ramos':'https://drive.google.com/thumbnail?id=1mitlg1GUcfxizB1OySCFzK0UzlBaYR5x&sz=w400',
+'jose-torres':'https://drive.google.com/thumbnail?id=1vN64fRphq0VS7cCQ_Vg86d3hWPKm7zQw&sz=w400',
+'mehdi-amani':'/images/mehdi.jpeg',
+'sandra-canuelas':'https://drive.google.com/thumbnail?id=1cbmGlo7unUQiXYSbvSQUULhsflI_ZisO&sz=w400'
+};
 
 document.querySelectorAll('#ph span[data-src]').forEach(function(el){PHOTOS[el.id]=el.getAttribute('data-src');});
 const SPK=[
