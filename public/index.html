@@ -245,7 +245,7 @@ tr:hover td{background:var(--gray-50)}
 .r-mod{background:#7c3aed;color:#fff}
 .r-pan{background:#2563eb;color:#fff}
 .r-spe{background:#059669;color:#fff}
-.r-flo{background:#ea580c;color:#fff}
+.r-tms{background:#0d9488;color:#fff}.r-flo{background:#ea580c;color:#fff}
 </style>
 <style id="claude-agent-animation-styles">
       @keyframes claude-pulse {
@@ -890,36 +890,46 @@ function phSmall(sid){
 }
 
 function spkRoles(sp){
-  /* Build multi-role set: base role from SPK data + any breakout appearances */
-  var roles=new Set();
-  var r=(sp.r||'').toLowerCase();
-  if(r==='keynote'||r.includes('keynote'))roles.add('keynote');
-  else if(r==='moderator'||r.includes('moderator'))roles.add('moderator');
-  else if(r==='panelist'||r.includes('panelist'))roles.add('panelist');
-  /* Scan SLOTS to find additional roles */
-  var spId=sp.id;
+  /* Exact role assignments per Robby */
+  var id=sp.id;
+  var roles=[];
+  /* 1. Keynote */
+  var KEYNOTES=['george-couros','eliezer-ramos'];
+  if(KEYNOTES.indexOf(id)>-1) roles.push('keynote');
+  /* 2. Moderator */
+  var MODS=['rachelle-poth','fonz-mendoza'];
+  if(MODS.indexOf(id)>-1) roles.push('moderator');
+  /* 3. Panelist — Day 1: Robert, Evan, George, Jeff, Marcos / Day 2: Lori, Darlene, Enid, Olga, Bilma, Tanya */
+  var PANELISTS=['robert-cobbs','evan-harris','george-couros','jeff-utecht','marcos-velez',
+                 'lori-menning','darlene-colon','enid-camacho','olga-joglar','bilma-paez','tania-morales'];
+  if(PANELISTS.indexOf(id)>-1) roles.push('panelist');
+  /* 4. Presenter — breakout session speakers (scanned from SLOTS) */
+  var isPresenter=false;
   Object.values(SLOTS).forEach(function(slot){
     (slot.sess||[]).forEach(function(sess){
-      var ids=Array.isArray(sess.sp)?sess.sp:[sess.sp];
-      if(ids.indexOf(spId)>-1){
-        /* They appear in a breakout — add speaker tag */
-        var lbl=(slot.lbl||'').toLowerCase();
-        if(lbl.includes('flock')||lbl.includes('tech my school'))roles.add('flock');
-        else roles.add('speaker');
-      }
+      if(sess.sp===id) isPresenter=true;
     });
   });
-  /* If still empty, use job title category */
-  if(roles.size===0)roles.add('speaker');
+  if(isPresenter) roles.push('presenter');
+  /* 5. Tech My School team */
+  var TMS=['robert-cobbs','darlene-colon','armanie-cordero','ivonne-rosa','mehdi-amani'];
+  if(TMS.indexOf(id)>-1) roles.push('tms');
+  /* 6. Flock Leaders */
+  var FLOCK=['norma-rivera-colon','norma-munoz','ariana-colon','zaicha-torres','edna-torres',
+             'kathleen-mcglone','jose-alicea','marina-osorio','mariana-bermudez','yahaira-murphy'];
+  if(FLOCK.indexOf(id)>-1) roles.push('flock');
+  /* If nothing matched at all, fall back to base role */
+  if(roles.length===0) roles.push(sp.r||'presenter');
   return roles;
 }
 function spkTagsHTML(sp){
   var roles=spkRoles(sp);
-  var labels={keynote:'🏆 Keynote',moderator:'🎤 Moderator',panelist:'🤝 Panelist',speaker:'💬 Speaker',flock:'🦜 Flock Leader'};
-  var classes={keynote:'r-key',moderator:'r-mod',panelist:'r-pan',speaker:'r-spe',flock:'r-flo'};
-  /* Priority order */
-  var order=['keynote','moderator','panelist','flock','speaker'];
-  var tags=order.filter(function(r){return roles.has(r);}).map(function(r){
+  var labels={keynote:'🏆 Keynote',moderator:'🎤 Moderator',panelist:'🤝 Panelist',
+              presenter:'💬 Presenter',tms:'🏫 Tech My School',flock:'🦜 Flock Leader'};
+  var classes={keynote:'r-key',moderator:'r-mod',panelist:'r-pan',
+               presenter:'r-spe',tms:'r-tms',flock:'r-flo'};
+  var order=['keynote','moderator','panelist','tms','flock','presenter'];
+  var tags=order.filter(function(r){return roles.indexOf(r)>-1;}).map(function(r){
     return '<span class="spk-role '+classes[r]+'">'+labels[r]+'</span>';
   });
   return '<div class="spk-roles">'+tags.join('')+'</div>';
@@ -929,11 +939,7 @@ function filterSpk(role){
   var grid=document.getElementById('speakers-grid');
   var filtered=role==='all'?SPK:SPK.filter(function(s){
     var roles=spkRoles(s);
-    if(role==='keynote')return roles.has('keynote');
-    if(role==='moderator')return roles.has('moderator');
-    if(role==='panelist')return roles.has('panelist');
-    if(role==='flock')return roles.has('flock');
-    return s.r===role||roles.has(role);
+    return roles.indexOf(role)>-1 || s.r===role;
   });
   grid.innerHTML=filtered.map(function(sp){
     var link=sp.li?'onclick="window.open(\''+sp.li+'\',\'_blank\')" title="View on LinkedIn" style="cursor:pointer"':'';
@@ -946,6 +952,7 @@ function filterSpk(role){
       +'</div>';
   }).join('');
 }
+
 function go(v){
   var prot=['schedule'];
   if(prot.includes(v)&&!curAtt){go('register');return;}
