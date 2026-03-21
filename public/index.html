@@ -1213,7 +1213,7 @@ function go(v){
   if(sec) sec.classList.add('active');
   var lnks=document.querySelectorAll('.nav-lnk');
   lnks.forEach(function(l){l.classList.remove('active'); if(l.dataset&&l.dataset.section===v) l.classList.add('active');});
-  if(v==='sessions'){if(curAtt){renderSelect();}else{renderSess();}}
+  if(v==='sessions'){if(curAtt){renderSess();}else{renderSess();}}
   var lb=document.getElementById('logout-btn');
   var cb=document.querySelector('.nav-cta');
   if(curAtt){if(lb)lb.style.display='inline-block';if(cb)cb.style.display='none';}
