@@ -349,6 +349,59 @@ tr:hover td{background:var(--gray-50)}
 .sched-row.type-closing .sched-info{border-left:4px solid #059669;background:linear-gradient(135deg,#f0fdf4 0%,#fff 100%)}
 .sched-spacer{height:16px;position:relative;display:flex;align-items:center;padding-left:110px;margin:0 0 2px}
 .sched-spacer::after{content:'';position:absolute;left:138px;width:4px;top:0;bottom:0;background:var(--gray-200)}
+
+/* ── MY SCHEDULE ── */
+.sess-mode-bar{display:flex;gap:0;background:#fff;border-bottom:2px solid #e2e8f0;position:sticky;top:0;z-index:20}
+.sess-mode-btn{flex:1;padding:14px 20px;font-size:14px;font-weight:700;font-family:Outfit,sans-serif;background:transparent;border:none;border-bottom:3px solid transparent;color:#64748b;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.sess-mode-btn:hover{background:#f8faff;color:var(--navy)}
+.sess-mode-btn.active{color:var(--navy);border-bottom:3px solid var(--navy);background:#fff}
+#my-sched-wrap{display:none;overflow-y:auto}
+#my-sched-wrap.active{display:block}
+.sess-browse-wrap{display:block}
+.sess-browse-wrap.hidden{display:none}
+.my-sched-header{background:linear-gradient(135deg,var(--navy) 0%,#2d3494 100%);color:#fff;padding:24px;text-align:center}
+.my-sched-header h2{font-family:Outfit,sans-serif;font-size:1.4rem;font-weight:800}
+.my-sched-header p{color:rgba(255,255,255,0.7);font-size:.85rem;margin-top:4px}
+.my-sched-day-tabs{display:flex;background:#f8f9fa;border-bottom:2px solid #e2e8f0}
+.my-sched-tab{flex:1;padding:14px;font-size:14px;font-weight:700;font-family:Outfit,sans-serif;background:transparent;border:none;border-bottom:3px solid transparent;color:#64748b;cursor:pointer;transition:all .2s}
+.my-sched-tab.active{color:var(--navy);border-bottom:3px solid var(--green);background:#fff}
+.my-sched-day{display:none;max-width:680px;margin:0 auto;padding:20px 16px 60px}
+.my-sched-day.active{display:block}
+/* Row types */
+.ms-row{display:flex;gap:0;margin-bottom:4px;border-radius:10px;overflow:hidden}
+.ms-time{min-width:100px;padding:12px 10px 12px 14px;font-size:.78rem;font-weight:700;font-family:Outfit,sans-serif;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1.3;flex-shrink:0}
+.ms-info{flex:1;padding:12px 16px;background:#fff;box-shadow:0 1px 4px rgba(26,31,110,0.07);display:flex;flex-direction:column;justify-content:center;gap:2px}
+.ms-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:#94a3b8}
+.ms-title{font-size:.92rem;font-weight:700;font-family:Outfit,sans-serif;color:var(--navy);line-height:1.3}
+.ms-sub{font-size:.8rem;color:#64748b;line-height:1.4;margin-top:2px}
+.ms-row.t-fixed .ms-time{background:#475569}
+.ms-row.t-fixed .ms-info{border-left:3px solid #475569}
+.ms-row.t-keynote .ms-time{background:var(--orange)}
+.ms-row.t-keynote .ms-info{border-left:3px solid var(--orange);background:linear-gradient(135deg,#fffdf7 0%,#fff 100%)}
+.ms-row.t-panel .ms-time{background:#7c3aed}
+.ms-row.t-panel .ms-info{border-left:3px solid #7c3aed;background:linear-gradient(135deg,#faf5ff 0%,#fff 100%)}
+.ms-row.t-break .ms-time{background:var(--teal)}
+.ms-row.t-break .ms-info{border-left:3px solid var(--teal);background:linear-gradient(135deg,#f0fdff 0%,#fff 100%)}
+.ms-row.t-lunch .ms-time{background:#d97706}
+.ms-row.t-lunch .ms-info{border-left:3px solid #d97706;background:linear-gradient(135deg,#fffbeb 0%,#fff 100%)}
+.ms-row.t-picked .ms-time{background:var(--green)}
+.ms-row.t-picked .ms-info{border-left:3px solid var(--green);background:linear-gradient(135deg,#f0fdf4 0%,#fff 100%)}
+.ms-row.t-empty .ms-time{background:#cbd5e1}
+.ms-row.t-empty .ms-info{border-left:3px solid #cbd5e1;background:#fafafa}
+.ms-empty-prompt{font-size:.8rem;color:#94a3b8;margin-top:3px}
+.ms-pick-btn{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:5px 14px;background:var(--navy);color:#fff;border:none;border-radius:20px;font-size:.75rem;font-weight:700;font-family:Outfit,sans-serif;cursor:pointer;transition:background .2s}
+.ms-pick-btn:hover{background:var(--green)}
+.ms-picked-tag{display:inline-flex;align-items:center;gap:4px;background:#dcfce7;color:#16a34a;font-size:.72rem;font-weight:800;padding:3px 10px;border-radius:20px;margin-top:4px;width:fit-content}
+.ms-salon-tag{display:inline-flex;align-items:center;gap:4px;background:#ede9fe;color:#6d28d9;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:12px;margin-top:3px;width:fit-content}
+.my-sched-empty{text-align:center;padding:40px 24px;color:#94a3b8}
+.my-sched-empty .big-icon{font-size:48px;margin-bottom:12px}
+.my-sched-empty p{font-size:.9rem;line-height:1.6}
+.my-sched-empty button{margin-top:16px;padding:12px 28px;background:var(--navy);color:#fff;border:none;border-radius:24px;font-size:.9rem;font-weight:700;font-family:Outfit,sans-serif;cursor:pointer}
+.ms-progress{background:#f1f5f9;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.ms-prog-label{font-size:.8rem;font-weight:700;color:var(--navy);font-family:Outfit,sans-serif;flex-shrink:0}
+.ms-prog-bar{flex:1;height:8px;background:#e2e8f0;border-radius:8px;overflow:hidden}
+.ms-prog-fill{height:100%;background:var(--green);border-radius:8px;transition:width .4s ease}
+.ms-prog-count{font-size:.75rem;font-weight:700;color:var(--green);flex-shrink:0}
 </style>
 <style id="claude-agent-animation-styles">
       @keyframes claude-pulse {
@@ -531,7 +584,30 @@ tr:hover td{background:var(--gray-50)}
   </div>
 </nav>
 <div class="sessions-hero"><h1>Conference Sessions</h1><p>April 10-11, 2026 · Wyndham Rio Mar · 30+ Presenters</p></div>
-<div class="day-tabs">
+
+  <!-- MODE TOGGLE - only shown when logged in -->
+  <div class="sess-mode-bar" id="sess-mode-bar" style="display:none">
+    <button class="sess-mode-btn active" id="mode-browse" onclick="setSessMode('browse')">🗂️ Browse Sessions</button>
+    <button class="sess-mode-btn" id="mode-myschedule" onclick="setSessMode('myschedule')">📋 My Schedule</button>
+  </div>
+
+  <!-- MY SCHEDULE PANEL -->
+  <div id="my-sched-wrap">
+    <div class="my-sched-header">
+      <h2>📋 My Schedule</h2>
+      <p id="my-sched-name">Your personal conference agenda</p>
+    </div>
+    <div class="my-sched-day-tabs">
+      <button class="my-sched-tab active" onclick="setMySchedDay(1,this)">📅 Day 1 · Friday Apr 10</button>
+      <button class="my-sched-tab" onclick="setMySchedDay(2,this)">📅 Day 2 · Saturday Apr 11</button>
+    </div>
+    <div class="my-sched-day active" id="ms-d1"></div>
+    <div class="my-sched-day" id="ms-d2"></div>
+  </div>
+
+  <!-- BROWSE SESSIONS PANEL -->
+  <div id="sess-browse-wrap">
+  <div class="day-tabs">
   <button class="d-tab active" onclick="setDay(1)">📅 Day 1<span class="d-tab-date">Friday · April 10</span></button>
   <button class="d-tab" onclick="setDay(2)">📅 Day 2<span class="d-tab-date">Saturday · April 11</span></button>
 </div>
@@ -1365,6 +1441,9 @@ function renderSess(){if(!window.ALLSPK)window.ALLSPK=[];
     html+='</div></div>';
   });
   document.getElementById('sess-list').innerHTML=html;
+  // Show/hide mode bar based on login state
+  var mb=document.getElementById('sess-mode-bar');
+  if(mb) mb.style.display=curAtt?'flex':'none';
 }
 
 function setDay(d){
@@ -1512,6 +1591,7 @@ function pickSess2(slotId,day,salon){
   if(!picks['d'+day])picks['d'+day]={};
   picks['d'+day][slotId]=salon;
   renderSess();
+  if(sessMode==='myschedule')renderMySchedule();
   savePicks();
 }
 
@@ -1541,6 +1621,115 @@ function showSchedDay(d,btn){
   document.querySelectorAll('.sched-tab').forEach(function(el){el.classList.remove('active');});
   document.getElementById('sched-d'+d).classList.add('active');
   btn.classList.add('active');
+}
+
+
+var sessMode='browse';
+
+function setSessMode(mode){
+  sessMode=mode;
+  document.getElementById('mode-browse').classList.toggle('active',mode==='browse');
+  document.getElementById('mode-myschedule').classList.toggle('active',mode==='myschedule');
+  document.getElementById('my-sched-wrap').classList.toggle('active',mode==='myschedule');
+  var bw=document.getElementById('sess-browse-wrap');
+  if(bw){bw.style.display=mode==='browse'?'block':'none';}
+  if(mode==='myschedule')renderMySchedule();
+}
+
+function setMySchedDay(d,btn){
+  document.querySelectorAll('.my-sched-day').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.my-sched-tab').forEach(function(el){el.classList.remove('active');});
+  document.getElementById('ms-d'+d).classList.add('active');
+  btn.classList.add('active');
+}
+
+function renderMySchedule(){
+  if(!curAtt){return;}
+  document.getElementById('my-sched-name').textContent='Hi '+curAtt.n+' — your personal conference agenda';
+
+  // Helper: build a fixed row
+  function fixedRow(type,time,label,title,sub){
+    return '<div class="ms-row t-'+type+'">'
+      +'<div class="ms-time">'+time+'</div>'
+      +'<div class="ms-info">'
+        +'<div class="ms-label">'+label+'</div>'
+        +'<div class="ms-title">'+title+'</div>'
+        +(sub?'<div class="ms-sub">'+sub+'</div>':'')
+      +'</div></div>';
+  }
+
+  // Helper: build a breakout row (picked or empty)
+  function breakoutRow(slotId,day,time,slotLbl){
+    var dayPick=picks['d'+day]||{};
+    var chosenSalon=dayPick[slotId];
+    var slot=SLOTS.find(function(s){return s.id===slotId;});
+    if(chosenSalon && slot){
+      var sess=slot.sess.find(function(s){return s.s===chosenSalon;});
+      if(sess){
+        var spk=SPK.find(function(x){return x.id===sess.sp;})||{n:sess.sp};
+        var phHtml='<div class="sess-spk-ph" style="width:28px;height:28px;border-radius:50%;overflow:hidden;border:2px solid '+(sess.lang==='spanish'?'#00A651':'#dc2626')+';flex-shrink:0;display:inline-flex;align-items:center;justify-content:center">'+phSmall(sess.sp)+'</div>';
+        return '<div class="ms-row t-picked">'
+          +'<div class="ms-time">'+time+'</div>'
+          +'<div class="ms-info">'
+            +'<div class="ms-label">✓ '+slotLbl+'</div>'
+            +'<div class="ms-title">'+sess.t+'</div>'
+            +'<div style="display:flex;align-items:center;gap:8px;margin-top:4px">'+phHtml+'<span class="ms-sub">'+spk.n+'</span></div>'
+            +'<div style="display:flex;gap:6px;margin-top:4px">'
+              +'<span class="ms-picked-tag">✓ Selected</span>'
+              +'<span class="ms-salon-tag">📍 '+chosenSalon+'</span>'
+              +'<span class="ms-salon-tag" style="background:'+(sess.lang==='spanish'?'#dcfce7':'#fee2e2')+';color:'+(sess.lang==='spanish'?'#16a34a':'#dc2626')+'">'+sess.lang.charAt(0).toUpperCase()+sess.lang.slice(1)+'</span>'
+            +'</div>'
+          +'</div></div>';
+      }
+    }
+    // Not selected
+    return '<div class="ms-row t-empty">'
+      +'<div class="ms-time" style="background:#e2e8f0;color:#94a3b8">'+time+'</div>'
+      +'<div class="ms-info">'
+        +'<div class="ms-label">⏳ '+slotLbl+'</div>'
+        +'<div class="ms-title" style="color:#94a3b8">Not yet selected</div>'
+        +'<div class="ms-empty-prompt">Tap below to choose your session</div>'
+        +'<button class="ms-pick-btn" onclick="setSessMode('browse')">➕ Browse &amp; Select Session</button>'
+      +'</div></div>';
+  }
+
+  // Count picks
+  var d1Count=Object.keys(picks['d1']||{}).length;
+  var d2Count=Object.keys(picks['d2']||{}).length;
+
+  // ── DAY 1 ──
+  var d1html='';
+  d1html+='<div class="ms-progress"><span class="ms-prog-label">Day 1 selections</span><div class="ms-prog-bar"><div class="ms-prog-fill" style="width:'+Math.round(d1Count/4*100)+'%"></div></div><span class="ms-prog-count">'+d1Count+'/4</span></div>';
+  d1html+=fixedRow('fixed','7:00<br>–<br>8:00 AM','🍳 Arrival','Registration &amp; Continental Breakfast','Pick up your badge and enjoy breakfast');
+  d1html+=fixedRow('fixed','8:00<br>–<br>8:20 AM','🎉 Welcome','Opening Ceremonies','');
+  d1html+=fixedRow('t-keynote','8:20<br>–<br>9:20 AM','🏆 Keynote','Embracing Innovation to Help Every Learner Find Success in Their Own Way','George Couros · Rio Mar Ballroom');
+  d1html+=fixedRow('t-panel','9:20<br>–<br>10:00 AM','🎤 EdTech Leadership Panel','Teaching in Uncharted Territory: Classrooms at the Edge of Tomorrow','Moderated by Dr. Fonz Mendoza · Rio Mar Ballroom');
+  d1html+=fixedRow('t-break','10:00<br>–<br>10:30 AM','☕ Coffee Break 1','Networking Break','Brought to you by MagicSchool AI');
+  d1html+=breakoutRow('bs1',1,'10:30<br>–<br>11:20 AM','Breakout 1');
+  d1html+=breakoutRow('bs2',1,'11:30 AM<br>–<br>12:20 PM','Breakout 2');
+  d1html+=fixedRow('t-lunch','12:30<br>–<br>1:30 PM','🍽️ Lunch Buffet','Lunch &amp; Live Entertainment','Featuring Bomba &amp; RPS Cheerleaders');
+  d1html+=breakoutRow('bs3',1,'1:30<br>–<br>2:20 PM','Breakout 3');
+  d1html+=breakoutRow('bs4',1,'2:30<br>–<br>3:20 PM','Breakout 4');
+  d1html+=fixedRow('t-break','3:20<br>–<br>3:50 PM','☕ Coffee Break 2','Meet the Tech Disruptors','Browse finalist projects · Salon 4');
+  d1html+=fixedRow('fixed','4:00<br>–<br>4:30 PM','🎊 Closing','Day 1 Recap, Raffles &amp; Closing','');
+  document.getElementById('ms-d1').innerHTML=d1html;
+
+  // ── DAY 2 ──
+  var d2html='';
+  d2html+='<div class="ms-progress"><span class="ms-prog-label">Day 2 selections</span><div class="ms-prog-bar"><div class="ms-prog-fill" style="width:'+Math.round(d2Count/4*100)+'%"></div></div><span class="ms-prog-count">'+d2Count+'/4</span></div>';
+  d2html+=fixedRow('fixed','7:00<br>–<br>8:00 AM','🍳 Arrival','Day 2 Registration &amp; Continental Breakfast','');
+  d2html+=fixedRow('fixed','8:00<br>–<br>8:15 AM','👋 Welcome','Welcome Message — Day 2','');
+  d2html+=fixedRow('t-keynote','8:20<br>–<br>9:20 AM','🏆 Keynote','The Future of Education in Puerto Rico','Eliezer Ramos Parés · Secretary of Education, PR · Rio Mar Ballroom');
+  d2html+=fixedRow('t-panel','9:20<br>–<br>10:00 AM','🎤 EdTech Leadership Panel','When AI Works: What Should Humans Learn?','Moderated by Dr. Rachelle Dené Poth · Rio Mar Ballroom');
+  d2html+=fixedRow('t-break','10:00<br>–<br>10:30 AM','☕ Coffee Break 1','Meet the Tech Disruptors','Browse finalist projects · Salon 4');
+  d2html+=breakoutRow('bs5',2,'10:30<br>–<br>11:20 AM','Breakout 5');
+  d2html+=breakoutRow('bs6',2,'11:30 AM<br>–<br>12:20 PM','Breakout 6');
+  d2html+=fixedRow('t-lunch','12:30<br>–<br>1:30 PM','🍽️ Lunch Buffet','Lunch &amp; Live Performance','');
+  d2html+=breakoutRow('bs7',2,'1:30<br>–<br>2:20 PM','Breakout 7');
+  d2html+=breakoutRow('bs8',2,'2:30<br>–<br>3:20 PM','Breakout 8');
+  d2html+=fixedRow('t-break','3:20<br>–<br>3:50 PM','☕ Coffee Break 2','Meet the Tech Disruptors','Browse finalist projects · Salon 4');
+  d2html+=fixedRow('fixed','4:00<br>–<br>5:00 PM','🏆 Awards &amp; Closing','Tech Disruptors Awards, Raffles, Live Performance &amp; Closing','Winners announced · Rio Mar Ballroom');
+  document.getElementById('ms-d2').innerHTML=d2html;
 }
 
 // ── ADMIN ──────────────────────────────────────────────────────────────
