@@ -1009,7 +1009,7 @@ tr:hover td{background:var(--gray-50)}
             <label>Full Name *<input id="aa-name" type="text" placeholder="e.g. Maria García" autocomplete="off"></label>
             <label>Email Address *<input id="aa-email" type="email" placeholder="e.g. maria@school.edu" autocomplete="off"></label>
             <label>School / Organization *<input id="aa-school" type="text" placeholder="e.g. Colegio San José" autocomplete="off"></label>
-            <label>Position<select id="aa-pos"><option value="">Select position...</option><option>Teacher</option><option>Principal</option><option>Assistant Principal</option><option>Director</option><option>Technology Director</option><option>District Admin</option><option>Counselor</option><option>Coach</option><option>Other</option></select></label>
+            <label>Position<select id="aa-pos"><option value="">Select position...</option><option>Teacher</option><option>Principal</option><option>Assistant Principal</option><option>Director</option><option>Technology Director</option><option>Technology Integrator</option><option>District Admin</option><option>Counselor</option><option>Coach</option><option>Other</option></select></label>
             <label>City<input id="aa-city" type="text" placeholder="e.g. San Juan"></label>
             <label>Badge Status<select id="aa-badge"><option value="pending">Pending</option><option value="printing">Printing</option><option value="printed">Printed</option></select></label>
           </div>
@@ -1842,15 +1842,13 @@ async function addAttendee(){
       n:n, email:e, s:s, r:pos||'', c:c, b:b,
       t:timeStr, checked_in:false, session_picks:null, sessions_selected:0
     };
-    var SB='https://katheqekgsmyvfknxbqj.supabase.co';
-    var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthdGhlcWVrZ3NteXZma254YnFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA2NzkxMjQsImV4cCI6MjA1NjI1NTEyNH0.yh9BNKF1UtqBRNMGsHUc2AUhBuUJ03xlk9qBc_TBDNM';
-    var resp=await fetch(SB+'/rest/v1/attendees',{
+    var resp=await supaFetch('/rest/v1/attendees',{
       method:'POST',
-      headers:{'Content-Type':'application/json','apikey':KEY,'Authorization':'Bearer '+KEY,'Prefer':'return=representation'},
+      headers:{'Content-Type':'application/json','Prefer':'return=representation'},
       body:JSON.stringify(newAtt)
     });
     var data=await resp.json();
-    if(!resp.ok) throw new Error(data.message||'Insert failed');
+    if(!resp.ok) throw new Error((data.message||data.error||'Insert failed'));
 
     // Success — add to ATT array and re-render
     var created=Array.isArray(data)?data[0]:data;
