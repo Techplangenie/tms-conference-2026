@@ -299,6 +299,14 @@ tr:hover td{background:var(--gray-50)}
 
 .sess-card.chosen{border:2px solid var(--green)!important;background:linear-gradient(135deg,#f0fdf4 0%,#ffffff 100%)!important;position:relative}
 .sess-card.chosen::after{content:'✓';position:absolute;top:8px;right:8px;width:22px;height:22px;background:var(--green);color:#fff;border-radius:50%;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;line-height:22px;text-align:center}
+
+/* Day selector — prominent full-width buttons */
+.day-tabs{display:flex;gap:0;padding:0;background:#f8f9fa;border-bottom:2px solid #e2e8f0;position:sticky;top:0;z-index:10}
+.d-tab{flex:1;padding:18px 24px;font-size:16px;font-weight:700;font-family:Outfit,sans-serif;background:transparent;border:none;border-bottom:4px solid transparent;color:#64748b;cursor:pointer;transition:all .2s;letter-spacing:0.3px;line-height:1.2}
+.d-tab:hover{background:#f1f5f9;color:var(--navy)}
+.d-tab.active{background:#fff;color:var(--navy);border-bottom:4px solid var(--green)}
+.d-tab .d-tab-date{display:block;font-size:11px;font-weight:500;color:#94a3b8;margin-top:2px;letter-spacing:0.5px;text-transform:uppercase}
+.d-tab.active .d-tab-date{color:var(--green)}
 </style>
 <style id="claude-agent-animation-styles">
       @keyframes claude-pulse {
@@ -482,8 +490,8 @@ tr:hover td{background:var(--gray-50)}
 </nav>
 <div class="sessions-hero"><h1>Conference Sessions</h1><p>April 10-11, 2026 · Wyndham Rio Mar · 30+ Presenters</p></div>
 <div class="day-tabs">
-  <button class="d-tab active" onclick="setDay(1)">Friday Apr 10</button>
-  <button class="d-tab" onclick="setDay(2)">Saturday Apr 11</button>
+  <button class="d-tab active" onclick="setDay(1)">📅 Day 1<span class="d-tab-date">Friday · April 10</span></button>
+  <button class="d-tab" onclick="setDay(2)">📅 Day 2<span class="d-tab-date">Saturday · April 11</span></button>
 </div>
 <div class="sess-content">
   <div class="chips">
