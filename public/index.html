@@ -237,6 +237,15 @@ tr:hover td{background:var(--gray-50)}
 .kn-photo img{width:100%;height:100%;object-fit:cover;display:block}
 
 #view-sponsors{overflow-y:auto;min-height:100vh;background:var(--bg)}.sponsors-hero{background:linear-gradient(135deg,#0a1628 0%,#1a237e 100%);color:#fff;text-align:center;padding:64px 20px 44px}.sponsors-hero h1{font-size:2.2rem;font-weight:800;margin-bottom:14px}.sponsors-hero p{color:rgba(255,255,255,0.75);font-size:1rem;max-width:600px;margin:0 auto;line-height:1.6}.sp-wrap{max-width:1100px;margin:0 auto;padding:30px 24px 70px}.sp-section-hdr{margin:48px 0 22px;border-left:4px solid var(--teal);padding-left:14px}.sp-section-hdr h2{font-size:1.45rem;font-weight:800;color:var(--navy);margin:0 0 4px}.sp-section-hdr p{color:#888;font-size:0.88rem;margin:0}.tier-label{display:inline-flex;align-items:center;gap:8px;font-size:0.95rem;font-weight:700;padding:6px 18px;border-radius:20px;margin-bottom:16px}.gold-label{background:linear-gradient(135deg,#FFD700,#FFA000);color:#5d3a00}.silver-label{background:linear-gradient(135deg,#e0e0e0,#9e9e9e);color:#333}.bronze-label{background:linear-gradient(135deg,#cd7f32,#8B4513);color:#fff}.tier-row{display:grid;gap:18px;margin-bottom:28px}.gold-row{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}.silver-row{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.bronze-row{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}.sp-card{background:#fff;border-radius:16px;padding:28px 22px 22px;text-align:center;text-decoration:none;color:inherit;box-shadow:0 2px 16px rgba(0,0,0,.09);display:flex;flex-direction:column;align-items:center;transition:transform .18s,box-shadow .18s}.sp-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,.15)}.gold-card{border-top:4px solid #FFD700}.silver-card{border-top:4px solid #9e9e9e}.bronze-card{border-top:4px solid #cd7f32}.sp-logo{height:80px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}.sp-name{font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:8px}.sp-desc{font-size:0.82rem;color:#666;line-height:1.55;flex:1}.sp-divider{border:none;border-top:2px solid #f0f0f0;margin:44px 0}.vendor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}.v-tile{background:#fff;border-radius:12px;padding:18px 14px 14px;text-align:center;text-decoration:none;color:var(--navy);font-weight:600;font-size:0.82rem;box-shadow:0 2px 10px rgba(0,0,0,.07);display:flex;flex-direction:column;align-items:center;gap:10px;transition:transform .18s}.v-tile:hover{transform:translateY(-3px)}.v-logo{height:52px;display:flex;align-items:center;justify-content:center}.partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:18px}.p-card{background:#fff;border-radius:16px;padding:26px 18px 20px;text-align:center;text-decoration:none;color:inherit;box-shadow:0 2px 16px rgba(0,0,0,.09);border-top:4px solid var(--teal);display:flex;flex-direction:column;align-items:center;transition:transform .18s}.p-card:hover{transform:translateY(-4px)}.p-logo{height:68px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}.p-name{font-weight:700;color:var(--navy);font-size:0.9rem;margin-bottom:7px}.p-desc{font-size:0.79rem;color:#666;line-height:1.5}
+
+/* Multi-role speaker tags */
+.spk-roles{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:6px}
+.spk-role{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;line-height:1.6}
+.r-key{background:#f5a623;color:#fff}
+.r-mod{background:#7c3aed;color:#fff}
+.r-pan{background:#2563eb;color:#fff}
+.r-spe{background:#059669;color:#fff}
+.r-flo{background:#ea580c;color:#fff}
 </style>
 <style id="claude-agent-animation-styles">
       @keyframes claude-pulse {
@@ -880,17 +889,59 @@ function phSmall(sid){
   return '<img src="'+u+'" onerror="this.parentElement.innerHTML=\'<span class=ini style=font-size:9px>'+gi(sp.n)+'</span>\'" alt="'+sp.n+'"/>';
 }
 
+function spkRoles(sp){
+  /* Build multi-role set: base role from SPK data + any breakout appearances */
+  var roles=new Set();
+  var r=(sp.r||'').toLowerCase();
+  if(r==='keynote'||r.includes('keynote'))roles.add('keynote');
+  else if(r==='moderator'||r.includes('moderator'))roles.add('moderator');
+  else if(r==='panelist'||r.includes('panelist'))roles.add('panelist');
+  /* Scan SLOTS to find additional roles */
+  var spId=sp.id;
+  Object.values(SLOTS).forEach(function(slot){
+    (slot.sess||[]).forEach(function(sess){
+      var ids=Array.isArray(sess.sp)?sess.sp:[sess.sp];
+      if(ids.indexOf(spId)>-1){
+        /* They appear in a breakout — add speaker tag */
+        var lbl=(slot.lbl||'').toLowerCase();
+        if(lbl.includes('flock')||lbl.includes('tech my school'))roles.add('flock');
+        else roles.add('speaker');
+      }
+    });
+  });
+  /* If still empty, use job title category */
+  if(roles.size===0)roles.add('speaker');
+  return roles;
+}
+function spkTagsHTML(sp){
+  var roles=spkRoles(sp);
+  var labels={keynote:'🏆 Keynote',moderator:'🎤 Moderator',panelist:'🤝 Panelist',speaker:'💬 Speaker',flock:'🦜 Flock Leader'};
+  var classes={keynote:'r-key',moderator:'r-mod',panelist:'r-pan',speaker:'r-spe',flock:'r-flo'};
+  /* Priority order */
+  var order=['keynote','moderator','panelist','flock','speaker'];
+  var tags=order.filter(function(r){return roles.has(r);}).map(function(r){
+    return '<span class="spk-role '+classes[r]+'">'+labels[r]+'</span>';
+  });
+  return '<div class="spk-roles">'+tags.join('')+'</div>';
+}
 function filterSpk(role){
   document.querySelectorAll('[data-sf]').forEach(function(c){c.classList.toggle('active',c.dataset.sf===role);});
   var grid=document.getElementById('speakers-grid');
-  var filtered=role==='all'?SPK:SPK.filter(function(s){return s.r===role;});
+  var filtered=role==='all'?SPK:SPK.filter(function(s){
+    var roles=spkRoles(s);
+    if(role==='keynote')return roles.has('keynote');
+    if(role==='moderator')return roles.has('moderator');
+    if(role==='panelist')return roles.has('panelist');
+    if(role==='flock')return roles.has('flock');
+    return s.r===role||roles.has(role);
+  });
   grid.innerHTML=filtered.map(function(sp){
     var link=sp.li?'onclick="window.open(\''+sp.li+'\',\'_blank\')" title="View on LinkedIn" style="cursor:pointer"':'';
     return '<div class="spk-card" '+link+'>'
       +'<div class="spk-av">'+ph(sp)+'</div>'
       +'<div class="spk-name">'+sp.n+'</div>'
       +'<div class="spk-org">'+sp.o+'</div>'
-      +'<span class="spk-role r-'+(sp.r||'').substring(0,3)+'">'+sp.r+'</span>'
+      +spkTagsHTML(sp)
       +(sp.li?'<div style="font-size:9px;color:#0077b5;margin-top:5px;font-weight:600;">LinkedIn</div>':'')
       +'</div>';
   }).join('');
