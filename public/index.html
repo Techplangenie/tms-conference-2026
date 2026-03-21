@@ -307,6 +307,48 @@ tr:hover td{background:var(--gray-50)}
 .d-tab.active{background:#fff;color:var(--navy);border-bottom:4px solid var(--green)}
 .d-tab .d-tab-date{display:block;font-size:11px;font-weight:500;color:#94a3b8;margin-top:2px;letter-spacing:0.5px;text-transform:uppercase}
 .d-tab.active .d-tab-date{color:var(--green)}
+
+/* ── SCHEDULE VIEW ── */
+#view-schedule{overflow-y:auto;min-height:100vh}
+.sched-hero{background:linear-gradient(135deg,var(--navy) 0%,#2d3494 100%);color:#fff;padding:40px 24px 32px;text-align:center}
+.sched-hero h1{font-family:Outfit,sans-serif;font-size:2rem;font-weight:800;margin-bottom:6px}
+.sched-hero p{color:rgba(255,255,255,0.75);font-size:.95rem}
+.sched-tabs{display:flex;gap:0;background:#f8f9fa;border-bottom:2px solid #e2e8f0;position:sticky;top:0;z-index:10}
+.sched-tab{flex:1;padding:18px 24px;font-size:16px;font-weight:700;font-family:Outfit,sans-serif;background:transparent;border:none;border-bottom:4px solid transparent;color:#64748b;cursor:pointer;transition:all .2s;line-height:1.2}
+.sched-tab:hover{background:#f1f5f9;color:var(--navy)}
+.sched-tab.active{background:#fff;color:var(--navy);border-bottom:4px solid var(--orange)}
+.sched-tab .sched-tab-date{display:block;font-size:11px;font-weight:500;color:#94a3b8;margin-top:2px;letter-spacing:0.5px;text-transform:uppercase}
+.sched-tab.active .sched-tab-date{color:var(--orange)}
+.sched-body{max-width:700px;margin:0 auto;padding:32px 20px 60px}
+.sched-day{display:none}
+.sched-day.active{display:block}
+.sched-row{display:flex;gap:0;margin-bottom:2px;border-radius:10px;overflow:hidden;transition:transform .15s}
+.sched-row:hover{transform:translateX(3px)}
+.sched-time{min-width:110px;padding:14px 12px 14px 16px;font-size:.8rem;font-weight:700;font-family:Outfit,sans-serif;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.3;background:var(--navy);flex-shrink:0}
+.sched-info{flex:1;padding:14px 18px;background:#fff;border-left:none;display:flex;flex-direction:column;justify-content:center;gap:2px;box-shadow:var(--shadow-sm)}
+.sched-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#94a3b8}
+.sched-title{font-size:.95rem;font-weight:700;font-family:Outfit,sans-serif;color:var(--navy);line-height:1.3}
+.sched-sub{font-size:.82rem;color:#64748b;line-height:1.4;margin-top:2px}
+.sched-badge{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:4px;width:fit-content}
+/* row types */
+.sched-row.type-reg .sched-time{background:#475569}
+.sched-row.type-reg .sched-info{border-left:4px solid #475569}
+.sched-row.type-ceremony .sched-time{background:var(--navy)}
+.sched-row.type-ceremony .sched-info{border-left:4px solid var(--navy)}
+.sched-row.type-keynote .sched-time{background:var(--orange)}
+.sched-row.type-keynote .sched-info{border-left:4px solid var(--orange);background:linear-gradient(135deg,#fffdf7 0%,#fff 100%)}
+.sched-row.type-panel .sched-time{background:#7c3aed}
+.sched-row.type-panel .sched-info{border-left:4px solid #7c3aed;background:linear-gradient(135deg,#faf5ff 0%,#fff 100%)}
+.sched-row.type-break .sched-time{background:var(--teal)}
+.sched-row.type-break .sched-info{border-left:4px solid var(--teal);background:linear-gradient(135deg,#f0fdff 0%,#fff 100%)}
+.sched-row.type-breakout .sched-time{background:var(--green)}
+.sched-row.type-breakout .sched-info{border-left:4px solid var(--green)}
+.sched-row.type-lunch .sched-time{background:#d97706}
+.sched-row.type-lunch .sched-info{border-left:4px solid #d97706;background:linear-gradient(135deg,#fffbeb 0%,#fff 100%)}
+.sched-row.type-closing .sched-time{background:#059669}
+.sched-row.type-closing .sched-info{border-left:4px solid #059669;background:linear-gradient(135deg,#f0fdf4 0%,#fff 100%)}
+.sched-spacer{height:16px;position:relative;display:flex;align-items:center;padding-left:110px;margin:0 0 2px}
+.sched-spacer::after{content:'';position:absolute;left:138px;width:4px;top:0;bottom:0;background:var(--gray-200)}
 </style>
 <style id="claude-agent-animation-styles">
       @keyframes claude-pulse {
@@ -1493,6 +1535,14 @@ async function savePicks(){
   };
 }
 
+
+function showSchedDay(d,btn){
+  document.querySelectorAll('.sched-day').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.sched-tab').forEach(function(el){el.classList.remove('active');});
+  document.getElementById('sched-d'+d).classList.add('active');
+  btn.classList.add('active');
+}
+
 // ── ADMIN ──────────────────────────────────────────────────────────────
 function doAdminLogin(){
   var u=document.getElementById('au').value.trim();
@@ -1915,4 +1965,251 @@ function doLogout(){
         <path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm40-112v56a12,12,0,0,1-12,12H100a12,12,0,0,1-12-12V100a12,12,0,0,1,12-12h56A12,12,0,0,1,168,100Z"></path>
       </svg>
       <span style="vertical-align: middle;">Stop Claude</span>
-    </button></div></body></html>
+    </button></div>
+  <div id="view-schedule" class="view">
+    <nav>
+      <div class="nav-brand" onclick="go('home')">
+        <div class="nav-logo"><img src="/images/tms-parrot.png" alt="TMS"></div>
+        <div><div class="nav-name">Tech My School</div><div class="nav-sub">SPRING EDUCATORS CONFERENCE</div></div>
+      </div>
+      <div class="nav-links">
+        <a class="nav-lnk" data-section="sessions" onclick="go('sessions')">Sessions</a>
+        <a class="nav-lnk" data-section="map" onclick="go('map')">Map</a>
+        <a class="nav-lnk" data-section="speakers" onclick="go('speakers')">Speakers</a>
+        <a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')">Sponsors</a>
+        <a class="nav-lnk active" data-section="schedule" onclick="go('schedule')">Schedule</a>
+      </div>
+    </nav>
+
+    <div class="sched-hero">
+      <h1>📅 Conference Schedule</h1>
+      <p>Wyndham Grand Rio Mar · April 10–11, 2026 · Puerto Rico</p>
+    </div>
+
+    <div class="sched-tabs">
+      <button class="sched-tab active" onclick="showSchedDay(1,this)">
+        📅 Day 1<span class="sched-tab-date">Friday · April 10</span>
+      </button>
+      <button class="sched-tab" onclick="showSchedDay(2,this)">
+        📅 Day 2<span class="sched-tab-date">Saturday · April 11</span>
+      </button>
+    </div>
+
+    <div class="sched-body">
+
+      <!-- ════ DAY 1 ════ -->
+      <div class="sched-day active" id="sched-d1">
+
+        <div class="sched-row type-reg">
+          <div class="sched-time">7:00<br>–<br>8:00 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">🍳 Arrival</div>
+            <div class="sched-title">Registration &amp; Continental Breakfast</div>
+            <div class="sched-sub">Check in, grab your badge, and enjoy breakfast</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-ceremony">
+          <div class="sched-time">8:00<br>–<br>8:20 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">🎉 Welcome</div>
+            <div class="sched-title">Opening Ceremonies</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-keynote">
+          <div class="sched-time">8:20<br>–<br>9:20 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">🏆 Keynote Presentation</div>
+            <div class="sched-title">Embracing Innovation to Help Every Learner Find Success in Their Own Way</div>
+            <div class="sched-sub">George Couros · Rio Mar Ballroom</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-panel">
+          <div class="sched-time">9:20<br>–<br>10:00 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">🎤 EdTech Leadership Panel</div>
+            <div class="sched-title">Teaching in Uncharted Territory: Classrooms at the Edge of Tomorrow</div>
+            <div class="sched-sub">Moderated by Dr. Fonz Mendoza · Rio Mar Ballroom</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-break">
+          <div class="sched-time">10:00<br>–<br>10:30 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">☕ Coffee Break 1</div>
+            <div class="sched-title">Networking Break</div>
+            <div class="sched-sub">Brought to you by <strong>MagicSchool AI</strong></div>
+          </div>
+        </div>
+
+        <div class="sched-row type-breakout">
+          <div class="sched-time">10:30<br>–<br>11:20 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">🔵 Breakout Session 1</div>
+            <div class="sched-title">Intentional &amp; Practical AI Integration in the Classroom</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-breakout">
+          <div class="sched-time">11:30 AM<br>–<br>12:20 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">🔵 Breakout Session 2</div>
+            <div class="sched-title">AI Ethics, Responsible Use &amp; Educational Policy</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-lunch">
+          <div class="sched-time">12:30<br>–<br>1:30 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">🍽️ Lunch Buffet</div>
+            <div class="sched-title">Lunch &amp; Live Entertainment</div>
+            <div class="sched-sub">Featuring <strong>Bomba &amp; RPS Cheerleaders</strong></div>
+          </div>
+        </div>
+
+        <div class="sched-row type-breakout">
+          <div class="sched-time">1:30<br>–<br>2:20 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">🔵 Breakout Session 3</div>
+            <div class="sched-title">Leadership, Culture &amp; Educational Transformation</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-breakout">
+          <div class="sched-time">2:30<br>–<br>3:20 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">🔵 Breakout Session 4</div>
+            <div class="sched-title">Tech My School Team &amp; Flock Leaders</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-break">
+          <div class="sched-time">3:20<br>–<br>3:50 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">☕ Coffee Break 2</div>
+            <div class="sched-title">Meet the Tech Disruptors</div>
+            <div class="sched-sub">Browse finalist projects in <strong>Salon 4</strong></div>
+          </div>
+        </div>
+
+        <div class="sched-row type-closing">
+          <div class="sched-time">4:00<br>–<br>4:30 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">🎊 Closing</div>
+            <div class="sched-title">Day 1 Recap, Raffles &amp; Closing</div>
+          </div>
+        </div>
+
+      </div><!-- /sched-d1 -->
+
+      <!-- ════ DAY 2 ════ -->
+      <div class="sched-day" id="sched-d2">
+
+        <div class="sched-row type-reg">
+          <div class="sched-time">7:00<br>–<br>8:00 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">🍳 Arrival</div>
+            <div class="sched-title">Day 2 Registration &amp; Continental Breakfast</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-ceremony">
+          <div class="sched-time">8:00<br>–<br>8:15 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">👋 Welcome</div>
+            <div class="sched-title">Welcome Message — Day 2</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-keynote">
+          <div class="sched-time">8:20<br>–<br>9:20 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">🏆 Keynote Presentation</div>
+            <div class="sched-title">The Future of Education in Puerto Rico</div>
+            <div class="sched-sub">Eliezer Ramos Parés · Secretary of Education, PR · Rio Mar Ballroom</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-panel">
+          <div class="sched-time">9:20<br>–<br>10:00 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">🎤 EdTech Leadership Panel</div>
+            <div class="sched-title">When AI Works: What Should Humans Learn?</div>
+            <div class="sched-sub">Moderated by Dr. Rachelle Dené Poth · Rio Mar Ballroom</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-break">
+          <div class="sched-time">10:00<br>–<br>10:30 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">☕ Coffee Break 1</div>
+            <div class="sched-title">Meet the Tech Disruptors</div>
+            <div class="sched-sub">Browse finalist projects in <strong>Salon 4</strong></div>
+          </div>
+        </div>
+
+        <div class="sched-row type-breakout">
+          <div class="sched-time">10:30<br>–<br>11:20 AM</div>
+          <div class="sched-info">
+            <div class="sched-label">🔵 Breakout Session 1</div>
+            <div class="sched-title">The Latest in EdTech &amp; AI Technologies</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-breakout">
+          <div class="sched-time">11:30 AM<br>–<br>12:20 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">🔵 Breakout Session 2</div>
+            <div class="sched-title">EdTech Tools for Engagement &amp; Creative Expression</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-lunch">
+          <div class="sched-time">12:30<br>–<br>1:30 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">🍽️ Lunch Buffet</div>
+            <div class="sched-title">Lunch &amp; Live Performance</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-breakout">
+          <div class="sched-time">1:30<br>–<br>2:20 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">🔵 Breakout Session 3</div>
+            <div class="sched-title">Literacy, Language &amp; Multilingual Education</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-breakout">
+          <div class="sched-time">2:30<br>–<br>3:20 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">🔵 Breakout Session 4</div>
+            <div class="sched-title">Tech My School Team &amp; Flock Leaders</div>
+          </div>
+        </div>
+
+        <div class="sched-row type-break">
+          <div class="sched-time">3:20<br>–<br>3:50 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">☕ Coffee Break 2</div>
+            <div class="sched-title">Meet the Tech Disruptors</div>
+            <div class="sched-sub">Browse finalist projects in <strong>Salon 4</strong></div>
+          </div>
+        </div>
+
+        <div class="sched-row type-closing">
+          <div class="sched-time">4:00<br>–<br>5:00 PM</div>
+          <div class="sched-info">
+            <div class="sched-label">🏆 Awards &amp; Closing</div>
+            <div class="sched-title">Tech Disruptors Awards, Raffles, Live Performance &amp; Closing</div>
+            <div class="sched-sub">Tech Disruptors winners announced · Rio Mar Ballroom</div>
+          </div>
+        </div>
+
+      </div><!-- /sched-d2 -->
+
+    </div><!-- /sched-body -->
+  </div><!-- /view-schedule -->
+</body></html>
