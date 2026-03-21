@@ -246,6 +246,56 @@ tr:hover td{background:var(--gray-50)}
 .r-pan{background:#2563eb;color:#fff}
 .r-spe{background:#dc2626;color:#fff}
 .r-mc{background:#be185d;color:#fff}.r-tms{background:#16a34a;color:#fff}.r-flo{background:#ea580c;color:#fff}
+
+/* ===== TECH DISRUPTORS PAGE ===== */
+.td-hero{background:linear-gradient(135deg,#0d0d1a 0%,#1a0533 40%,#0a1628 100%);padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.td-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(139,92,246,0.25) 0%,transparent 65%),radial-gradient(ellipse at 20% 80%,rgba(6,182,212,0.15) 0%,transparent 50%);pointer-events:none}
+.td-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.5);border-radius:20px;padding:6px 16px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a78bfa;margin-bottom:16px}
+.td-hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;margin:0 0 8px;line-height:1.1}
+.td-hero h1 span{background:linear-gradient(135deg,#a78bfa,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.td-hero-sub{color:rgba(255,255,255,0.65);font-size:1.05rem;max-width:540px;margin:0 auto 28px}
+.td-stats{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.td-stat{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:14px 22px;text-align:center}
+.td-stat-num{font-size:1.8rem;font-weight:900;color:#a78bfa;line-height:1}
+.td-stat-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.5);margin-top:4px}
+/* Schedule */
+.td-sched-wrap{max-width:860px;margin:0 auto;padding:40px 20px}
+.td-sched-wrap h2{font-size:1.5rem;font-weight:800;color:var(--navy);margin-bottom:6px}
+.td-sched-wrap .td-sub{color:#64748b;margin-bottom:24px;font-size:.95rem}
+.td-days{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.td-days{grid-template-columns:1fr}}
+.td-day{background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow-sm)}
+.td-day-hdr{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#7c3aed;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.td-slot{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f1f5f9}
+.td-slot:last-child{border-bottom:none}
+.td-slot-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.td-slot-icon.comp{background:#fdf4ff;color:#7c3aed}
+.td-slot-icon.drop{background:#eff6ff;color:#2563eb}
+.td-slot-icon.award{background:#fffbeb;color:#d97706}
+.td-slot-time{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.td-slot-title{font-size:.85rem;font-weight:700;color:#1e293b}
+.td-slot-loc{font-size:.75rem;color:#94a3b8}
+.td-winner-banner{background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:14px;padding:16px 20px;margin-top:20px;display:flex;align-items:center;gap:14px;color:#fff}
+.td-winner-banner .tw-icon{font-size:2rem}
+.td-winner-banner h3{margin:0;font-size:1rem;font-weight:800}
+.td-winner-banner p{margin:2px 0 0;font-size:.8rem;opacity:.8}
+/* Finalist cards */
+.td-finalists{max-width:1100px;margin:0 auto;padding:0 20px 48px}
+.td-finalists h2{font-size:1.5rem;font-weight:800;color:var(--navy);margin-bottom:6px}
+.td-finalists .td-sub{color:#64748b;margin-bottom:24px;font-size:.95rem}
+.td-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.td-card{background:#fff;border-radius:18px;padding:24px;box-shadow:var(--shadow-sm);border:2px solid transparent;transition:all .25s;position:relative;overflow:hidden}
+.td-card:hover{border-color:#7c3aed;box-shadow:0 8px 30px rgba(124,58,237,0.15);transform:translateY(-3px)}
+.td-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--card-accent,linear-gradient(90deg,#7c3aed,#06b6d4))}
+.td-card-num{width:32px;height:32px;background:var(--num-bg,#fdf4ff);color:var(--num-col,#7c3aed);border-radius:50%;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.td-card-title{font-size:1rem;font-weight:800;color:#1e293b;margin-bottom:10px;line-height:1.3}
+.td-card-teacher{font-size:.85rem;font-weight:700;color:#7c3aed;margin-bottom:4px}
+.td-card-meta{font-size:.78rem;color:#64748b;line-height:1.8}
+.td-card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.td-tag{padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.td-tag.grade{background:#eff6ff;color:#2563eb}
+.td-tag.subj{background:#f0fdf4;color:#16a34a}
+.td-tag.city{background:#fdf4ff;color:#7c3aed}
 </style>
 <style id="claude-agent-animation-styles">
       @keyframes claude-pulse {
@@ -282,6 +332,7 @@ tr:hover td{background:var(--gray-50)}
   <div class="nav-links">
     <button class="nav-link" onclick="go('sessions')">Sessions</button>
     <button class="nav-link" onclick="go('map')">Map</button><button class="nav-link" onclick="go('sponsors')">Sponsors</button>
+    <button class="nav-link" onclick="go('disruptors')">Tech Disruptors</button>
     <button class="nav-link" onclick="go('admin')">Admin</button>
     <button class="nav-cta" onclick="go('register')">Check In →</button>
   <button id="logout-btn" onclick="doLogout()" style="display:none;background:#c0392b;color:#fff;border:none;padding:7px 16px;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;margin-left:8px;">Sign Out</button>
@@ -516,7 +567,170 @@ tr:hover td{background:var(--gray-50)}
 </div>
 
 <!-- ADMIN LOGIN -->
-<div class="view" id="view-sponsors"><nav><div class="nav-brand" onclick="go('home')"><div class="nav-logo"><img src="/Conference logo.png" alt="TMS"/></div><div><div class="nav-title">Tech My School</div><div class="nav-sub">SPRING EDUCATORS CONFERENCE</div></div></div><div class="nav-links"><a class="nav-lnk" data-section="home" onclick="go('home')">Home</a><a class="nav-lnk" data-section="speakers" onclick="go('speakers')">Speakers</a><a class="nav-lnk" data-section="map" onclick="go('map')">Map</a><a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')">Sponsors</a><a class="nav-lnk active" data-section="sponsors" onclick="go('sponsors')">Sponsors</a></div><button id="logout-btn-sp2" style="display:none" onclick="doLogout()">Logout</button><button class="nav-cta" onclick="go('register')">Check In</button></nav><div class="sponsors-hero"><h1>&#129309; Our Sponsors and Partners</h1><p>We are grateful to the organizations whose generous support makes the TMS Spring Educators #EdTech Conference possible. Thank you for investing in the future of education.</p></div><div class="sp-wrap"><div class="sp-section-hdr"><h2>&#127942; Conference Sponsors</h2><p>Their investment directly supports educators and learners across Puerto Rico and beyond.</p></div><div class="tier-label gold-label">&#129351; Gold Sponsors</div><div class="tier-row gold-row"><a href="https://www.casesolutionspr.com/" target="_blank" rel="noopener" class="sp-card gold-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1O-3kkOu_Amxyn9pDbSHntejYHTi4QTZm&sz=w300" alt="Case Solutions PR" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">Case Solutions PR</div><div class="sp-desc">Technology solutions empowering Puerto Rico schools with cutting-edge tools and dedicated local support.</div></a><a href="https://www.magicschool.ai/" target="_blank" rel="noopener" class="sp-card gold-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1lq644Pypy087pRY_WkEeqGIUY7cEVDxX&sz=w300" alt="MagicSchool AI" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">MagicSchool AI</div><div class="sp-desc">AI-powered platform helping educators save time, reduce burnout, and focus on their students.</div></a><a href="https://www.summitk12.com/" target="_blank" rel="noopener" class="sp-card gold-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1BnD1bWyEQuvZIRS1XwXrPMBp40aXtSVx&sz=w300" alt="Summit K12" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">Summit K12</div><div class="sp-desc">Evidence-based reading and math interventions proven to accelerate K-12 student achievement.</div></a></div><div class="tier-label silver-label">&#129352; Silver Sponsors</div><div class="tier-row silver-row"><a href="https://buyqball.com/" target="_blank" rel="noopener" class="sp-card silver-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1-5FV5oOhPnO4swA3IBk-Duvdq1ywguM5&sz=w300" alt="QBall" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">QBall</div><div class="sp-desc">The interactive throwing microphone that transforms classroom participation and engagement.</div></a><a href="https://wida.wisc.edu/" target="_blank" rel="noopener" class="sp-card silver-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1WW9ptUioaNVwXm5CIOPRbc6-aTVn4Qgp&sz=w300" alt="WIDA" style="max-height:80px;max-width:200px;object-fit:contain;background:white;padding:4px;border-radius:4px"></div><div class="sp-name">WIDA</div><div class="sp-desc">University of Wisconsin consortium supporting academic language development for multilingual learners.</div></a></div><div class="tier-label bronze-label">&#129353; Bronze Sponsors</div><div class="tier-row bronze-row"><a href="https://kaiseducation.com/" target="_blank" rel="noopener" class="sp-card bronze-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1-pjkYVDsg0v5UdU8tXmQqq1cHU2bU59j&sz=w300" alt="Kai Education" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">Kai Education</div><div class="sp-desc">Personalized AI-powered tutoring that adapts to every learner, closing achievement gaps with care.</div></a><a href="https://www.unib.org/" target="_blank" rel="noopener" class="sp-card bronze-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1BFNXdnNtw_w4sW1Si7NcOcO7GAzxvRt6&sz=w300" alt="Universidad Iberoamericana" style="max-height:80px;max-width:200px;object-fit:contain"></div><div class="sp-name">Universidad Iberoamericana</div><div class="sp-desc">Leading Puerto Rico institution committed to transformative, future-ready higher education.</div></a><a href="https://www.betancespse.com/" target="_blank" rel="noopener" class="sp-card bronze-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=12-tUgJz95E5SzS7E0X2L88WnPi9p_xTN&sz=w300" alt="Betances" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">Betances</div><div class="sp-desc">Dedicated educational services provider supporting student success across Puerto Rico communities.</div></a></div><div class="sp-divider"></div><div class="sp-section-hdr"><h2>&#128717; Conference Vendors</h2><p>Innovative companies showcasing their tools and solutions at this year&#39;s conference.</p></div><div class="vendor-grid"><a href="https://www.betancespse.com/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=12-tUgJz95E5SzS7E0X2L88WnPi9p_xTN&sz=w300" alt="Betances" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>Betances</span></a><a href="https://www.magicschool.ai/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1lq644Pypy087pRY_WkEeqGIUY7cEVDxX&sz=w300" alt="MagicSchool AI" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>MagicSchool AI</span></a><a href="https://trekai.org/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1aLsHiyFN0Vnu6woSicspSqKEuyL1iWZY&sz=w300" alt="TrekAI" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>TrekAI</span></a><a href="https://www.casesolutionspr.com/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1O-3kkOu_Amxyn9pDbSHntejYHTi4QTZm&sz=w300" alt="Case Solutions PR" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>Case Solutions PR</span></a><a href="https://wida.wisc.edu/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1WW9ptUioaNVwXm5CIOPRbc6-aTVn4Qgp&sz=w300" alt="WIDA" style="max-height:48px;max-width:120px;object-fit:contain;background:white;padding:2px;border-radius:3px"></div><span>WIDA</span></a><a href="https://kaiseducation.com/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1-pjkYVDsg0v5UdU8tXmQqq1cHU2bU59j&sz=w300" alt="Kai Education" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>Kai Education</span></a><a href="https://www.summitk12.com/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1BnD1bWyEQuvZIRS1XwXrPMBp40aXtSVx&sz=w300" alt="Summit K12" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>Summit K12</span></a><a href="https://www.nwea.org/map-growth/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1If52WcHT8Uqcsh0xgTicqo4hjklmbaFe&sz=w300" alt="MAP Growth (NWEA/HMH)" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>MAP Growth (NWEA/HMH)</span></a><a href="https://brightwavetechs.com/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1xON6WeeoEN9bTd6yQ--BpQdobKIOLeuU&sz=w300" alt="Bright Wave PR" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>Bright Wave PR</span></a><a href="https://www.unib.org/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1BFNXdnNtw_w4sW1Si7NcOcO7GAzxvRt6&sz=w300" alt="UNIB" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>UNIB</span></a></div><div class="sp-divider"></div><div class="sp-section-hdr"><h2>&#129309; Conference Partnerships</h2><p>Organizations sharing our vision of transforming education through collaboration.</p></div><div class="partner-grid"><a href="https://techmyschool.org/" target="_blank" rel="noopener" class="p-card"><div class="p-logo"><img src="https://drive.google.com/thumbnail?id=1pQkpKDru8aaYk4GCt5oG3aYzRqze47rm&sz=w300" alt="Tech My School" style="max-height:64px;max-width:160px;object-fit:contain"></div><div class="p-name">Tech My School</div><div class="p-desc">Nonprofit improving education in Puerto Rico through technology donations, educator training, and student programs.</div></a><a href="https://www.techplangenie.com/" target="_blank" rel="noopener" class="p-card"><div class="p-logo"><img src="https://drive.google.com/thumbnail?id=13TLGOAxu8tDOlOZNMql-6zizTx3aaYa7&sz=w300" alt="Tech Plan Genie" style="max-height:64px;max-width:160px;object-fit:contain"></div><div class="p-name">Tech Plan Genie</div><div class="p-desc">SaaS platform helping school administrators build and execute technology plans with efficiency.</div></a><a href="https://de.pr.gov/" target="_blank" rel="noopener" class="p-card"><div class="p-logo"><img src="https://drive.google.com/thumbnail?id=1QgUJoXLcJvMbACf-zXeK_hHlQUEJmE4N&sz=w300" alt="Dept. of Education PR" style="max-height:80px;max-width:200px;object-fit:contain"></div><div class="p-name">Dept. of Education Puerto Rico</div><div class="p-desc">The Puerto Rico Department of Education, committed to quality public education for every student.</div></a><a href="#" target="_blank" rel="noopener" class="p-card"><div class="p-logo"><img src="https://drive.google.com/thumbnail?id=128xsY7h8EbU59AIqBQCfAZmRfkcHPLNB&sz=w300" alt="CAIS" style="max-height:64px;max-width:160px;object-fit:contain"></div><div class="p-name">CAIS</div><div class="p-desc">Caribbean Association of Independent Schools fostering academic excellence across the Caribbean.</div></a><a href="https://de.pr.gov/escuela-publica-alianza/" target="_blank" rel="noopener" class="p-card"><div class="p-logo"><img src="https://drive.google.com/thumbnail?id=1GsXXr-FM5eZu-liNYEhBYN8VXOwa_iJ7&sz=w300" alt="Alianza Charter Schools PR" style="max-height:80px;max-width:200px;object-fit:contain"></div><div class="p-name">Alianza Charter Schools PR</div><div class="p-desc">Charter school alliance advancing public school innovation and student achievement across Puerto Rico.</div></a></div></div></div>
+<div class="view" id="view-sponsors"><nav><div class="nav-brand" onclick="go('home')"><div class="nav-logo"><img src="/Conference logo.png" alt="TMS"/></div><div><div class="nav-title">Tech My School</div><div class="nav-sub">SPRING EDUCATORS CONFERENCE</div></div></div><div class="nav-links"><a class="nav-lnk" data-section="home" onclick="go('home')">Home</a><a class="nav-lnk" data-section="speakers" onclick="go('speakers')">Speakers</a><a class="nav-lnk" data-section="map" onclick="go('map')">Map</a><a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')">Sponsors</a><a class="nav-lnk active" data-section="sponsors" onclick="go('sponsors')">Sponsors</a>
+<a class="nav-lnk" data-section="disruptors" onclick="go('disruptors')">Tech Disruptors</a></div><button id="logout-btn-sp2" style="display:none" onclick="doLogout()">Logout</button><button class="nav-cta" onclick="go('register')">Check In</button></nav><div class="sponsors-hero"><h1>&#129309; Our Sponsors and Partners</h1><p>We are grateful to the organizations whose generous support makes the TMS Spring Educators #EdTech Conference possible. Thank you for investing in the future of education.</p></div><div class="sp-wrap"><div class="sp-section-hdr"><h2>&#127942; Conference Sponsors</h2><p>Their investment directly supports educators and learners across Puerto Rico and beyond.</p></div><div class="tier-label gold-label">&#129351; Gold Sponsors</div><div class="tier-row gold-row"><a href="https://www.casesolutionspr.com/" target="_blank" rel="noopener" class="sp-card gold-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1O-3kkOu_Amxyn9pDbSHntejYHTi4QTZm&sz=w300" alt="Case Solutions PR" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">Case Solutions PR</div><div class="sp-desc">Technology solutions empowering Puerto Rico schools with cutting-edge tools and dedicated local support.</div></a><a href="https://www.magicschool.ai/" target="_blank" rel="noopener" class="sp-card gold-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1lq644Pypy087pRY_WkEeqGIUY7cEVDxX&sz=w300" alt="MagicSchool AI" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">MagicSchool AI</div><div class="sp-desc">AI-powered platform helping educators save time, reduce burnout, and focus on their students.</div></a><a href="https://www.summitk12.com/" target="_blank" rel="noopener" class="sp-card gold-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1BnD1bWyEQuvZIRS1XwXrPMBp40aXtSVx&sz=w300" alt="Summit K12" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">Summit K12</div><div class="sp-desc">Evidence-based reading and math interventions proven to accelerate K-12 student achievement.</div></a></div><div class="tier-label silver-label">&#129352; Silver Sponsors</div><div class="tier-row silver-row"><a href="https://buyqball.com/" target="_blank" rel="noopener" class="sp-card silver-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1-5FV5oOhPnO4swA3IBk-Duvdq1ywguM5&sz=w300" alt="QBall" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">QBall</div><div class="sp-desc">The interactive throwing microphone that transforms classroom participation and engagement.</div></a><a href="https://wida.wisc.edu/" target="_blank" rel="noopener" class="sp-card silver-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1WW9ptUioaNVwXm5CIOPRbc6-aTVn4Qgp&sz=w300" alt="WIDA" style="max-height:80px;max-width:200px;object-fit:contain;background:white;padding:4px;border-radius:4px"></div><div class="sp-name">WIDA</div><div class="sp-desc">University of Wisconsin consortium supporting academic language development for multilingual learners.</div></a></div><div class="tier-label bronze-label">&#129353; Bronze Sponsors</div><div class="tier-row bronze-row"><a href="https://kaiseducation.com/" target="_blank" rel="noopener" class="sp-card bronze-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1-pjkYVDsg0v5UdU8tXmQqq1cHU2bU59j&sz=w300" alt="Kai Education" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">Kai Education</div><div class="sp-desc">Personalized AI-powered tutoring that adapts to every learner, closing achievement gaps with care.</div></a><a href="https://www.unib.org/" target="_blank" rel="noopener" class="sp-card bronze-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=1BFNXdnNtw_w4sW1Si7NcOcO7GAzxvRt6&sz=w300" alt="Universidad Iberoamericana" style="max-height:80px;max-width:200px;object-fit:contain"></div><div class="sp-name">Universidad Iberoamericana</div><div class="sp-desc">Leading Puerto Rico institution committed to transformative, future-ready higher education.</div></a><a href="https://www.betancespse.com/" target="_blank" rel="noopener" class="sp-card bronze-card"><div class="sp-logo"><img src="https://drive.google.com/thumbnail?id=12-tUgJz95E5SzS7E0X2L88WnPi9p_xTN&sz=w300" alt="Betances" style="max-height:76px;max-width:190px;object-fit:contain"></div><div class="sp-name">Betances</div><div class="sp-desc">Dedicated educational services provider supporting student success across Puerto Rico communities.</div></a></div><div class="sp-divider"></div><div class="sp-section-hdr"><h2>&#128717; Conference Vendors</h2><p>Innovative companies showcasing their tools and solutions at this year&#39;s conference.</p></div><div class="vendor-grid"><a href="https://www.betancespse.com/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=12-tUgJz95E5SzS7E0X2L88WnPi9p_xTN&sz=w300" alt="Betances" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>Betances</span></a><a href="https://www.magicschool.ai/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1lq644Pypy087pRY_WkEeqGIUY7cEVDxX&sz=w300" alt="MagicSchool AI" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>MagicSchool AI</span></a><a href="https://trekai.org/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1aLsHiyFN0Vnu6woSicspSqKEuyL1iWZY&sz=w300" alt="TrekAI" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>TrekAI</span></a><a href="https://www.casesolutionspr.com/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1O-3kkOu_Amxyn9pDbSHntejYHTi4QTZm&sz=w300" alt="Case Solutions PR" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>Case Solutions PR</span></a><a href="https://wida.wisc.edu/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1WW9ptUioaNVwXm5CIOPRbc6-aTVn4Qgp&sz=w300" alt="WIDA" style="max-height:48px;max-width:120px;object-fit:contain;background:white;padding:2px;border-radius:3px"></div><span>WIDA</span></a><a href="https://kaiseducation.com/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1-pjkYVDsg0v5UdU8tXmQqq1cHU2bU59j&sz=w300" alt="Kai Education" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>Kai Education</span></a><a href="https://www.summitk12.com/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1BnD1bWyEQuvZIRS1XwXrPMBp40aXtSVx&sz=w300" alt="Summit K12" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>Summit K12</span></a><a href="https://www.nwea.org/map-growth/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1If52WcHT8Uqcsh0xgTicqo4hjklmbaFe&sz=w300" alt="MAP Growth (NWEA/HMH)" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>MAP Growth (NWEA/HMH)</span></a><a href="https://brightwavetechs.com/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1xON6WeeoEN9bTd6yQ--BpQdobKIOLeuU&sz=w300" alt="Bright Wave PR" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>Bright Wave PR</span></a><a href="https://www.unib.org/" target="_blank" rel="noopener" class="v-tile"><div class="v-logo"><img src="https://drive.google.com/thumbnail?id=1BFNXdnNtw_w4sW1Si7NcOcO7GAzxvRt6&sz=w300" alt="UNIB" style="max-height:48px;max-width:120px;object-fit:contain"></div><span>UNIB</span></a></div><div class="sp-divider"></div><div class="sp-section-hdr"><h2>&#129309; Conference Partnerships</h2><p>Organizations sharing our vision of transforming education through collaboration.</p></div><div class="partner-grid"><a href="https://techmyschool.org/" target="_blank" rel="noopener" class="p-card"><div class="p-logo"><img src="https://drive.google.com/thumbnail?id=1pQkpKDru8aaYk4GCt5oG3aYzRqze47rm&sz=w300" alt="Tech My School" style="max-height:64px;max-width:160px;object-fit:contain"></div><div class="p-name">Tech My School</div><div class="p-desc">Nonprofit improving education in Puerto Rico through technology donations, educator training, and student programs.</div></a><a href="https://www.techplangenie.com/" target="_blank" rel="noopener" class="p-card"><div class="p-logo"><img src="https://drive.google.com/thumbnail?id=13TLGOAxu8tDOlOZNMql-6zizTx3aaYa7&sz=w300" alt="Tech Plan Genie" style="max-height:64px;max-width:160px;object-fit:contain"></div><div class="p-name">Tech Plan Genie</div><div class="p-desc">SaaS platform helping school administrators build and execute technology plans with efficiency.</div></a><a href="https://de.pr.gov/" target="_blank" rel="noopener" class="p-card"><div class="p-logo"><img src="https://drive.google.com/thumbnail?id=1QgUJoXLcJvMbACf-zXeK_hHlQUEJmE4N&sz=w300" alt="Dept. of Education PR" style="max-height:80px;max-width:200px;object-fit:contain"></div><div class="p-name">Dept. of Education Puerto Rico</div><div class="p-desc">The Puerto Rico Department of Education, committed to quality public education for every student.</div></a><a href="#" target="_blank" rel="noopener" class="p-card"><div class="p-logo"><img src="https://drive.google.com/thumbnail?id=128xsY7h8EbU59AIqBQCfAZmRfkcHPLNB&sz=w300" alt="CAIS" style="max-height:64px;max-width:160px;object-fit:contain"></div><div class="p-name">CAIS</div><div class="p-desc">Caribbean Association of Independent Schools fostering academic excellence across the Caribbean.</div></a><a href="https://de.pr.gov/escuela-publica-alianza/" target="_blank" rel="noopener" class="p-card"><div class="p-logo"><img src="https://drive.google.com/thumbnail?id=1GsXXr-FM5eZu-liNYEhBYN8VXOwa_iJ7&sz=w300" alt="Alianza Charter Schools PR" style="max-height:80px;max-width:200px;object-fit:contain"></div><div class="p-name">Alianza Charter Schools PR</div><div class="p-desc">Charter school alliance advancing public school innovation and student achievement across Puerto Rico.</div></a></div></div></div>
+
+<div class="view" id="view-disruptors">
+  <!-- HERO -->
+  <div class="td-hero">
+    <div class="td-hero-badge">🦜 TMS Spring Educators Conference 2026</div>
+    <h1>Tech <span>Disruptors</span><br>Competition</h1>
+    <p class="td-hero-sub">10 finalist educators showcasing innovative classroom technology projects in a science-fair style competition. Explore, engage, and vote for your favorite!</p>
+    <div class="td-stats">
+      <div class="td-stat"><div class="td-stat-num">10</div><div class="td-stat-lbl">Finalists</div></div>
+      <div class="td-stat"><div class="td-stat-num">8</div><div class="td-stat-lbl">Sessions</div></div>
+      <div class="td-stat"><div class="td-stat-num">Salon 4</div><div class="td-stat-lbl">Location</div></div>
+      <div class="td-stat"><div class="td-stat-num">Apr 11</div><div class="td-stat-lbl">Winners</div></div>
+    </div>
+    <nav style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px;padding-bottom:4px">
+      <a class="nav-lnk" data-section="home" onclick="go('home')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)">Home</a>
+      <a class="nav-lnk" data-section="sessions" onclick="go('sessions')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)">Sessions</a>
+      <a class="nav-lnk" data-section="speakers" onclick="go('speakers')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)">Speakers</a>
+      <a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)">Sponsors</a>
+      <button onclick="go('register')" style="background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;border:none;padding:6px 18px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer">Check In →</button>
+    </nav>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div class="td-sched-wrap">
+    <h2>📅 Competition Schedule</h2>
+    <p class="td-sub">All sessions in <strong>Salon 4</strong> · Science-fair style rotation (10 min per project) · Drop-in sessions open for free exploration</p>
+    <div class="td-days">
+      <div class="td-day">
+        <div class="td-day-hdr">📅 Friday · April 10</div>
+        <div class="td-slot">
+          <div class="td-slot-icon comp">🏆</div>
+          <div><div class="td-slot-time">10:30 – 11:20 AM</div><div class="td-slot-title">Competition Round 1</div><div class="td-slot-loc">Salon 4 · 5 projects · 10 min each</div></div>
+        </div>
+        <div class="td-slot">
+          <div class="td-slot-icon drop">👀</div>
+          <div><div class="td-slot-time">11:30 AM – 12:20 PM</div><div class="td-slot-title">Drop-In & Explore</div><div class="td-slot-loc">Salon 4 · Browse all 10 projects</div></div>
+        </div>
+        <div class="td-slot">
+          <div class="td-slot-icon comp">🏆</div>
+          <div><div class="td-slot-time">1:30 – 2:20 PM</div><div class="td-slot-title">Competition Round 2</div><div class="td-slot-loc">Salon 4 · 5 remaining projects</div></div>
+        </div>
+        <div class="td-slot">
+          <div class="td-slot-icon drop">👀</div>
+          <div><div class="td-slot-time">2:30 – 3:20 PM</div><div class="td-slot-title">Drop-In & Explore</div><div class="td-slot-loc">Salon 4 · Free exploration</div></div>
+        </div>
+      </div>
+      <div class="td-day">
+        <div class="td-day-hdr">📅 Saturday · April 11</div>
+        <div class="td-slot">
+          <div class="td-slot-icon comp">🏆</div>
+          <div><div class="td-slot-time">10:30 – 11:20 AM</div><div class="td-slot-title">Competition Round 3</div><div class="td-slot-loc">Salon 4 · 5 projects · 10 min each</div></div>
+        </div>
+        <div class="td-slot">
+          <div class="td-slot-icon drop">👀</div>
+          <div><div class="td-slot-time">11:30 AM – 12:20 PM</div><div class="td-slot-title">Drop-In & Explore</div><div class="td-slot-loc">Salon 4 · Browse all 10 projects</div></div>
+        </div>
+        <div class="td-slot">
+          <div class="td-slot-icon comp">🏆</div>
+          <div><div class="td-slot-time">1:30 – 2:20 PM</div><div class="td-slot-title">Competition Round 4</div><div class="td-slot-loc">Salon 4 · Final presentations</div></div>
+        </div>
+        <div class="td-slot">
+          <div class="td-slot-icon drop">👀</div>
+          <div><div class="td-slot-time">2:30 – 3:20 PM</div><div class="td-slot-title">Drop-In & Explore</div><div class="td-slot-loc">Salon 4 · Last chance to visit</div></div>
+        </div>
+        <div class="td-winner-banner">
+          <div class="tw-icon">🥇</div>
+          <div><h3>Winners Announced!</h3><p>Saturday April 11 · 4:00 PM · Rio Mar Ballroom</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINALISTS -->
+  <div class="td-finalists">
+    <h2>🎯 2026 Finalists</h2>
+    <p class="td-sub">10 educator-led projects selected from 14 submissions — showcasing innovative use of technology in Puerto Rico classrooms</p>
+    <div class="td-grid">
+
+      <div class="td-card" style="--card-accent:linear-gradient(90deg,#7c3aed,#ec4899);--num-bg:#fdf4ff;--num-col:#7c3aed">
+        <div class="td-card-num">1</div>
+        <div class="td-card-title">🤖 Narrabots</div>
+        <div class="td-card-teacher">Maestra Ariana Colón</div>
+        <div class="td-card-meta">Robertson's Private School · Fajardo, PR<br>Students designed AI-assisted robots, created stories with ChatGPT, and built digital books with Book Creator. Reading data collected via Seesaw to personalize instruction.</div>
+        <div class="td-card-tags"><span class="td-tag grade">3rd Grade</span><span class="td-tag subj">Español</span><span class="td-tag city">Fajardo</span></div>
+      </div>
+
+      <div class="td-card" style="--card-accent:linear-gradient(90deg,#2563eb,#06b6d4);--num-bg:#eff6ff;--num-col:#2563eb">
+        <div class="td-card-num">2</div>
+        <div class="td-card-title">🎭 Voices of History: A Living Museum Experience</div>
+        <div class="td-card-teacher">Maestra Wilmayris Valentín</div>
+        <div class="td-card-meta">Robertson's Private School · Fajardo, PR<br>A student-created virtual museum using ChatGPT, HeyGen talking-avatar videos, and Spatial.io — transforming historical figures into immersive digital experiences.</div>
+        <div class="td-card-tags"><span class="td-tag grade">9th–11th Grade</span><span class="td-tag subj">Historia</span><span class="td-tag city">Fajardo</span></div>
+      </div>
+
+      <div class="td-card" style="--card-accent:linear-gradient(90deg,#ea580c,#f59e0b);--num-bg:#fff7ed;--num-col:#ea580c">
+        <div class="td-card-num">3</div>
+        <div class="td-card-title">🍽️ Taste4All</div>
+        <div class="td-card-teacher">Maestro Bryan Rivera Medina</div>
+        <div class="td-card-meta">Esc. Sup. Francisco Morales Rivera · Naranjito, PR<br>A lab simulation for students with Autism using VR, tablets, and data logging. Students develop innovative recipes — including for NASA's Astronaut Culinary Challenge in zero gravity.</div>
+        <div class="td-card-tags"><span class="td-tag grade">SEM Autismo</span><span class="td-tag subj">Ciencias</span><span class="td-tag city">Naranjito</span></div>
+      </div>
+
+      <div class="td-card" style="--card-accent:linear-gradient(90deg,#059669,#06b6d4);--num-bg:#f0fdf4;--num-col:#059669">
+        <div class="td-card-num">4</div>
+        <div class="td-card-title">🗺️ Learning Roadmaps: A Tech-Powered System for Reflection, Voice & Mastery</div>
+        <div class="td-card-teacher">Maestra Marina Osorio</div>
+        <div class="td-card-meta">Christian Day School · San Juan, PR<br>A data-driven personalized learning system using ClassDojo, Khan Academy, Wayground, and Book Creator to track progress, support instruction, and build student metacognition.</div>
+        <div class="td-card-tags"><span class="td-tag grade">3rd–6th Grade</span><span class="td-tag subj">Matemáticas</span><span class="td-tag city">San Juan</span></div>
+      </div>
+
+      <div class="td-card" style="--card-accent:linear-gradient(90deg,#7c3aed,#2563eb);--num-bg:#fdf4ff;--num-col:#7c3aed">
+        <div class="td-card-num">5</div>
+        <div class="td-card-title">💻 Python en Juego: Aprendiendo con CodeCombat</div>
+        <div class="td-card-teacher">Maestro Alexander Santana</div>
+        <div class="td-card-meta">Paradiso College Preparatory · San Juan, PR<br>Python learning turned into an epic adventure. Using Macs and Google Classroom, students access CodeCombat — going from zero to creating complex solutions with full autonomy.</div>
+        <div class="td-card-tags"><span class="td-tag grade">7th–8th Grade</span><span class="td-tag subj">Tecnología</span><span class="td-tag city">San Juan</span></div>
+      </div>
+
+      <div class="td-card" style="--card-accent:linear-gradient(90deg,#d97706,#ea580c);--num-bg:#fffbeb;--num-col:#d97706">
+        <div class="td-card-num">6</div>
+        <div class="td-card-title">🧭 Construyendo Mapas, Revisitando Rutas, Apreciando Nuestro Legado</div>
+        <div class="td-card-teacher">Maestra Valerie Martínez</div>
+        <div class="td-card-meta">Paradiso College Preparatory · Arecibo, PR<br>Students used NASA WorldView satellite imagery and National Geographic MapMaker to trace the routes of the Caribbean's first settlers, producing a data-rich analytical map.</div>
+        <div class="td-card-tags"><span class="td-tag grade">8th Grade</span><span class="td-tag subj">Estudios Sociales</span><span class="td-tag city">Arecibo</span></div>
+      </div>
+
+      <div class="td-card" style="--card-accent:linear-gradient(90deg,#ec4899,#f43f5e);--num-bg:#fdf2f8;--num-col:#ec4899">
+        <div class="td-card-num">7</div>
+        <div class="td-card-title">🎵 Bunny Ears & Superheroes: Teaching Through Songs</div>
+        <div class="td-card-teacher">Maestra Mariana Bermúdez</div>
+        <div class="td-card-meta">East Point Academy · Las Piedras, PR<br>6th graders used Suno to create songs, then taught 2nd graders how to tie their shoes — combining peer mentorship with AI-generated music. "Bunny ears" can be heard all day in the hallways.</div>
+        <div class="td-card-tags"><span class="td-tag grade">2nd–6th Grade</span><span class="td-tag subj">Tecnología &amp; Música</span><span class="td-tag city">Las Piedras</span></div>
+      </div>
+
+      <div class="td-card" style="--card-accent:linear-gradient(90deg,#0891b2,#2563eb);--num-bg:#ecfeff;--num-col:#0891b2">
+        <div class="td-card-num">8</div>
+        <div class="td-card-title">🇵🇷 Veinte Pueblos, Una Bandera</div>
+        <div class="td-card-teacher">Maestra Zaicha Torres</div>
+        <div class="td-card-meta">Emanuel Centro Educativo · Canóvanas, PR<br>Students researched 20 Puerto Rico municipalities and compiled their findings into a multimedia digital book using Book Creator — discovering new facts about their island's history and culture.</div>
+        <div class="td-card-tags"><span class="td-tag grade">6th Grade</span><span class="td-tag subj">Estudios Sociales</span><span class="td-tag city">Canóvanas</span></div>
+      </div>
+
+      <div class="td-card" style="--card-accent:linear-gradient(90deg,#7c3aed,#ec4899);--num-bg:#fdf4ff;--num-col:#7c3aed">
+        <div class="td-card-num">9</div>
+        <div class="td-card-title">🎮 Game Defenders: Programadores Contra el Ciberacoso</div>
+        <div class="td-card-teacher">Maestra Norma Muñoz Varela</div>
+        <div class="td-card-meta">Esc. SU Francisco Felicié Martínez · Vega Alta, PR<br>5th graders learn Python programming via CodeSpark while simultaneously learning to identify and combat cyberbullying — transforming classroom culture and building empathy through tech.</div>
+        <div class="td-card-tags"><span class="td-tag grade">5th Grade</span><span class="td-tag subj">Tecnología Educativa</span><span class="td-tag city">Vega Alta</span></div>
+      </div>
+
+      <div class="td-card" style="--card-accent:linear-gradient(90deg,#059669,#7c3aed);--num-bg:#f0fdf4;--num-col:#059669">
+        <div class="td-card-num">10</div>
+        <div class="td-card-title">🤝 When AI Meets Empathy: How AI Turned Wonder into a Learning Experience</div>
+        <div class="td-card-teacher">Maestra Alejandra Rentas</div>
+        <div class="td-card-meta">UNIB Escuela Laboratorio CeDIn · San Juan, PR<br>AI chatbots scaffolded deep literary analysis of <em>Wonder</em> by R.J. Palacio. Groups of 2–3 students built character analyses with academic, emotional, and organizational AI support.</div>
+        <div class="td-card-tags"><span class="td-tag grade">5th Grade</span><span class="td-tag subj">Inglés</span><span class="td-tag city">San Juan</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <div class="view" id="view-admin-login">
 <div class="login-page">
   <div class="login-card">
