@@ -402,6 +402,33 @@ tr:hover td{background:var(--gray-50)}
 .ms-prog-bar{flex:1;height:8px;background:#e2e8f0;border-radius:8px;overflow:hidden}
 .ms-prog-fill{height:100%;background:var(--green);border-radius:8px;transition:width .4s ease}
 .ms-prog-count{font-size:.75rem;font-weight:700;color:var(--green);flex-shrink:0}
+
+/* Add Attendee form */
+.add-att-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 24px 0;flex-wrap:wrap;gap:12px}
+.add-att-bar h3{font-family:Outfit,sans-serif;font-size:1.1rem;font-weight:800;color:var(--navy)}
+.add-att-bar-right{display:flex;gap:8px;align-items:center}
+.btn-add-att{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;background:var(--green);color:#fff;border:none;border-radius:24px;font-size:.85rem;font-weight:700;font-family:Outfit,sans-serif;cursor:pointer;transition:all .2s}
+.btn-add-att:hover{background:var(--green-light);transform:translateY(-1px)}
+.att-search{padding:8px 14px;border:1.5px solid #e2e8f0;border-radius:20px;font-size:.82rem;font-family:DM Sans,sans-serif;width:200px;outline:none;transition:border .2s}
+.att-search:focus{border-color:var(--navy)}
+.add-att-panel{display:none;background:linear-gradient(135deg,#f8faff 0%,#fff 100%);border:2px solid #e2e8f0;border-radius:16px;margin:12px 24px;padding:24px;animation:slideDown .2s ease}
+.add-att-panel.open{display:block}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.add-att-panel h4{font-family:Outfit,sans-serif;font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.add-att-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.add-att-grid label{display:flex;flex-direction:column;gap:4px;font-size:.75rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px}
+.add-att-grid input,.add-att-grid select{padding:9px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:.85rem;font-family:DM Sans,sans-serif;outline:none;transition:border .2s;background:#fff}
+.add-att-grid input:focus,.add-att-grid select:focus{border-color:var(--navy)}
+.add-att-grid input.req-missing{border-color:#dc2626;background:#fff5f5}
+.add-att-actions{display:flex;gap:10px;align-items:center}
+.btn-submit-att{padding:10px 28px;background:var(--navy);color:#fff;border:none;border-radius:24px;font-size:.85rem;font-weight:700;font-family:Outfit,sans-serif;cursor:pointer;transition:all .2s}
+.btn-submit-att:hover{background:var(--green)}
+.btn-submit-att:disabled{opacity:.5;cursor:not-allowed}
+.btn-cancel-att{padding:10px 20px;background:transparent;color:#64748b;border:1.5px solid #e2e8f0;border-radius:24px;font-size:.85rem;font-weight:600;font-family:Outfit,sans-serif;cursor:pointer}
+.btn-cancel-att:hover{border-color:#94a3b8;color:var(--navy)}
+.add-att-msg{font-size:.82rem;font-weight:600;padding:6px 12px;border-radius:8px;display:none}
+.add-att-msg.success{display:inline-flex;background:#dcfce7;color:#16a34a}
+.add-att-msg.error{display:inline-flex;background:#fee2e2;color:#dc2626}
 </style>
 <style id="claude-agent-animation-styles">
       @keyframes claude-pulse {
@@ -965,6 +992,34 @@ tr:hover td{background:var(--gray-50)}
       </div>
       <!-- Attendees -->
       <div class="admin-pane hidden" id="ap-attendees">
+
+        <!-- Add Attendee bar -->
+        <div class="add-att-bar">
+          <h3>👥 Attendees</h3>
+          <div class="add-att-bar-right">
+            <input class="att-search" id="att-search" type="text" placeholder="🔍 Search name, email, school..." oninput="filterAtt(this.value)">
+            <button class="btn-add-att" onclick="toggleAddAtt()">➕ Add Attendee</button>
+          </div>
+        </div>
+
+        <!-- Slide-down form -->
+        <div class="add-att-panel" id="add-att-panel">
+          <h4>➕ Add New Attendee</h4>
+          <div class="add-att-grid">
+            <label>Full Name *<input id="aa-name" type="text" placeholder="e.g. Maria García" autocomplete="off"></label>
+            <label>Email Address *<input id="aa-email" type="email" placeholder="e.g. maria@school.edu" autocomplete="off"></label>
+            <label>School / Organization *<input id="aa-school" type="text" placeholder="e.g. Colegio San José" autocomplete="off"></label>
+            <label>Position<select id="aa-pos"><option value="">Select position...</option><option>Teacher</option><option>Principal</option><option>Assistant Principal</option><option>Director</option><option>Technology Director</option><option>District Admin</option><option>Counselor</option><option>Coach</option><option>Other</option></select></label>
+            <label>City<input id="aa-city" type="text" placeholder="e.g. San Juan"></label>
+            <label>Badge Status<select id="aa-badge"><option value="pending">Pending</option><option value="printing">Printing</option><option value="printed">Printed</option></select></label>
+          </div>
+          <div class="add-att-actions">
+            <button class="btn-submit-att" id="aa-submit" onclick="addAttendee()">✅ Add Attendee</button>
+            <button class="btn-cancel-att" onclick="toggleAddAtt()">Cancel</button>
+            <span class="add-att-msg" id="aa-msg"></span>
+          </div>
+        </div>
+
         <div class="tw">
           <table>
             <thead><tr><th>Name</th><th>School</th><th>City</th><th>Time</th><th>Status</th><th>Update</th></tr></thead>
@@ -1731,6 +1786,112 @@ function renderMySchedule(){
   d2html+=fixedRow('t-break','3:20<br>–<br>3:50 PM','☕ Coffee Break 2','Meet the Tech Disruptors','Browse finalist projects · Salon 4');
   d2html+=fixedRow('fixed','4:00<br>–<br>5:00 PM','🏆 Awards &amp; Closing','Tech Disruptors Awards, Raffles, Live Performance &amp; Closing','Winners announced · Rio Mar Ballroom');
   document.getElementById('ms-d2').innerHTML=d2html;
+}
+
+
+function toggleAddAtt(){
+  var p=document.getElementById('add-att-panel');
+  p.classList.toggle('open');
+  if(p.classList.contains('open')){
+    document.getElementById('aa-name').focus();
+    document.getElementById('aa-msg').style.display='none';
+    document.getElementById('aa-msg').className='add-att-msg';
+  }
+}
+
+async function addAttendee(){
+  var n=document.getElementById('aa-name').value.trim();
+  var e=document.getElementById('aa-email').value.trim().toLowerCase();
+  var s=document.getElementById('aa-school').value.trim();
+  var pos=document.getElementById('aa-pos').value;
+  var c=document.getElementById('aa-city').value.trim();
+  var b=document.getElementById('aa-badge').value;
+  var msg=document.getElementById('aa-msg');
+  var btn=document.getElementById('aa-submit');
+
+  // Validate required fields
+  ['aa-name','aa-email','aa-school'].forEach(function(id){
+    document.getElementById(id).classList.remove('req-missing');
+  });
+  if(!n||!e||!s){
+    if(!n) document.getElementById('aa-name').classList.add('req-missing');
+    if(!e) document.getElementById('aa-email').classList.add('req-missing');
+    if(!s) document.getElementById('aa-school').classList.add('req-missing');
+    msg.textContent='⚠️ Please fill in all required fields';
+    msg.className='add-att-msg error';
+    msg.style.display='inline-flex';
+    return;
+  }
+  // Basic email check
+  if(!e.includes('@')||!e.includes('.')){
+    document.getElementById('aa-email').classList.add('req-missing');
+    msg.textContent='⚠️ Please enter a valid email address';
+    msg.className='add-att-msg error';
+    msg.style.display='inline-flex';
+    return;
+  }
+
+  btn.disabled=true;
+  btn.textContent='Adding...';
+  msg.style.display='none';
+
+  try{
+    var now=new Date();
+    var timeStr=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    var newAtt={
+      n:n, email:e, s:s, r:pos||'', c:c, b:b,
+      t:timeStr, checked_in:false, session_picks:null, sessions_selected:0
+    };
+    var SB='https://katheqekgsmyvfknxbqj.supabase.co';
+    var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthdGhlcWVrZ3NteXZma254YnFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA2NzkxMjQsImV4cCI6MjA1NjI1NTEyNH0.yh9BNKF1UtqBRNMGsHUc2AUhBuUJ03xlk9qBc_TBDNM';
+    var resp=await fetch(SB+'/rest/v1/attendees',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':KEY,'Authorization':'Bearer '+KEY,'Prefer':'return=representation'},
+      body:JSON.stringify(newAtt)
+    });
+    var data=await resp.json();
+    if(!resp.ok) throw new Error(data.message||'Insert failed');
+
+    // Success — add to ATT array and re-render
+    var created=Array.isArray(data)?data[0]:data;
+    if(created && created.id) newAtt.id=created.id;
+    ATT.unshift(newAtt);
+    renderAtt();
+    updStats();
+
+    // Clear form
+    ['aa-name','aa-email','aa-school','aa-city'].forEach(function(id){document.getElementById(id).value='';});
+    document.getElementById('aa-pos').value='';
+    document.getElementById('aa-badge').value='pending';
+
+    msg.textContent='✅ '+n+' added successfully!';
+    msg.className='add-att-msg success';
+    msg.style.display='inline-flex';
+    btn.textContent='✅ Add Attendee';
+    btn.disabled=false;
+
+    // Auto-close panel after 2s
+    setTimeout(function(){
+      document.getElementById('add-att-panel').classList.remove('open');
+      msg.style.display='none';
+    },2000);
+
+  } catch(err){
+    msg.textContent='❌ Error: '+err.message;
+    msg.className='add-att-msg error';
+    msg.style.display='inline-flex';
+    btn.textContent='✅ Add Attendee';
+    btn.disabled=false;
+  }
+}
+
+function filterAtt(q){
+  var rows=[...document.querySelectorAll('#att-tbody tr')];
+  var ql=q.toLowerCase();
+  rows.forEach(function(r){
+    var txt=r.textContent.toLowerCase();
+    r.style.display=(!q||txt.includes(ql))?'':'none';
+  });
 }
 
 // ── ADMIN ──────────────────────────────────────────────────────────────
