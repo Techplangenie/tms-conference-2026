@@ -1842,13 +1842,12 @@ async function addAttendee(){
       n:n, email:e, s:s, r:pos||'', c:c, b:b,
       t:timeStr, checked_in:false, session_picks:null, sessions_selected:0
     };
-    var resp=await supaFetch('/rest/v1/attendees',{
+    var data=await supaFetch('/rest/v1/attendees',{
       method:'POST',
-      headers:{'Content-Type':'application/json','Prefer':'return=representation'},
+      headers:{'Prefer':'return=representation'},
       body:JSON.stringify(newAtt)
     });
-    var data=await resp.json();
-    if(!resp.ok) throw new Error((data.message||data.error||'Insert failed'));
+    if(data && data.code) throw new Error(data.message||data.error||'Insert failed: '+data.code);
 
     // Success — add to ATT array and re-render
     var created=Array.isArray(data)?data[0]:data;
