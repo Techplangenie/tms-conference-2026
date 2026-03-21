@@ -587,7 +587,7 @@ tr:hover td{background:var(--gray-50)}
 
   <!-- MODE TOGGLE - only shown when logged in -->
   <div class="sess-mode-bar" id="sess-mode-bar" style="display:none">
-    <button class="sess-mode-btn active" id="mode-browse" onclick="setSessMode('browse')">🗂️ Browse Sessions</button>
+    <button class="sess-mode-btn active" id="mode-browsing" onclick="setSessMode('browsing')">🗂️ Browse Sessions</button>
     <button class="sess-mode-btn" id="mode-myschedule" onclick="setSessMode('myschedule')">📋 My Schedule</button>
   </div>
 
@@ -1624,15 +1624,15 @@ function showSchedDay(d,btn){
 }
 
 
-var sessMode='browse';
+var sessMode='browsing';
 
 function setSessMode(mode){
   sessMode=mode;
-  document.getElementById('mode-browse').classList.toggle('active',mode==='browse');
+  document.getElementById('mode-browsing').classList.toggle('active',mode==='browsing');
   document.getElementById('mode-myschedule').classList.toggle('active',mode==='myschedule');
   document.getElementById('my-sched-wrap').classList.toggle('active',mode==='myschedule');
   var bw=document.getElementById('sess-browse-wrap');
-  if(bw){bw.style.display=mode==='browse'?'block':'none';}
+  if(bw){bw.style.display=mode==='browsing'?'block':'none';}
   if(mode==='myschedule')renderMySchedule();
 }
 
@@ -1689,7 +1689,7 @@ function renderMySchedule(){
         +'<div class="ms-label">⏳ '+slotLbl+'</div>'
         +'<div class="ms-title" style="color:#94a3b8">Not yet selected</div>'
         +'<div class="ms-empty-prompt">Tap below to choose your session</div>'
-        +'<button class="ms-pick-btn" onclick="setSessMode('browse')">➕ Browse &amp; Select Session</button>'
+        +'<button class="ms-pick-btn" onclick="setSessMode('browsing')">➕ Browse &amp; Select Session</button>'
       +'</div></div>';
   }
 
