@@ -245,7 +245,7 @@ tr:hover td{background:var(--gray-50)}
 .r-mod{background:#7c3aed;color:#fff}
 .r-pan{background:#2563eb;color:#fff}
 .r-spe{background:#dc2626;color:#fff}
-.r-tms{background:#16a34a;color:#fff}.r-flo{background:#ea580c;color:#fff}
+.r-mc{background:#be185d;color:#fff}.r-tms{background:#16a34a;color:#fff}.r-flo{background:#ea580c;color:#fff}
 </style>
 <style id="claude-agent-animation-styles">
       @keyframes claude-pulse {
@@ -914,7 +914,10 @@ function spkRoles(sp){
   /* 5. Tech My School team */
   var TMS=['robert-cobbs','darlene-colon','armanie-cordero','ivonne-rosa','mehdi-amani'];
   if(TMS.indexOf(id)>-1) roles.push('tms');
-  /* 6. Flock Leaders */
+  /* 6. MC */
+  var MC=['robert-cobbs','darlene-colon'];
+  if(MC.indexOf(id)>-1) roles.push('mc');
+  /* 7. Flock Leaders */
   var FLOCK=['norma-munoz','ariana-colon','zaicha-torres',
              'kathleen-mcglone','jose-alicea','marina-osorio','mariana-bermudez','yahaira-murphy'];
   if(FLOCK.indexOf(id)>-1) roles.push('flock');
@@ -925,10 +928,10 @@ function spkRoles(sp){
 function spkTagsHTML(sp){
   var roles=spkRoles(sp);
   var labels={keynote:'🏆 Keynote',moderator:'🎤 Moderator',panelist:'🤝 Panelist',
-              presenter:'💬 Presenter',tms:'🏫 Tech My School',flock:'🦜 Flock Leader'};
+              presenter:'💬 Presenter',tms:'🏫 Tech My School',mc:'🎙️ MC',flock:'🦜 Flock Leader'};
   var classes={keynote:'r-key',moderator:'r-mod',panelist:'r-pan',
-               presenter:'r-spe',tms:'r-tms',flock:'r-flo'};
-  var order=['keynote','moderator','panelist','tms','flock','presenter'];
+               presenter:'r-spe',tms:'r-tms',mc:'r-mc',flock:'r-flo'};
+  var order=['keynote','moderator','mc','panelist','tms','flock','presenter'];
   var tags=order.filter(function(r){return roles.indexOf(r)>-1;}).map(function(r){
     return '<span class="spk-role '+classes[r]+'">'+labels[r]+'</span>';
   });
