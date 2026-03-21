@@ -1808,78 +1808,44 @@ async function addAttendee(){
   var b=document.getElementById('aa-badge').value;
   var msg=document.getElementById('aa-msg');
   var btn=document.getElementById('aa-submit');
-
-  // Validate required fields
-  ['aa-name','aa-email','aa-school'].forEach(function(id){
-    document.getElementById(id).classList.remove('req-missing');
-  });
+  ['aa-name','aa-email','aa-school'].forEach(function(id){document.getElementById(id).classList.remove('req-missing');});
   if(!n||!e||!s){
-    if(!n) document.getElementById('aa-name').classList.add('req-missing');
-    if(!e) document.getElementById('aa-email').classList.add('req-missing');
-    if(!s) document.getElementById('aa-school').classList.add('req-missing');
+    if(!n)document.getElementById('aa-name').classList.add('req-missing');
+    if(!e)document.getElementById('aa-email').classList.add('req-missing');
+    if(!s)document.getElementById('aa-school').classList.add('req-missing');
     msg.textContent='⚠️ Please fill in all required fields';
-    msg.className='add-att-msg error';
-    msg.style.display='inline-flex';
-    return;
+    msg.className='add-att-msg error';msg.style.display='inline-flex';return;
   }
-  // Basic email check
   if(!e.includes('@')||!e.includes('.')){
     document.getElementById('aa-email').classList.add('req-missing');
     msg.textContent='⚠️ Please enter a valid email address';
-    msg.className='add-att-msg error';
-    msg.style.display='inline-flex';
-    return;
+    msg.className='add-att-msg error';msg.style.display='inline-flex';return;
   }
-
-  btn.disabled=true;
-  btn.textContent='Adding...';
-  msg.style.display='none';
-
+  btn.disabled=true;btn.textContent='Adding...';msg.style.display='none';
   try{
-    var now=new Date();
-    var timeStr=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-    var newAtt={
-      n:n, email:e, s:s, r:pos||'', c:c, b:b,
-      t:timeStr, checked_in:false, session_picks:null, sessions_selected:0
-    };
+    var payload={full_name:n,email:e,school:s,role:pos||null,city:c||null,badge_status:b};
     var data=await supaFetch('/rest/v1/attendees',{
       method:'POST',
       headers:{'Prefer':'return=representation'},
-      body:JSON.stringify(newAtt)
+      body:JSON.stringify(payload)
     });
-    if(data && data.code) throw new Error(data.message||data.error||'Insert failed: '+data.code);
-
-    // Success — add to ATT array and re-render
+    if(data&&data.code)throw new Error(data.message||data.error||'Insert failed');
     var created=Array.isArray(data)?data[0]:data;
-    if(created && created.id) newAtt.id=created.id;
-    ATT.unshift(newAtt);
-    renderAtt();
-    updStats();
-
-    // Clear form
+    var newRow={id:created&&created.id?created.id:Date.now(),n:n,email:e,s:s,c:c||'',role:pos||'',b:b,
+      t:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),sel:0,picks:{}};
+    ATT.unshift(newRow);renderAtt();updStats();
     ['aa-name','aa-email','aa-school','aa-city'].forEach(function(id){document.getElementById(id).value='';});
-    document.getElementById('aa-pos').value='';
-    document.getElementById('aa-badge').value='pending';
-
+    document.getElementById('aa-pos').value='';document.getElementById('aa-badge').value='pending';
     msg.textContent='✅ '+n+' added successfully!';
-    msg.className='add-att-msg success';
-    msg.style.display='inline-flex';
-    btn.textContent='✅ Add Attendee';
-    btn.disabled=false;
-
-    // Auto-close panel after 2s
-    setTimeout(function(){
-      document.getElementById('add-att-panel').classList.remove('open');
-      msg.style.display='none';
-    },2000);
-
-  } catch(err){
+    msg.className='add-att-msg success';msg.style.display='inline-flex';
+    btn.textContent='✅ Add Attendee';btn.disabled=false;
+    setTimeout(function(){document.getElementById('add-att-panel').classList.remove('open');msg.style.display='none';},2000);
+  }catch(err){
     msg.textContent='❌ Error: '+err.message;
-    msg.className='add-att-msg error';
-    msg.style.display='inline-flex';
-    btn.textContent='✅ Add Attendee';
-    btn.disabled=false;
+    msg.className='add-att-msg error';msg.style.display='inline-flex';
+    btn.textContent='✅ Add Attendee';btn.disabled=false;
   }
+}
 }
 
 function filterAtt(q){
