@@ -611,8 +611,6 @@ tr:hover td{background:var(--gray-50)}
     <a class="nav-lnk" data-section="speakers" onclick="go('speakers')">Speakers</a>
     <a class="nav-lnk" data-section="map" onclick="go('map')">Map</a><a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')">Sponsors</a>
   </div>
-  <button id="logout-btn" style="display:none" onclick="doLogout()">Logout</button>
-  <button class="nav-cta" onclick="go('register')">Check In →</button>
 </nav>
 <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:40px 20px;">
   <div style="background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);padding:40px 36px;max-width:420px;width:100%;">
@@ -658,11 +656,11 @@ tr:hover td{background:var(--gray-50)}
   </div>
   <button class="nav-hamburger" onclick="toggleMobileNav(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   <div class="nav-links">
-    <button class="nav-link" onclick="go('home')">Home</button>
-    <button class="nav-link" onclick="go('map')">Map</button>
-    <button class="nav-link" onclick="go('speakers')">Speakers</button>
-    <button class="nav-link" onclick="go('sponsors')">Sponsors</button>
-    <button class="nav-cta" onclick="go('register')">Register →</button>
+    <button class="nav-link" onclick="closeMobileNav();go('home')">Home</button>
+    <button class="nav-link" onclick="closeMobileNav();go('map')">Map</button>
+    <button class="nav-link" onclick="closeMobileNav();go('speakers')">Speakers</button>
+    <button class="nav-link" onclick="closeMobileNav();go('sponsors')">Sponsors</button>
+    <button class="nav-cta" onclick="closeMobileNav();go('register')">Check In →</button>
   </div>
 </nav>
 <div class="sessions-hero"><h1>Conference Sessions</h1><p>April 10-11, 2026 · Wyndham Rio Mar · 30+ Presenters</p></div>
