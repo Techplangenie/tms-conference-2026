@@ -1830,6 +1830,12 @@ async function addAttendee(){
       body:JSON.stringify(payload)
     });
     if(data&&data.code)throw new Error(data.message||data.error||'Insert failed');
+    // Also add to approved_emails so they can log in to the attendee portal
+    await supaFetch('/rest/v1/approved_emails',{
+      method:'POST',
+      headers:{'Prefer':'resolution=ignore-duplicates'},
+      body:JSON.stringify({email:e})
+    });
     var created=Array.isArray(data)?data[0]:data;
     var newRow={id:created&&created.id?created.id:Date.now(),n:n,email:e,s:s,c:c||'',role:pos||'',b:b,
       t:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),sel:0,picks:{}};
