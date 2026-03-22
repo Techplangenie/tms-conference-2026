@@ -429,6 +429,41 @@ tr:hover td{background:var(--gray-50)}
 .add-att-msg{font-size:.82rem;font-weight:600;padding:6px 12px;border-radius:8px;display:none}
 .add-att-msg.success{display:inline-flex;background:#dcfce7;color:#16a34a}
 .add-att-msg.error{display:inline-flex;background:#fee2e2;color:#dc2626}
+
+/* CSV Import */
+.btn-import-csv{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;background:#1e3a5f;color:#fff;border:none;border-radius:24px;font-size:.85rem;font-weight:700;font-family:Outfit,sans-serif;cursor:pointer;transition:all .2s}
+.btn-import-csv:hover{background:#2d5282;transform:translateY(-1px)}
+.csv-import-panel{display:none;background:linear-gradient(135deg,#f0f7ff 0%,#fff 100%);border:2px solid #bfdbfe;border-radius:16px;margin:0 24px 12px;padding:24px;animation:slideDown .2s ease}
+.csv-import-panel.open{display:block}
+.csv-drop-zone{border:2.5px dashed #93c5fd;border-radius:12px;padding:32px;text-align:center;cursor:pointer;transition:all .2s;background:#f8faff}
+.csv-drop-zone.drag-over{border-color:var(--green);background:#f0fff4}
+.csv-drop-zone h4{font-family:Outfit,sans-serif;font-size:1rem;font-weight:800;color:var(--navy);margin:0 0 6px}
+.csv-drop-zone p{font-size:.82rem;color:#64748b;margin:0}
+.csv-drop-zone .csv-icon{font-size:2.5rem;margin-bottom:8px}
+.csv-file-input{display:none}
+.csv-preview-wrap{margin-top:16px}
+.csv-preview-wrap h4{font-family:Outfit,sans-serif;font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:10px}
+.csv-map-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.csv-map-col label{display:flex;flex-direction:column;gap:3px;font-size:.72rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.4px}
+.csv-map-col select{padding:6px 8px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.78rem;font-family:DM Sans,sans-serif;outline:none;background:#fff}
+.csv-map-col select.mapped{border-color:var(--green);background:#f0fff4}
+.csv-preview-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:14px;overflow:hidden;border-radius:8px;border:1px solid #e2e8f0}
+.csv-preview-table th{background:var(--navy);color:#fff;padding:7px 10px;text-align:left;font-family:Outfit,sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.csv-preview-table td{padding:6px 10px;border-bottom:1px solid #f1f5f9;color:#334155}
+.csv-preview-table tr:last-child td{border-bottom:none}
+.csv-preview-table tr:nth-child(even) td{background:#f8faff}
+.csv-import-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn-run-import{padding:10px 28px;background:var(--green);color:#fff;border:none;border-radius:24px;font-size:.85rem;font-weight:700;font-family:Outfit,sans-serif;cursor:pointer;transition:all .2s}
+.btn-run-import:hover{background:var(--green-light)}
+.btn-run-import:disabled{opacity:.5;cursor:not-allowed}
+.btn-cancel-import{padding:10px 20px;background:transparent;color:#64748b;border:1.5px solid #e2e8f0;border-radius:24px;font-size:.85rem;font-weight:600;font-family:Outfit,sans-serif;cursor:pointer}
+.btn-cancel-import:hover{border-color:#94a3b8;color:var(--navy)}
+.csv-progress-wrap{width:100%;background:#e2e8f0;border-radius:20px;height:8px;overflow:hidden;margin:8px 0}
+.csv-progress-bar{height:8px;background:var(--green);border-radius:20px;transition:width .3s;width:0%}
+.csv-status-msg{font-size:.82rem;font-weight:600;padding:6px 12px;border-radius:8px}
+.csv-status-msg.success{background:#dcfce7;color:#16a34a}
+.csv-status-msg.error{background:#fee2e2;color:#dc2626}
+.csv-status-msg.info{background:#dbeafe;color:#1d4ed8}
 </style>
 <style id="claude-agent-animation-styles">
       @keyframes claude-pulse {
@@ -999,6 +1034,7 @@ tr:hover td{background:var(--gray-50)}
           <div class="add-att-bar-right">
             <input class="att-search" id="att-search" type="text" placeholder="🔍 Search name, email, school..." oninput="filterAtt(this.value)">
             <button class="btn-add-att" onclick="toggleAddAtt()">➕ Add Attendee</button>
+            <button class="btn-import-csv" onclick="toggleCsvImport()">📥 Import CSV</button>
           </div>
         </div>
 
@@ -1017,6 +1053,32 @@ tr:hover td{background:var(--gray-50)}
             <button class="btn-submit-att" id="aa-submit" onclick="addAttendee()">✅ Add Attendee</button>
             <button class="btn-cancel-att" onclick="toggleAddAtt()">Cancel</button>
             <span class="add-att-msg" id="aa-msg"></span>
+          </div>
+        </div>
+
+        <!-- CSV Import Panel -->
+        <div class="csv-import-panel" id="csv-import-panel">
+          <h4 style="font-family:Outfit,sans-serif;font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px">📥 Bulk Import Attendees from CSV</h4>
+          <div class="csv-drop-zone" id="csv-drop-zone" onclick="document.getElementById('csv-file-input').click()" ondragover="csvDragOver(event)" ondragleave="csvDragLeave(event)" ondrop="csvDrop(event)">
+            <div class="csv-icon">📄</div>
+            <h4>Drop your CSV file here or click to browse</h4>
+            <p>Export from Google Forms → Download responses → .csv &nbsp;·&nbsp; Supports any column order</p>
+          </div>
+          <input type="file" id="csv-file-input" class="csv-file-input" accept=".csv" onchange="csvFileSelected(this)">
+          <div class="csv-preview-wrap" id="csv-preview-wrap" style="display:none">
+            <h4 id="csv-preview-title"></h4>
+            <p style="font-size:.8rem;color:#64748b;margin-bottom:10px">Map your CSV columns to attendee fields:</p>
+            <div class="csv-map-grid" id="csv-map-grid"></div>
+            <p style="font-size:.78rem;color:#64748b;margin-bottom:8px;font-weight:600">Preview (first 5 rows):</p>
+            <div style="overflow-x:auto"><table class="csv-preview-table" id="csv-preview-table"></table></div>
+            <div class="csv-import-actions">
+              <button class="btn-run-import" id="csv-run-btn" onclick="runCsvImport()">✅ Import All</button>
+              <button class="btn-cancel-import" onclick="resetCsvImport()">✕ Clear</button>
+              <div style="flex:1"></div>
+              <span id="csv-row-count" style="font-size:.82rem;color:#64748b;font-weight:600"></span>
+            </div>
+            <div class="csv-progress-wrap" id="csv-prog-wrap" style="display:none"><div class="csv-progress-bar" id="csv-prog-bar"></div></div>
+            <div id="csv-status" style="margin-top:8px;font-size:.82rem;display:none"></div>
           </div>
         </div>
 
@@ -1860,6 +1922,221 @@ function filterAtt(q){
     var txt=r.textContent.toLowerCase();
     r.style.display=(!q||txt.includes(ql))?'':'none';
   });
+}
+
+
+// ── CSV Import ────────────────────────────────────────────────────
+var csvRows=[], csvHeaders=[], csvColMap={};
+
+function toggleCsvImport(){
+  var p=document.getElementById('csv-import-panel');
+  var a=document.getElementById('add-att-panel');
+  if(a.classList.contains('open')) a.classList.remove('open');
+  p.classList.toggle('open');
+}
+
+function csvDragOver(e){e.preventDefault();document.getElementById('csv-drop-zone').classList.add('drag-over');}
+function csvDragLeave(e){document.getElementById('csv-drop-zone').classList.remove('drag-over');}
+function csvDrop(e){
+  e.preventDefault();
+  document.getElementById('csv-drop-zone').classList.remove('drag-over');
+  var f=e.dataTransfer.files[0];
+  if(f) processCSVFile(f);
+}
+function csvFileSelected(input){if(input.files[0]) processCSVFile(input.files[0]);}
+
+function processCSVFile(file){
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var text=e.target.result;
+    var lines=text.split(/\r?\n/).filter(function(l){return l.trim();});
+    if(lines.length<2){alert('CSV must have a header row and at least one data row.');return;}
+    // Parse CSV properly (handles quoted commas)
+    function parseRow(row){
+      var res=[],cur='',inQ=false;
+      for(var i=0;i<row.length;i++){
+        var c=row[i];
+        if(c==='"'){inQ=!inQ;}
+        else if(c===','&&!inQ){res.push(cur.trim());cur='';}
+        else cur+=c;
+      }
+      res.push(cur.trim());
+      return res;
+    }
+    csvHeaders=parseRow(lines[0]);
+    csvRows=lines.slice(1).map(parseRow).filter(function(r){return r.some(function(c){return c;});});
+    document.getElementById('csv-preview-title').textContent='📋 '+csvRows.length+' rows detected in "'+file.name+'"';
+    document.getElementById('csv-row-count').textContent=csvRows.length+' attendees to import';
+    buildColumnMapper();
+    buildPreviewTable();
+    document.getElementById('csv-preview-wrap').style.display='block';
+    document.getElementById('csv-status').style.display='none';
+    document.getElementById('csv-prog-wrap').style.display='none';
+    document.getElementById('csv-run-btn').disabled=false;
+    document.getElementById('csv-run-btn').textContent='✅ Import All ('+csvRows.length+')';
+  };
+  reader.readAsText(file);
+}
+
+function autoDetectCol(headers, patterns){
+  for(var i=0;i<headers.length;i++){
+    var h=headers[i].toLowerCase().replace(/[^a-z0-9]/g,' ');
+    for(var j=0;j<patterns.length;j++){
+      if(h.indexOf(patterns[j])>-1) return i;
+    }
+  }
+  return -1;
+}
+
+function buildColumnMapper(){
+  // Auto-detect
+  var fields=[
+    {key:'full_name', label:'Full Name *', patterns:['full name','nombre','name','first name']},
+    {key:'email',     label:'Email *',     patterns:['email','correo','e-mail']},
+    {key:'school',    label:'School',      patterns:['school','escuela','organization','institution','institucion']},
+    {key:'role',      label:'Position',    label:['position','cargo','role','job','title','puesto']},
+    {key:'city',      label:'City',        patterns:['city','ciudad','municipio','town','location']}
+  ];
+  // also check for first+last name split
+  var fnIdx = autoDetectCol(csvHeaders,['first name','primer nombre','nombre']);
+  var lnIdx = autoDetectCol(csvHeaders,['last name','apellido','surname']);
+  if(fnIdx>-1 && lnIdx>-1) csvColMap._firstLast={fn:fnIdx,ln:lnIdx};
+  else csvColMap._firstLast=null;
+
+  var grid=document.getElementById('csv-map-grid');
+  grid.innerHTML='';
+  csvColMap={};
+  fields.forEach(function(f){
+    var detectedIdx = autoDetectCol(csvHeaders, f.patterns||[f.label.toLowerCase().replace(' *','')]);
+    var sel='<select id="map-'+f.key+'" onchange="csvColMap[''+f.key+'']=parseInt(this.value)" class="'+(detectedIdx>-1?'mapped':'')+'">';
+    sel+='<option value="-1">— skip —</option>';
+    csvHeaders.forEach(function(hdr,i){
+      sel+='<option value="'+i+'"'+(i===detectedIdx?' selected':'')+'>'+hdr+'</option>';
+    });
+    sel+='</select>';
+    grid.innerHTML+='<div class="csv-map-col"><label>'+f.label+sel+'</label></div>';
+    csvColMap[f.key]=detectedIdx;
+  });
+}
+
+function buildPreviewTable(){
+  var tbl=document.getElementById('csv-preview-table');
+  var preview=csvRows.slice(0,5);
+  var fields=['full_name','email','school','role','city'];
+  var labels=['Name','Email','School','Position','City'];
+  var thead='<thead><tr>'+labels.map(function(l){return'<th>'+l+'</th>';}).join('')+'</tr></thead>';
+  var tbody='<tbody>'+preview.map(function(row){
+    return'<tr>'+fields.map(function(f){
+      var idx=csvColMap[f];
+      return'<td>'+(idx>-1&&idx<row.length ? (row[idx]||'—') : '<span style="color:#94a3b8">—</span>')+'</td>';
+    }).join('')+'</tr>';
+  }).join('')+'</tbody>';
+  tbl.innerHTML=thead+tbody;
+}
+
+function resetCsvImport(){
+  csvRows=[];csvHeaders=[];csvColMap={};
+  document.getElementById('csv-preview-wrap').style.display='none';
+  document.getElementById('csv-file-input').value='';
+  document.getElementById('csv-status').style.display='none';
+  document.getElementById('csv-prog-wrap').style.display='none';
+}
+
+async function runCsvImport(){
+  var nameIdx=parseInt(document.getElementById('map-full_name').value);
+  var emailIdx=parseInt(document.getElementById('map-email').value);
+  var schoolIdx=parseInt(document.getElementById('map-school').value);
+  var roleIdx=parseInt(document.getElementById('map-role').value);
+  var cityIdx=parseInt(document.getElementById('map-city').value);
+
+  if(emailIdx<0){
+    alert('Please map the Email column — it is required for login.');return;
+  }
+
+  var btn=document.getElementById('csv-run-btn');
+  var prog=document.getElementById('csv-prog-wrap');
+  var bar=document.getElementById('csv-prog-bar');
+  var status=document.getElementById('csv-status');
+  btn.disabled=true; btn.textContent='Importing...';
+  prog.style.display='block'; bar.style.width='0%';
+  status.style.display='none';
+
+  var SB='https://katheqekgsmyvfknxbqj.supabase.co';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthdGhlcWVrZ3NteXZma254YnFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MDg5NjcsImV4cCI6MjA4OTI4NDk2N30.VsBqlRjHmVE9zarkLgjmid5d3r3uZEWAz4hGmYFF7rk';
+  var hdrs={'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json'};
+
+  // Fetch existing emails to detect duplicates
+  var existRes=await fetch(SB+'/rest/v1/approved_emails?select=email',{headers:hdrs});
+  var existing=await existRes.json();
+  var existSet=new Set((existing||[]).map(function(r){return(r.email||'').toLowerCase();}));
+
+  var added=0, skipped=0, errors=0;
+  var total=csvRows.length;
+  var BATCH=20;
+
+  for(var i=0;i<total;i+=BATCH){
+    var batch=csvRows.slice(i,i+BATCH);
+    var toInsert=[];
+    var emailsToApprove=[];
+
+    batch.forEach(function(row){
+      var email=(emailIdx>-1&&row[emailIdx]?row[emailIdx].trim().toLowerCase():'');
+      if(!email){skipped++;return;}
+      if(existSet.has(email)){skipped++;return;}
+
+      var name='';
+      if(nameIdx>-1&&row[nameIdx]) name=row[nameIdx].trim();
+      // fallback: first+last
+      if(!name&&csvColMap._firstLast){
+        var fn=row[csvColMap._firstLast.fn]||'';
+        var ln=row[csvColMap._firstLast.ln]||'';
+        name=(fn+' '+ln).trim();
+      }
+
+      toInsert.push({
+        full_name: name||email,
+        email: email,
+        school: schoolIdx>-1&&row[schoolIdx] ? row[schoolIdx].trim() : null,
+        role:   roleIdx>-1&&row[roleIdx]   ? row[roleIdx].trim()   : null,
+        city:   cityIdx>-1&&row[cityIdx]   ? row[cityIdx].trim()   : null,
+        badge_status:'pending'
+      });
+      emailsToApprove.push({email:email});
+      existSet.add(email);
+    });
+
+    if(toInsert.length>0){
+      try{
+        var insRes=await fetch(SB+'/rest/v1/attendees',{
+          method:'POST',
+          headers:Object.assign({},hdrs,{'Prefer':'resolution=ignore-duplicates,return=minimal'}),
+          body:JSON.stringify(toInsert)
+        });
+        var aeRes=await fetch(SB+'/rest/v1/approved_emails',{
+          method:'POST',
+          headers:Object.assign({},hdrs,{'Prefer':'resolution=ignore-duplicates,return=minimal'}),
+          body:JSON.stringify(emailsToApprove)
+        });
+        added+=toInsert.length;
+      }catch(err){errors+=toInsert.length;}
+    }
+
+    bar.style.width=Math.round(Math.min(i+BATCH,total)/total*100)+'%';
+    status.style.display='block';
+    status.innerHTML='<span class="csv-status-msg info">⏳ Processing '+Math.min(i+BATCH,total)+' / '+total+'...</span>';
+    await new Promise(function(r){setTimeout(r,50);});
+  }
+
+  bar.style.width='100%';
+  var msg='';
+  if(added>0) msg+='✅ '+added+' attendees imported. ';
+  if(skipped>0) msg+='⏭ '+skipped+' skipped (duplicates/no email). ';
+  if(errors>0) msg+='❌ '+errors+' errors.';
+  status.innerHTML='<span class="csv-status-msg success">'+msg+'</span>';
+  btn.textContent='✅ Import All'; btn.disabled=false;
+
+  // Refresh admin table
+  await refreshAdmin();
 }
 
 // ── ADMIN ──────────────────────────────────────────────────────────────
