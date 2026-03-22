@@ -1484,7 +1484,19 @@ function go(v){
   if(v==='admin'){if(!adminLoggedIn){go('admin-login');return;}else{setTimeout(refreshAdmin,100);}}
   document.querySelectorAll('.view').forEach(function(el){el.classList.remove('active');});
   var sec=document.querySelector('#view-'+v);
-  if(sec) sec.classList.add('active');
+  if(sec){
+    sec.classList.add('active');
+    // Activate any ancestor .view containers (e.g. view-sessions wraps sub-views)
+    var anc=sec.parentElement;
+    while(anc&&anc.tagName!=='BODY'){if(anc.classList&&anc.classList.contains('view'))anc.classList.add('active');anc=anc.parentElement;}
+  }
+  // When in a sub-view, hide sessions list content so it doesn't bleed through
+  var _sv=document.getElementById('view-sessions');
+  if(_sv){
+    var _sc=Array.from(_sv.children).filter(function(c){return !c.classList.contains('view')&&c.tagName!=='NAV';});
+    if(v==='sessions'){_sc.forEach(function(c){c.style.display='';});}
+    else{_sc.forEach(function(c){c.style.display='none';});}
+  }
   var lnks=document.querySelectorAll('.nav-lnk');
   lnks.forEach(function(l){l.classList.remove('active'); if(l.dataset&&l.dataset.section===v) l.classList.add('active');});
   if(v==='sessions'){if(curAtt){renderSess();}else{renderSess();}}
