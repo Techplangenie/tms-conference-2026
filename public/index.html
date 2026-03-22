@@ -2008,7 +2008,7 @@ function buildColumnMapper(){
   csvColMap={};
   fields.forEach(function(f){
     var detectedIdx = autoDetectCol(csvHeaders, f.patterns||[f.label.toLowerCase().replace(' *','')]);
-    var sel='<select id="map-'+f.key+'" onchange="csvColMap[''+f.key+'']=parseInt(this.value)" class="'+(detectedIdx>-1?'mapped':'')+'">';
+    var sel='<select id="map-'+f.key+'" class="'+(detectedIdx>-1?'mapped':'')+'">';
     sel+='<option value="-1">— skip —</option>';
     csvHeaders.forEach(function(hdr,i){
       sel+='<option value="'+i+'"'+(i===detectedIdx?' selected':'')+'>'+hdr+'</option>';
