@@ -3111,4 +3111,55 @@ function doLogout(){
 
     </div><!-- /sched-body -->
   </div><!-- /view-schedule -->
+<script>
+(function(){
+  function doTranslate(){
+    if(!window.SESS_ES||!window.SLOTS||LANG!=='es') return;
+    var sm={};
+    SLOTS.forEach(function(sl){if(sl.sess)sl.sess.forEach(function(s){if(!sm[s.t])sm[s.t]=s;})});
+    document.querySelectorAll('#sess-list .sess-card').forEach(function(card){
+      var te=card.querySelector('.sess-title'),de=card.querySelector('.sess-desc');
+      if(!te) return;
+      var ee=sm[te.textContent.trim()];
+      if(!ee||!window.SESS_ES[ee.t]) return;
+      te.textContent=window.SESS_ES[ee.t].t;
+      if(de) de.textContent=window.SESS_ES[ee.t].d.substring(0,90)+(window.SESS_ES[ee.t].d.length>90?'...':'');
+    });
+  }
+  function undoTranslate(){
+    if(!window.SLOTS) return;
+    var sm={};
+    SLOTS.forEach(function(sl){if(sl.sess)sl.sess.forEach(function(s){if(!sm[s.t])sm[s.t]=s;})});
+    document.querySelectorAll('#sess-list .sess-card').forEach(function(card){
+      var te=card.querySelector('.sess-title'),de=card.querySelector('.sess-desc');
+      if(!te) return;
+      if(!window.SESS_ES) return;
+      var engKey=null;
+      Object.keys(window.SESS_ES).forEach(function(k){if(window.SESS_ES[k].t===te.textContent.trim())engKey=k;});
+      var ee=engKey?sm[engKey]:sm[te.textContent.trim()];
+      if(!ee) return;
+      te.textContent=ee.t;
+      if(de) de.textContent=ee.d.substring(0,90)+(ee.d.length>90?'...':'');
+    });
+  }
+  window._doTranslate=doTranslate;
+  window._undoTranslate=undoTranslate;
+  var obs=new MutationObserver(function(){
+    if(LANG==='es') doTranslate();
+  });
+  function attachObs(){
+    var sl=document.getElementById('sess-list');
+    if(sl){obs.observe(sl,{childList:true,subtree:false});doTranslate();}
+    else setTimeout(attachObs,200);
+  }
+  attachObs();
+  var _origSetLang=window.setLang||function(){};
+  document.addEventListener('click',function(){
+    setTimeout(function(){
+      if(LANG==='es') doTranslate();
+      else undoTranslate();
+    },100);
+  });
+})();
+</script>
 </body></html>
