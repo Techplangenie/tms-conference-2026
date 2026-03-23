@@ -618,8 +618,8 @@ body:not(.lang-es) .lang-es{display:none!important;}
   <button class="nav-hamburger" onclick="toggleMobileNav(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   <div class="nav-links">
     <a class="nav-lnk" data-section="home" onclick="go('home')" data-i18n="nav.home"><span class="lang-en">Home</span><span class="lang-es">Inicio</span></a>
-    <a class="nav-lnk" data-section="speakers" onclick="go('speakers')" data-i18n="nav.speakers">Speakers</a>
-    <a class="nav-lnk" data-section="map" onclick="go('map')" data-i18n="nav.map">Map</a><a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')" data-i18n="nav.sponsors">Sponsors</a>
+    <a class="nav-lnk" data-section="speakers" onclick="go('speakers')" data-i18n="nav.speakers"><span class="lang-en">Speakers</span><span class="lang-es">Ponentes</span></a>
+    <a class="nav-lnk" data-section="map" onclick="go('map')" data-i18n="nav.map">Map</a><a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')" data-i18n="nav.sponsors"><span class="lang-en">Sponsors</span><span class="lang-es">Patrocinadores</span></a>
   <div class="lang-toggle"><button class="lang-toggle-en lang-active" onclick="setLang('en')">EN</button><button class="lang-toggle-es" onclick="setLang('es')">ES</button></div></div>
 </nav>
 <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:40px 20px;">
@@ -785,10 +785,10 @@ body:not(.lang-es) .lang-es{display:none!important;}
       <div class="td-stat"><div class="td-stat-num">Apr 11</div><div class="td-stat-lbl"><span class="lang-en">Winners</span><span class="lang-es">Ganadores</span></div></div>
     </div>
     <nav style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px;padding-bottom:4px">
-      <a class="nav-lnk" data-section="home" onclick="go('home')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)">Home</a>
-      <a class="nav-lnk" data-section="sessions" onclick="go('sessions')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)">Sessions</a>
-      <a class="nav-lnk" data-section="speakers" onclick="go('speakers')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)">Speakers</a>
-      <a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)">Sponsors</a>
+      <a class="nav-lnk" data-section="home" onclick="go('home')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)"><span class="lang-en">Home</span><span class="lang-es">Inicio</span></a>
+      <a class="nav-lnk" data-section="sessions" onclick="go('sessions')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)"><span class="lang-en">Sessions</span><span class="lang-es">Sesiones</span></a>
+      <a class="nav-lnk" data-section="speakers" onclick="go('speakers')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)"><span class="lang-en">Speakers</span><span class="lang-es">Ponentes</span></a>
+      <a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.2)"><span class="lang-en">Sponsors</span><span class="lang-es">Patrocinadores</span></a>
       <button onclick="go('register')" style="background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;border:none;padding:6px 18px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer">Check In →</button>
     </nav>
   </div>
@@ -2907,10 +2907,10 @@ function doLogout(){
       </div>
       <button class="nav-hamburger" onclick="toggleMobileNav(this)" aria-label="Menu"><span></span><span></span><span></span></button>
   <div class="nav-links">
-        <a class="nav-lnk" data-section="sessions" onclick="go('sessions')">Sessions</a>
+        <a class="nav-lnk" data-section="sessions" onclick="go('sessions')"><span class="lang-en">Sessions</span><span class="lang-es">Sesiones</span></a>
         <a class="nav-lnk" data-section="map" onclick="go('map')" data-i18n="nav.map">Map</a>
-        <a class="nav-lnk" data-section="speakers" onclick="go('speakers')" data-i18n="nav.speakers">Speakers</a>
-        <a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')" data-i18n="nav.sponsors">Sponsors</a>
+        <a class="nav-lnk" data-section="speakers" onclick="go('speakers')" data-i18n="nav.speakers"><span class="lang-en">Speakers</span><span class="lang-es">Ponentes</span></a>
+        <a class="nav-lnk" data-section="sponsors" onclick="go('sponsors')" data-i18n="nav.sponsors"><span class="lang-en">Sponsors</span><span class="lang-es">Patrocinadores</span></a>
         <a class="nav-lnk active" data-section="schedule" onclick="go('schedule')">Schedule</a>
       </div>
     </nav>
