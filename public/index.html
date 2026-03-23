@@ -2753,22 +2753,17 @@ function translateSessions(){
   if(!window.SESS_ES||!window.SLOTS) return;
   var isES=(LANG==='es');
   var sessMap={};
-  SLOTS.forEach(function(slot){if(slot.sess)slot.sess.forEach(function(s){if(!sessMap[s.t])sessMap[s.t]=s;});});
+  SLOTS.forEach(function(slot){if(slot.sess)slot.sess.forEach(function(s){if(!sessMap[s.t])sessMap[s.t]=s;})});
   document.querySelectorAll('.sess-card').forEach(function(card){
     var titleEl=card.querySelector('.sess-title');
     var descEl=card.querySelector('.sess-desc');
     if(!titleEl) return;
     var currentTitle=titleEl.textContent.trim();
-    var engEntry=null;
+    var engKey=currentTitle;
     if(isES){
-      Object.keys(window.SESS_ES).forEach(function(k){if(window.SESS_ES[k].t===currentTitle)engEntry=sessMap[k];});
-      if(!engEntry) engEntry=sessMap[currentTitle];
-    } else {
-      engEntry=sessMap[currentTitle];
-      if(!engEntry){
-        Object.keys(window.SESS_ES).forEach(function(k){if(window.SESS_ES[k].t===currentTitle)engEntry=sessMap[k];});
-      }
+      Object.keys(window.SESS_ES).forEach(function(k){if(window.SESS_ES[k].t===currentTitle)engKey=k;});
     }
+    var engEntry=sessMap[engKey];
     if(!engEntry) return;
     if(isES&&window.SESS_ES[engEntry.t]){
       titleEl.textContent=window.SESS_ES[engEntry.t].t;
