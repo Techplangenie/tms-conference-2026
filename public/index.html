@@ -1582,7 +1582,7 @@ function renderSess(){if(!window.ALLSPK)window.ALLSPK=[];
     });
     html+='</div></div>';
   });
-  document.getElementById('sess-list').innerHTML=html;
+  document.getElementById('sess-list').innerHTML=html; if(typeof translateSessions==='function')translateSessions();
   // Show/hide mode bar based on login state
   var mb=document.getElementById('sess-mode-bar');
   if(mb) mb.style.display=curAtt?'flex':'none';
@@ -2748,9 +2748,31 @@ window.SESS_ES={
 "Learning Roadmaps: A Tech-Powered System for Mastery":{t:"Rutas de Aprendizaje: Un Sistema Tecnológico para el Dominio",d:"Un sistema práctico para optimizar flujos de trabajo en el aula con herramientas digitales integradas para rutinas estructuradas y aprendizaje gamificado."},
 "Take a Deep Dive with Snorkl: Making Thinking Visible":{t:"Sumérgete con Snorkl: Haciendo el Pensamiento Visible",d:"Cómo Snorkl ayuda a los estudiantes a pensar en voz alta mientras resuelven problemas — la retroalimentación con IA revela su pensamiento y potencia la metacognición."}
 };
+
+function translateSessions(){
+  if(!window.SESS_ES) return;
+  var isES=(LANG==='es');
+  document.querySelectorAll('.sess-card').forEach(function(card){
+    var titleEl=card.querySelector('.sess-title');
+    var descEl=card.querySelector('.sess-desc');
+    if(!titleEl) return;
+    var engTitle=card.getAttribute('data-eng-title')||titleEl.textContent.trim();
+    if(!card.getAttribute('data-eng-title')) card.setAttribute('data-eng-title',engTitle);
+    var engDesc=card.getAttribute('data-eng-desc')||(descEl?descEl.textContent.trim():'');
+    if(!card.getAttribute('data-eng-desc')&&descEl) card.setAttribute('data-eng-desc',engDesc);
+    if(isES&&window.SESS_ES[engTitle]){
+      titleEl.textContent=window.SESS_ES[engTitle].t;
+      if(descEl) descEl.textContent=window.SESS_ES[engTitle].d.substring(0,90)+(window.SESS_ES[engTitle].d.length>90?'...':'');
+    } else {
+      titleEl.textContent=engTitle;
+      if(descEl) descEl.textContent=engDesc;
+    }
+  });
+}
+
 function setLang(lang){
   LANG = lang;
-  localStorage.setItem('tms_lang', lang); setTimeout(function(){if(typeof renderSess==='function')renderSess();},50);
+  localStorage.setItem('tms_lang', lang); setTimeout(function(){if(typeof renderSess==='function'){renderSess();translateSessions();}},50);
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var key = el.getAttribute('data-i18n');
     var attr = el.getAttribute('data-i18n-attr');
