@@ -2784,30 +2784,32 @@ function setLang(lang){
     var attr=el.getAttribute('data-i18n-attr');
     if(attr){el.setAttribute(attr,t(key));}else{el.textContent=t(key);}
   });
-  if(window.SLOTS){
-    if(!window._origSlots||Object.keys(window._origSlots).length===0){
-      window._origSlots={};
-      SLOTS.forEach(function(slot){if(slot.sess)slot.sess.forEach(function(s){window._origSlots[s.t]={t:s.t,d:s.d};});});
-    }
-    SLOTS.forEach(function(slot){
-      if(!slot.sess)return;
-      slot.sess.forEach(function(s){
-        var orig=window._origSlots[s.t];
-        if(!orig){
-          var engKey=Object.keys(window._origSlots).find(function(k){return window.SESS_ES&&window.SESS_ES[k]&&window.SESS_ES[k].t===s.t;});
-          orig=engKey?window._origSlots[engKey]:null;
-        }
-        if(!orig)return;
-        if(lang==='es'&&window.SESS_ES&&window.SESS_ES[orig.t]){
-          s.t=window.SESS_ES[orig.t].t;
-          s.d=window.SESS_ES[orig.t].d;
-        }else{
-          s.t=orig.t;
-          s.d=orig.d;
-        }
+  try{
+    if(typeof SLOTS!=='undefined'&&SLOTS.length){
+      if(!window._origSlots||Object.keys(window._origSlots).length===0){
+        window._origSlots={};
+        SLOTS.forEach(function(slot){if(slot.sess)slot.sess.forEach(function(s){window._origSlots[s.t]={t:s.t,d:s.d};});});
+      }
+      SLOTS.forEach(function(slot){
+        if(!slot.sess)return;
+        slot.sess.forEach(function(s){
+          var orig=window._origSlots[s.t];
+          if(!orig){
+            var ek=Object.keys(window._origSlots).find(function(k){return window.SESS_ES&&window.SESS_ES[k]&&window.SESS_ES[k].t===s.t;});
+            orig=ek?window._origSlots[ek]:null;
+          }
+          if(!orig)return;
+          if(lang==='es'&&window.SESS_ES&&window.SESS_ES[orig.t]){
+            s.t=window.SESS_ES[orig.t].t;
+            s.d=window.SESS_ES[orig.t].d;
+          }else{
+            s.t=orig.t;
+            s.d=orig.d;
+          }
+        });
       });
-    });
-  }
+    }
+  }catch(e){}
   if(typeof renderSess==='function')renderSess();
 }
 window.addEventListener('load',function(){
