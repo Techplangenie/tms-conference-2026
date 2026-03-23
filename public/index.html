@@ -1486,6 +1486,8 @@ function go(v){
   var cb=document.querySelector('.nav-cta');
   if(curAtt){if(lb)lb.style.display='inline-block';if(cb)cb.style.display='none';}
   else{if(lb)lb.style.display='none';if(cb)cb.style.display='inline-block';}
+
+  setTimeout(function(){if(window.SESS_ES&&window.SLOTS&&LANG==='es'){var _sm={};SLOTS.forEach(function(sl){if(sl.sess)sl.sess.forEach(function(s){if(!_sm[s.t])_sm[s.t]=s;})});document.querySelectorAll('.sess-card').forEach(function(card){var te=card.querySelector('.sess-title'),de=card.querySelector('.sess-desc');if(!te)return;var ee=_sm[te.textContent.trim()];if(!ee)return;var tr=window.SESS_ES[ee.t];if(tr){te.textContent=tr.t;if(de)de.textContent=tr.d.substring(0,90)+(tr.d.length>90?'...':'');}});}},150);
 }
 
 function toast(msg,type){
