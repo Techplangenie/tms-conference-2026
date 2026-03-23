@@ -2750,22 +2750,32 @@ window.SESS_ES={
 };
 
 function translateSessions(){
-  if(!window.SESS_ES) return;
+  if(!window.SESS_ES||!window.SLOTS) return;
   var isES=(LANG==='es');
+  var sessMap={};
+  SLOTS.forEach(function(slot){if(slot.sess)slot.sess.forEach(function(s){if(!sessMap[s.t])sessMap[s.t]=s;});});
   document.querySelectorAll('.sess-card').forEach(function(card){
     var titleEl=card.querySelector('.sess-title');
     var descEl=card.querySelector('.sess-desc');
     if(!titleEl) return;
-    var engTitle=card.getAttribute('data-eng-title')||titleEl.textContent.trim();
-    if(!card.getAttribute('data-eng-title')) card.setAttribute('data-eng-title',engTitle);
-    var engDesc=card.getAttribute('data-eng-desc')||(descEl?descEl.textContent.trim():'');
-    if(!card.getAttribute('data-eng-desc')&&descEl) card.setAttribute('data-eng-desc',engDesc);
-    if(isES&&window.SESS_ES[engTitle]){
-      titleEl.textContent=window.SESS_ES[engTitle].t;
-      if(descEl) descEl.textContent=window.SESS_ES[engTitle].d.substring(0,90)+(window.SESS_ES[engTitle].d.length>90?'...':'');
+    var currentTitle=titleEl.textContent.trim();
+    var engEntry=null;
+    if(isES){
+      Object.keys(window.SESS_ES).forEach(function(k){if(window.SESS_ES[k].t===currentTitle)engEntry=sessMap[k];});
+      if(!engEntry) engEntry=sessMap[currentTitle];
     } else {
-      titleEl.textContent=engTitle;
-      if(descEl) descEl.textContent=engDesc;
+      engEntry=sessMap[currentTitle];
+      if(!engEntry){
+        Object.keys(window.SESS_ES).forEach(function(k){if(window.SESS_ES[k].t===currentTitle)engEntry=sessMap[k];});
+      }
+    }
+    if(!engEntry) return;
+    if(isES&&window.SESS_ES[engEntry.t]){
+      titleEl.textContent=window.SESS_ES[engEntry.t].t;
+      if(descEl) descEl.textContent=window.SESS_ES[engEntry.t].d.substring(0,90)+(window.SESS_ES[engEntry.t].d.length>90?'...':'');
+    } else {
+      titleEl.textContent=engEntry.t;
+      if(descEl) descEl.textContent=engEntry.d.substring(0,90)+(engEntry.d.length>90?'...':'');
     }
   });
 }
