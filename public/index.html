@@ -2698,9 +2698,26 @@ var TRANSLATIONS = {
 
 function t(key){ return (TRANSLATIONS[LANG]||TRANSLATIONS.en)[key] || key; }
 
+
+window.SESS_ES={
+'When Teachers Shine, Students Grow':{t:'Cuando los Maestros Brillan, los Estudiantes Crecen',d:'Estrategias y herramientas tecnológicas para transformar lecciones, despertar la creatividad y fortalecer el compromiso estudiantil.'},
+'The Coding Reset: A Hands-On Tech Experience':{t:'El Reset del Coding: Una Experiencia Tecnológica Práctica',d:'Rotación práctica con VR, Kai Bots, Osmo, Dash y Lego Spike — las mismas herramientas usadas en las escuelas de servicio de TMS.'},
+'Bringing Content and Language Together: Literacy Success':{t:'Integrando Contenido e Idioma: Éxito en Literacidad',d:'Integración de instrucción de contenido e idioma usando Key Language Uses para apoyar el pensamiento confiado y la escritura de estudiantes multilingües.'},
+'Libraries for the 21st-Century Learner':{t:'Bibliotecas para el Estudiante del Siglo XXI',d:'Las herramientas digitales y espacios físicos transforman las bibliotecas escolares en centros dinámicos de investigación y literacidad informacional.'},
+'BiblioLAB STREAM: Book to Laboratory':{t:'BiblioLAB STREAM: Del Libro al Laboratorio',d:'El modelo BiblioLAB STREAM transforma las bibliotecas escolares en centros de innovación donde la lectura, la tecnología y el aprendizaje maker se combinan.'},
+'Beyond the Prompt: Intentional AI for Educators':{t:'Más Allá del Prompt: IA Intencional para Educadores',d:'Usando IA con propósito — ChatGPT, MagicSchool, Curipod y Canva para planificación, diferenciación y evaluación.'},
+'FHeros & Bunny Ears':{t:'FHeros y Orejas de Conejo',d:'Descubre cómo la IA puede transformar el aprendizaje — cómo estudiantes de 5to grado usaron Suno para crear una canción que ayudó a los de 2do a aprender a amarrar sus zapatos.'},
+'From Code to Creativity: Computer Science and the 4Cs':{t:'Del Código a la Creatividad: Ciencias de Computación y las 4C',d:'Cómo la programación desarrolla el pensamiento computacional y las 4C — preparando estudiantes para enfrentar desafíos del mundo real y convertirse en creadores.'},
+'Learning Roadmaps: A Tech-Powered System for Mastery':{t:'Rutas de Aprendizaje: Un Sistema Tecnológico para el Dominio',d:'Un sistema práctico para optimizar flujos de trabajo en el aula con herramientas digitales integradas para rutinas estructuradas y aprendizaje gamificado.'},
+'Take a Deep Dive with Snorkl: Making Thinking Visible':{t:'Sumérgete con Snorkl: Haciendo el Pensamiento Visible',d:'Cómo Snorkl ayuda a los estudiantes a pensar en voz alta mientras resuelven problemas — la retroalimentación con IA revela su pensamiento y potencia la metacognición.'},
+'MagicSchool AI: Reducing Teacher Workload':{t:'MagicSchool AI: Reduciendo la Carga del Maestro',d:'Reduce la carga de trabajo del maestro mientras fortalece la instrucción usando MagicSchool AI para planificación de lecciones y diferenciación.'},
+'STEM in Action: Easy Programming with Micro:bit':{t:'STEM en Acción: Programación Fácil con Micro:bit',d:'Usa MakeCode y micro:bit para enseñar programación — los estudiantes construyen proyectos simples desarrollando el pensamiento lógico y la resolución de problemas.'},
+'AI Without Limits: Gemini Canvas and NotebookLM':{t:'IA Sin Límites: Gemini Canvas y NotebookLM',d:'Explora NotebookLM para la gestión del conocimiento y Gemini Canvas para la creación de contenido en tiempo real para diseñar un aprendizaje más inteligente.'},
+'Educational Metaverse: Engage XR & Quest 3':{t:'Metaverso Educativo: Engage XR y Quest 3',d:'Lleva tu salón al metaverso con Meta Quest 3 — visita sitios históricos y permite que los estudiantes creen contenido de realidad virtual.'}
+};
 function setLang(lang){
   LANG = lang;
-  localStorage.setItem('tms_lang', lang);
+  localStorage.setItem('tms_lang', lang); setTimeout(function(){if(typeof renderSess==='function')renderSess();},50);
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var key = el.getAttribute('data-i18n');
     var attr = el.getAttribute('data-i18n-attr');
