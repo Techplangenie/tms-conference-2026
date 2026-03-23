@@ -1495,7 +1495,7 @@ function go(v){
   if(curAtt){if(lb)lb.style.display='inline-block';if(cb)cb.style.display='none';}
   else{if(lb)lb.style.display='none';if(cb)cb.style.display='inline-block';}
 
-  setTimeout(function(){if(window.SESS_ES&&window.SLOTS&&LANG==='es'){var _sm={};SLOTS.forEach(function(sl){if(sl.sess)sl.sess.forEach(function(s){if(!_sm[s.t])_sm[s.t]=s;})});document.querySelectorAll('.sess-card').forEach(function(card){var te=card.querySelector('.sess-title'),de=card.querySelector('.sess-desc');if(!te)return;var ee=_sm[te.textContent.trim()];if(!ee)return;var tr=window.SESS_ES[ee.t];if(tr){te.textContent=tr.t;if(de)de.textContent=tr.d.substring(0,90)+(tr.d.length>90?'...':'');}});}},150);
+  
 }
 
 function toast(msg,type){
@@ -3315,27 +3315,26 @@ window.STATIC_ES={
 window.STATIC_EN={};
 Object.keys(window.STATIC_ES).forEach(function(k){window.STATIC_EN[window.STATIC_ES[k]]=k;});
 
-function translateStatic(){if(window._tsRunning)return 0;window._tsRunning=true;setTimeout(function(){window._tsRunning=false;},200);
+function translateStatic(){
   var isES=(LANG==='es');
   var lookup=isES?window.STATIC_ES:window.STATIC_EN;
   if(!lookup) return 0;
-  // Build a normalized lookup (collapse all whitespace to single space)
   var normLookup={};
   Object.keys(lookup).forEach(function(k){
-    var nk=k.replace(/s+/g,' ').trim();
-    normLookup[nk]=lookup[k];
+    normLookup[k.replace(/s+/g,' ').trim()]=lookup[k];
   });
   var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);
   var node,changes=0;
   while(node=walker.nextNode()){
+    if(node.parentElement&&node.parentElement.hasAttribute('data-translated')) continue;
     var raw=node.textContent;
     var norm=raw.replace(/s+/g,' ').trim();
     if(!norm||norm.length<4) continue;
     if(normLookup[norm]){
-      // Preserve leading/trailing whitespace
       var leading=raw.match(/^(s*)/)[1];
       var trailing=raw.match(/(s*)$/)[1];
       node.textContent=leading+normLookup[norm]+trailing;
+      if(node.parentElement) node.parentElement.setAttribute('data-translated','1');
       changes++;
     }
   }
