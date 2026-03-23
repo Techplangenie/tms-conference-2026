@@ -506,7 +506,11 @@ tr:hover td{background:var(--gray-50)}
             inset 0 0 30px rgba(217, 119, 87, 0.1);
         }
       }
-    </style></head>
+    </style><style id="lang-css">
+body.lang-es .lang-en{display:none!important;}
+body.lang-en .lang-es{display:none!important;}
+body:not(.lang-es) .lang-es{display:none!important;}
+</style></head>
 <body>
 <div class="bg-photo" style="position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;background:url('/assets/tms-img-0.jpg') center/cover no-repeat fixed"></div>
 
@@ -792,14 +796,16 @@ tr:hover td{background:var(--gray-50)}
   <!-- ABOUT SECTION -->
   <div style="max-width:780px;margin:0 auto;padding:32px 24px 0;text-align:center">
     <p style="color:#1e3a5f;font-size:1rem;line-height:1.75;font-family:Outfit,sans-serif">
-      Tech My School proudly presents the <strong style="color:#a78bfa">Technology Disruptors Competition</strong> — 
+      <p class="lang-en" ch My School proudly presents the <strong style="color:#a78bfa">Technology Disruptors Competition</strong> — 
       where educators showcase groundbreaking uses of technology in the classroom for a chance to win a 
       <strong style="color:#fbbf24">$1,000 cash prize</strong>. Open to all teachers each fall, this competition 
       invites educators to push boundaries, innovate, and make an impact. Tech My School hosts, supports, and 
       highlights their efforts while serving as partial judges in this exciting process.
-    </p>
+    </p><p class="lang-es" style="text-align:center;max-width:800px;margin:0 auto 1.5rem;font-size:1.05rem;line-height:1.7;color:#333;">
+Tech My School presenta con orgullo la <a href="https://techmyschool.org/disruptors" target="_blank" style="color:#7c3aed;font-weight:700;">Competencia Technology Disruptors</a> — donde los educadores exhiben usos innovadores de la tecnología en el aula por la oportunidad de ganar un <span style="color:#f59e0b;font-weight:700;">premio de $1,000</span>. Abierta a todos los maestros cada otoño, esta competencia invita a los educadores a romper límites, innovar y generar impacto. Tech My School apoya y destaca sus esfuerzos mientras actúa como juez parcial en este emocionante proceso.
+</p>
     <p style="color:#334155;font-size:.95rem;line-height:1.7;margin-top:16px;font-family:Outfit,sans-serif">
-      Teachers compete in five categories: <strong style="color:#6d28d9">Tech Trailblazers</strong> (everyday tech for learning), 
+      <p class="lang-en" achers compete in five categories: <strong style="color:#6d28d9">Tech Trailblazers</strong> (everyday tech for learning), 
       <strong style="color:#6d28d9">Digital Creators</strong> (student expression through technology), 
       <strong style="color:#6d28d9">Data Wizards</strong> (data-driven instruction), 
       <strong style="color:#6d28d9">Young Entrepreneurs</strong> (business &amp; entrepreneurship), and 
@@ -810,7 +816,9 @@ tr:hover td{background:var(--gray-50)}
       with displays in <strong style="color:#1e3a5f">Salon 4</strong>. Three expert judges — one from the TMS team 
       and two guest speakers — select winners in each category. 
       <strong style="color:#fbbf24">Awards ceremony: Saturday April 11th at 4pm!</strong>
-    </p>
+    </p><p class="lang-es" style="text-align:center;max-width:800px;margin:0 auto 2rem;font-size:1rem;line-height:1.7;color:#444;">
+Los maestros compiten en cinco categorías: <strong style="color:#7c3aed;">Tech Trailblazers</strong> (tecnología cotidiana para el aprendizaje), <strong style="color:#7c3aed;">Digital Creators</strong> (expresión estudiantil a través de la tecnología), <strong style="color:#7c3aed;">Data Wizards</strong> (instrucción basada en datos), <strong style="color:#f59e0b;">Young Entrepreneurs</strong> (negocios y emprendimiento), y <strong style="color:#10b981;">AI Wizards</strong> (experiencias de aula con IA). Con la guía de <strong>Darlene Colón</strong>, directora del Programa Technology Disruptors, los maestros reciben apoyo durante el año para desarrollar proyectos transformadores. En la conferencia, los asistentes pueden <a style="color:#f59e0b;font-weight:600;">explorar los 10 proyectos finalistas durante los recesos</a>, con exhibiciones en el <strong>Salón 4</strong>. Tres jueces expertos — uno del equipo TMS y dos ponentes invitados — seleccionan ganadores en cada categoría. <span style="color:#f59e0b;font-weight:700;">Ceremonia de premiación: ¡Sábado 11 de abril a las 4pm!</span>
+</p>
   </div>
 
   <!-- SCHEDULE -->
@@ -2804,6 +2812,8 @@ function translateSessions(){
 function setLang(lang){
   LANG=lang;
   localStorage.setItem('tms_lang',lang);
+  document.body.className=document.body.className.replace(/lang-\w+/g,'').trim();
+  document.body.classList.add('lang-'+lang);
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var key=el.getAttribute('data-i18n');
     var attr=el.getAttribute('data-i18n-attr');
@@ -3305,7 +3315,7 @@ window.STATIC_ES={
 window.STATIC_EN={};
 Object.keys(window.STATIC_ES).forEach(function(k){window.STATIC_EN[window.STATIC_ES[k]]=k;});
 
-function translateStatic(){
+function translateStatic(){if(window._tsRunning)return 0;window._tsRunning=true;setTimeout(function(){window._tsRunning=false;},200);
   var isES=(LANG==='es');
   var lookup=isES?window.STATIC_ES:window.STATIC_EN;
   if(!lookup) return 0;
