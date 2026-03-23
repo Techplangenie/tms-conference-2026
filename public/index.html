@@ -2760,9 +2760,7 @@ function translateSessions(){
     if(!titleEl) return;
     var currentTitle=titleEl.textContent.trim();
     var engKey=currentTitle;
-    if(isES){
-      Object.keys(window.SESS_ES).forEach(function(k){if(window.SESS_ES[k].t===currentTitle)engKey=k;});
-    }
+    if(isES) Object.keys(window.SESS_ES).forEach(function(k){if(window.SESS_ES[k].t===currentTitle)engKey=k;});
     var engEntry=sessMap[engKey];
     if(!engEntry) return;
     if(isES&&window.SESS_ES[engEntry.t]){
