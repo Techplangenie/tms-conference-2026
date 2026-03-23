@@ -3308,14 +3308,24 @@ Object.keys(window.STATIC_ES).forEach(function(k){window.STATIC_EN[window.STATIC
 function translateStatic(){
   var isES=(LANG==='es');
   var lookup=isES?window.STATIC_ES:window.STATIC_EN;
-  // Walk all text nodes in the document
+  if(!lookup) return 0;
+  // Build a normalized lookup (collapse all whitespace to single space)
+  var normLookup={};
+  Object.keys(lookup).forEach(function(k){
+    var nk=k.replace(/s+/g,' ').trim();
+    normLookup[nk]=lookup[k];
+  });
   var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);
   var node,changes=0;
   while(node=walker.nextNode()){
-    var txt=node.textContent.trim();
-    if(!txt||txt.length<3) continue;
-    if(lookup[txt]){
-      node.textContent=node.textContent.replace(txt,lookup[txt]);
+    var raw=node.textContent;
+    var norm=raw.replace(/s+/g,' ').trim();
+    if(!norm||norm.length<4) continue;
+    if(normLookup[norm]){
+      // Preserve leading/trailing whitespace
+      var leading=raw.match(/^(s*)/)[1];
+      var trailing=raw.match(/(s*)$/)[1];
+      node.textContent=leading+normLookup[norm]+trailing;
       changes++;
     }
   }
