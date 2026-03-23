@@ -1582,7 +1582,7 @@ function renderSess(){if(!window.ALLSPK)window.ALLSPK=[];
     });
     html+='</div></div>';
   });
-  document.getElementById('sess-list').innerHTML=html; if(typeof translateSessions==='function')translateSessions();
+  document.getElementById('sess-list').innerHTML=html; setTimeout(function(){if(typeof translateSessions==='function')translateSessions();},10);
   // Show/hide mode bar based on login state
   var mb=document.getElementById('sess-mode-bar');
   if(mb) mb.style.display=curAtt?'flex':'none';
