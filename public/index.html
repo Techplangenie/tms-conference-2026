@@ -2836,6 +2836,7 @@ function setLang(lang){
     }
   }catch(e){}
   if(typeof renderSess==='function')renderSess();
+  if(typeof translateStatic==='function')translateStatic();
 }
 window.addEventListener('load',function(){
 
@@ -3186,5 +3187,82 @@ function doLogout(){
     },100);
   });
 })();
+</script>
+<script>
+window.STATIC_ES={
+  "Tech Disruptors":"Tech Disruptores",
+  "Tech Disruptors Competition":"Competencia Tech Disruptores",
+  "Competition":"Competencia",
+  "10 finalist educators showcasing innovative classroom technology projects in a science-fair style competition. Explore, engage, and vote for your favorite!":"10 educadores finalistas presentan proyectos innovadores de tecnología en el aula. ¡Explora, participa y vota por tu favorito!",
+  "Finalists":"Finalistas",
+  "Sessions":"Sesiones",
+  "Location":"Ubicación",
+  "Winners":"Ganadores",
+  "Vote for your favorite!":"¡Vota por tu favorito!",
+  "Explore & Vote":"Explora y Vota",
+  "Competition Day: Saturday, April 11":"Día de Competencia: Sábado, 11 de abril",
+  "Salon 4 — Drop in anytime!":"Salón 4 — ¡Entra cuando quieras!",
+  "Tech My School proudly presents the Technology Disruptors Competition — where educators showcase groundbreaking uses of technology in the classroom for a chance to win a":"Tech My School presenta la Competencia Technology Disruptors — donde los educadores exhiben usos innovadores de tecnología para ganar",
+  "cash prize":"en efectivo",
+  "Meet the Speakers":"Conoce a los Ponentes",
+  "30+ world-class educators — click any card to connect on LinkedIn":"Más de 30 educadores de clase mundial — haz clic en cualquier tarjeta para conectar en LinkedIn",
+  "All Speakers":"Todos los Ponentes",
+  "Keynotes":"Conferencias Magistrales",
+  "Moderators":"Moderadores",
+  "Panelists":"Panelistas",
+  "Presenters":"Presentadores",
+  "Our Sponsors and Partners":"Nuestros Patrocinadores y Socios",
+  "We are grateful to the organizations whose generous support makes this conference possible.":"Agradecemos a las organizaciones cuyo generoso apoyo hace posible esta conferencia.",
+  "Become a Sponsor":"Conviértete en Patrocinador",
+  "Platinum Sponsors":"Patrocinadores Platinum",
+  "Gold Sponsors":"Patrocinadores Gold",
+  "Silver Sponsors":"Patrocinadores Silver",
+  "Partners":"Socios",
+  "Venue Conference Floor Map":"Mapa del Recinto de la Conferencia",
+  "Conference Floor Map":"Mapa del Recinto",
+  "Wyndham Rio Mar Convention Hall · Rio Grande, PR":"Salón de Convenciones Wyndham Río Mar · Río Grande, PR",
+  "Check In Now":"Regístrate Ahora",
+  "View Sessions":"Ver Sesiones",
+  "Register Now":"Regístrate Ahora",
+  "Day 1":"Día 1",
+  "Day 2":"Día 2",
+  "All Days":"Todos los Días",
+  "Filter by language:":"Filtrar por idioma:",
+  "All":"Todos",
+  "English":"Inglés",
+  "Spanish":"Español",
+  "Click to select":"Haz clic para seleccionar",
+  "Selected":"Seleccionado",
+  "My Schedule":"Mi Agenda",
+  "Browse Sessions":"Ver Sesiones",
+  "Sign Out":"Cerrar Sesión",
+  "Admin":"Administrador",
+  "Check In":"Registro",
+  "Home":"Inicio",
+  "Map":"Mapa",
+  "Speakers":"Ponentes",
+  "Sponsors":"Patrocinadores"
+};
+
+window.STATIC_EN={};
+Object.keys(window.STATIC_ES).forEach(function(k){window.STATIC_EN[window.STATIC_ES[k]]=k;});
+
+function translateStatic(){
+  var isES=(LANG==='es');
+  var lookup=isES?window.STATIC_ES:window.STATIC_EN;
+  // Walk all text nodes in the document
+  var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);
+  var node,changes=0;
+  while(node=walker.nextNode()){
+    var txt=node.textContent.trim();
+    if(!txt||txt.length<3) continue;
+    if(lookup[txt]){
+      node.textContent=node.textContent.replace(txt,lookup[txt]);
+      changes++;
+    }
+  }
+  return changes;
+}
+window.translateStatic=translateStatic;
 </script>
 </body></html>
