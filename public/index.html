@@ -524,7 +524,7 @@ tr:hover td{background:var(--gray-50)}
     <button class="nav-link" onclick="closeMobileNav();go('sessions')" data-i18n="nav.sessions">Sessions</button>
     <button class="nav-link" onclick="closeMobileNav();go('map')" data-i18n="nav.map">Map</button>
     <button class="nav-link" onclick="closeMobileNav();go('sponsors')" data-i18n="nav.sponsors">Sponsors</button>
-    <button class="nav-link" onclick="closeMobileNav();go('disruptors')" data-i18n="nav.disruptors">Tech Disruptors</button>
+    <button class="nav-link" onclick="closeMobileNav();go('disruptors')" data-i18n="nav.disruptors"> <span data-i18n="nav.disruptors">Tech Disruptors</span></button>
     <button class="nav-link" onclick="closeMobileNav();go('admin')" data-i18n="nav.admin">Admin</button>
     <button class="nav-cta" onclick="closeMobileNav();go('register')" data-i18n="nav.checkin">Check In →</button>
     <button id="logout-btn" onclick="doLogout()" style="display:none;background:#c0392b;color:#fff;border:none;padding:7px 16px;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;margin-top:4px;">Sign Out</button>
@@ -716,8 +716,8 @@ tr:hover td{background:var(--gray-50)}
 
 <div style="background:linear-gradient(135deg,var(--navy) 0%,#1a3d7a 100%);padding:40px 24px;text-align:center">
   <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--green);margin-bottom:8px">Spring Educators #EdTech Conference 2026</div>
-  <div style="font-family:Outfit;font-weight:900;font-size:32px;color:#fff;margin-bottom:8px" data-i18n="spk.title">Meet the Speakers</div>
-  <div style="font-size:13px;color:rgba(255,255,255,.7)">30+ world-class educators — click any card to connect on LinkedIn</div>
+  <div style="font-family:Outfit;font-weight:900;font-size:32px;color:#fff;margin-bottom:8px" data-i18n="spk.title"><span data-i18n="page.speakers.title">Meet the Speakers</span></div>
+  <div style="font-size:13px;color:rgba(255,255,255,.7)"><span data-i18n="page.speakers.subtitle">30+ world-class educators — click any card to connect on LinkedIn</span></div>
 </div>
 <div style="padding:32px 24px;max-width:1200px;margin:0 auto">
   <!-- Filter by role -->
@@ -772,8 +772,8 @@ tr:hover td{background:var(--gray-50)}
            alt="Tech Disruptors" 
            style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(139,92,246,0.6)) drop-shadow(0 0 40px rgba(6,182,212,0.3))">
     </div>
-    <h1>Tech <span>Disruptors</span><br>Competition</h1>
-    <p class="td-hero-sub">10 finalist educators showcasing innovative classroom technology projects in a science-fair style competition. Explore, engage, and vote for your favorite!</p>
+    <h1>Tech <span>Disruptors</span><br> <span data-i18n="page.disruptors.competition">Competition</span></h1>
+    <p class="td-hero-sub"><span data-i18n="page.disruptors.subtitle">10 finalist educators showcasing innovative classroom technology projects in a science-fair style competition. Explore, engage, and vote for your favorite!</span></p>
     <div class="td-stats">
       <div class="td-stat"><div class="td-stat-num">10</div><div class="td-stat-lbl">Finalists</div></div>
       <div class="td-stat"><div class="td-stat-num">8</div><div class="td-stat-lbl">Sessions</div></div>
@@ -2548,7 +2548,32 @@ var TRANSLATIONS = {
   en: {
     // Nav
     'nav.home':         'Home',
-    'nav.sessions':     'Sessions',
+    'page.disruptors.title':{en:'Tech Disruptors Competition',es:'Competencia Tech Disruptores'},
+'page.disruptors.subtitle':{en:'10 finalist educators showcasing innovative classroom technology projects in a science-fair style competition. Explore, engage, and vote for your favorite!',es:'10 educadores finalistas presentan proyectos innovadores de tecnología en el aula en formato de feria de ciencias. ¡Explora, participa y vota por tu favorito!'},
+'page.disruptors.finalists':{en:'Finalists',es:'Finalistas'},
+'page.disruptors.sessions':{en:'Sessions',es:'Sesiones'},
+'page.disruptors.location':{en:'Location',es:'Ubicación'},
+'page.disruptors.winners':{en:'Winners',es:'Ganadores'},
+'page.disruptors.presents':{en:'Tech My School proudly presents the Technology Disruptors Competition — where educators showcase groundbreaking uses of technology in the classroom for a chance to win a',es:'Tech My School presenta con orgullo la Competencia Technology Disruptors — donde los educadores exhiben usos innovadores de la tecnología en el aula por la oportunidad de ganar'},
+'page.disruptors.cash':{en:'cash prize',es:'en efectivo'},
+'page.disruptors.vote':{en:'Vote for your favorite!',es:'¡Vota por tu favorito!'},
+'page.disruptors.explore':{en:'Explore & Vote',es:'Explora y Vota'},
+'page.disruptors.finalist.label':{en:'Finalist',es:'Finalista'},
+'page.disruptors.day':{en:'Competition Day: Saturday, April 11',es:'Día de Competencia: Sábado, 11 de abril'},
+'page.disruptors.salon':{en:'Salon 4 — Drop in anytime!',es:'Salón 4 — ¡Entra cuando quieras!'},
+'page.speakers.title':{en:'Meet the Speakers',es:'Conoce a los Ponentes'},
+'page.speakers.subtitle':{en:'30+ world-class educators — click any card to connect on LinkedIn',es:'Más de 30 educadores de clase mundial — haz clic en cualquier tarjeta para conectar en LinkedIn'},
+'page.speakers.all':{en:'All Speakers',es:'Todos los Ponentes'},
+'page.speakers.keynotes':{en:'Keynotes',es:'Conferencias Magistrales'},
+'page.speakers.moderators':{en:'Moderators',es:'Moderadores'},
+'page.speakers.panelists':{en:'Panelists',es:'Panelistas'},
+'page.speakers.presenters':{en:'Presenters',es:'Presentadores'},
+'page.sponsors.title':{en:'Our Sponsors and Partners',es:'Nuestros Patrocinadores y Socios'},
+'page.sponsors.subtitle':{en:'We are grateful to the organizations whose generous support makes this conference possible.',es:'Agradecemos a las organizaciones cuyo generoso apoyo hace posible esta conferencia.'},
+'page.sponsors.become':{en:'Become a Sponsor',es:'Conviértete en Patrocinador'},
+'page.map.title':{en:'Conference Floor Map',es:'Mapa del Recinto'},
+'page.map.subtitle':{en:'Wyndham Rio Mar Convention Hall · Rio Grande, PR',es:'Salón de Convenciones Wyndham Río Mar · Río Grande, PR'},
+'nav.sessions':     'Sessions',
     'nav.map':          'Map',
     'nav.speakers':     'Speakers',
     'nav.sponsors':     'Sponsors',
