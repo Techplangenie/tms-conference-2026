@@ -1859,7 +1859,7 @@ function renderMySchedule(){
   var d1html='';
   d1html+='<div class="ms-progress"><span class="ms-prog-label">Day 1 selections</span><div class="ms-prog-bar"><div class="ms-prog-fill" style="width:'+Math.round(d1Count/4*100)+'%"></div></div><span class="ms-prog-count">'+d1Count+'/4</span></div>';
   d1html+=fixedRow('fixed','7:00<br>–<br>8:00 AM','🍳 Arrival','Registration &amp; Continental Breakfast','Pick up your badge and enjoy breakfast');
-  d1html+=fixedRow('fixed','8:00<br>–<br>8:20 AM','🎉 Welcome','Opening Ceremonies','');
+  d1html+=fixedRow('fixed','8:00<br>–<br>8:20 AM','🎉 Welcome','Opening Ceremonies','Rio Mar Ballroom');
   d1html+=fixedRow('t-keynote','8:20<br>–<br>9:20 AM','🏆 Keynote','Embracing Innovation to Help Every Learner Find Success in Their Own Way','George Couros · Rio Mar Ballroom');
   d1html+=fixedRow('t-panel','9:20<br>–<br>10:00 AM','🎤 EdTech Leadership Panel','Teaching in Uncharted Territory: Classrooms at the Edge of Tomorrow','Moderated by Dr. Fonz Mendoza · Rio Mar Ballroom');
   d1html+=fixedRow('t-break','10:00<br>–<br>10:30 AM','☕ Coffee Break 1','Networking Break','Brought to you by MagicSchool AI');
@@ -1869,14 +1869,14 @@ function renderMySchedule(){
   d1html+=breakoutRow('bs3',1,'1:30<br>–<br>2:20 PM','Breakout 3');
   d1html+=breakoutRow('bs4',1,'2:30<br>–<br>3:20 PM','Breakout 4');
   d1html+=fixedRow('t-break','3:20<br>–<br>3:50 PM','☕ Coffee Break 2','Meet the Tech Disruptors','Browse finalist projects · Salon 4');
-  d1html+=fixedRow('fixed','4:00<br>–<br>4:30 PM','🎊 Closing','Day 1 Recap, Raffles &amp; Closing','');
+  d1html+=fixedRow('fixed','4:00<br>–<br>4:30 PM','🎊 Closing','Day 1 Recap, Raffles &amp; Closing','Rio Mar Ballroom');
   document.getElementById('ms-d1').innerHTML=d1html;
 
   // ── DAY 2 ──
   var d2html='';
   d2html+='<div class="ms-progress"><span class="ms-prog-label">Day 2 selections</span><div class="ms-prog-bar"><div class="ms-prog-fill" style="width:'+Math.round(d2Count/4*100)+'%"></div></div><span class="ms-prog-count">'+d2Count+'/4</span></div>';
   d2html+=fixedRow('fixed','7:00<br>–<br>8:00 AM','🍳 Arrival','Day 2 Registration &amp; Continental Breakfast','');
-  d2html+=fixedRow('fixed','8:00<br>–<br>8:15 AM','👋 Welcome','Welcome Message — Day 2','');
+  d2html+=fixedRow('fixed','8:00<br>–<br>8:15 AM','👋 Welcome','Welcome Message — Day 2','Rio Mar Ballroom');
   d2html+=fixedRow('t-keynote','8:20<br>–<br>9:20 AM','🏆 Keynote','The Future of Education in Puerto Rico','Eliezer Ramos Parés · Secretary of Education, PR · Rio Mar Ballroom');
   d2html+=fixedRow('t-panel','9:20<br>–<br>10:00 AM','🎤 EdTech Leadership Panel','When AI Works: What Should Humans Learn?','Moderated by Dr. Rachelle Dené Poth · Rio Mar Ballroom');
   d2html+=fixedRow('t-break','10:00<br>–<br>10:30 AM','☕ Coffee Break 1','Meet the Tech Disruptors','Browse finalist projects · Salon 4');
