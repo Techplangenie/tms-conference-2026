@@ -1471,7 +1471,7 @@ function closeMobileNav(){
 }
 function go(v){
   var prot=['schedule'];
-  if(prot.includes(v)&&!curAtt){go('register');return;}
+  if(prot.includes(v)&&!curAtt){var _s=localStorage.getItem('tms_att');if(_s){try{curAtt=JSON.parse(_s);}catch(e){}}if(!curAtt){go('register');return;}}
   if(v==='admin'){if(!adminLoggedIn){go('admin-login');return;}else{setTimeout(refreshAdmin,100);}}
   document.querySelectorAll('.view').forEach(function(el){el.classList.remove('active');});
   var sec=document.querySelector('#view-'+v);
@@ -1498,7 +1498,7 @@ function go(v){
 
   
 
-  setTimeout(function(){if(typeof translateSpeakerRoles==='function')translateSpeakerRoles();},100);
+  setTimeout(function(){setTimeout(function(){if(typeof translateSpeakerRoles==='function')translateSpeakerRoles();},200);},300);
 }
 
 function toast(msg,type){
