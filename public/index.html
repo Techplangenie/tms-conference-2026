@@ -1366,7 +1366,7 @@ async function supaFetch(path,opts){
 }
 
 let ATT=[];
-let curAtt=null;
+let curAtt=(function(){var _id=localStorage.getItem('tms_attendee_id');var _nm=localStorage.getItem('tms_attendee_name');return (_id?{id:_id,name:_nm||'',picks:JSON.parse(localStorage.getItem('tms_picks')||'{}')}:null);})();
 let SI={};
 let adminLoggedIn=false;
 let curAdminTab='dashboard';
@@ -1473,7 +1473,7 @@ function closeMobileNav(){
 }
 function go(v){
   var prot=['schedule'];
-  if(prot.includes(v)&&!curAtt){setTimeout(function(){go(v);},500);return;}
+  if(prot.includes(v)&&!curAtt){setTimeout(function(){go(v);},800);return;}
   if(v==='admin'){if(!adminLoggedIn){go('admin-login');return;}else{setTimeout(refreshAdmin,100);}}
   document.querySelectorAll('.view').forEach(function(el){el.classList.remove('active');});
   var sec=document.querySelector('#view-'+v);
