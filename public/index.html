@@ -1497,6 +1497,8 @@ function go(v){
   else{if(lb)lb.style.display='none';if(cb)cb.style.display='inline-block';}
 
   
+
+  setTimeout(function(){if(typeof translateSpeakerRoles==='function')translateSpeakerRoles();},100);
 }
 
 function toast(msg,type){
