@@ -1473,7 +1473,7 @@ function closeMobileNav(){
 }
 function go(v){
   var prot=['schedule'];
-  if(prot.includes(v)&&!curAtt){var _s=localStorage.getItem('tms_attendee_id');if(_s){try{curAtt=JSON.parse(_s);}catch(e){curAtt={id:_s};}}if(!curAtt){go('register');return;}}
+  if(prot.includes(v)&&!curAtt){setTimeout(function(){go(v);},500);return;}
   if(v==='admin'){if(!adminLoggedIn){go('admin-login');return;}else{setTimeout(refreshAdmin,100);}}
   document.querySelectorAll('.view').forEach(function(el){el.classList.remove('active');});
   var sec=document.querySelector('#view-'+v);
@@ -3186,7 +3186,15 @@ function translateStatic(){
 window.translateStatic=translateStatic;
 </script>
 <script>
-window.SPK_ROLE_ES={"keynote":"Conferencia Magistral","moderator":"Moderador/a","panelist":"Panelista","presenter":"Presentador/a","Educator & Administrator":"Educador/a y Administrador/a","Educator & TMS Flock Leader":"Educador/a y Lider TMS Flock","Technology Educator & TMS Flock Leader":"Educadora de Tecnologia y Lider TMS Flock","History & Geography Teacher":"Maestra de Historia y Geografia","Attorney & VP, PR AI Community":"Abogado y VP, Comunidad IA de PR","Technology Teacher":"Maestro/a de Tecnologia","Educator & Creator, Spark Curiosity AI Coach":"Educadora y Creadora, Spark Curiosity AI Coach","STEM Educator":"Educadora STEM","Director of Professional Development":"Directora de Desarrollo Profesional","History Educator & Teacher-Librarian":"Educadora de Historia y Bibliotecaria","Chief Academic Officer":"Directora Academica","Library & Technology Professional":"Profesional de Biblioteca y Tecnologia","Educator & Founder, Seed to Tree":"Educadora y Fundadora, Seed to Tree","Technology Teacher & TMS Flock Leader":"Maestra de Tecnologia y Lider TMS Flock","Teacher & Educational Therapist":"Maestra y Terapeuta Educativa","Educator & Comedian":"Educador y Comediante","Smart City Specialist":"Especialista en Ciudades Inteligentes","Special Educator & Innovator":"Educador Especial e Innovador","EdTech Consultant":"Consultor de EdTech"};
+window.SPK_ROLE_ES={
+"🏆 Keynote":"🏆 Conferencia Magistral",
+"🤝 Panelist":"🤝 Panelista",
+"💬 Presenter":"💬 Presentador/a",
+"🎤 Moderator":"🎤 Moderador/a",
+"🎙️ MC":"🎙️ MC",
+"🏫 Tech My School":"🏫 Tech My School",
+"🦜 Flock Leader":"🦜 Lider Flock"
+};
 window.SPK_ROLE_EN={};
 Object.keys(window.SPK_ROLE_ES).forEach(function(k){window.SPK_ROLE_EN[window.SPK_ROLE_ES[k]]=k;});
 function translateSpeakerRoles(){
