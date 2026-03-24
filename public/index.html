@@ -1829,7 +1829,7 @@ function renderMySchedule(){
         return '<div class="ms-row t-picked">'
           +'<div class="ms-time">'+time+'</div>'
           +'<div class="ms-info">'
-            +'<div class="ms-label">✓ '+slotLbl+'</div>'
+            +'<div class="ms-label">✓ '+(LANG==="es"&&window.STATIC_ES&&window.STATIC_ES[slotLbl]?window.STATIC_ES[slotLbl]:slotLbl)+'</div>'
             +'<div class="ms-title">'+(LANG==='es'&&window.SESS_ES&&window.SESS_ES[sess.t]?window.SESS_ES[sess.t]:sess.t)+'</div>'
             +'<div style="display:flex;align-items:center;gap:8px;margin-top:4px">'+phHtml+'<span class="ms-sub">'+spk.n+'</span></div>'
             +'<div style="display:flex;gap:6px;margin-top:4px">'
