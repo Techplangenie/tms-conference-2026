@@ -2857,7 +2857,7 @@ window.addEventListener('load',function(){
 
   initHome();
   renderSess();
-  var _activeView=document.querySelector('[id^="view-"]:not([style*="none"])');
+  var _activeView=document.querySelector('[id^="view-"].active');
   if(!_activeView||_activeView.id==='view-home')go('home');
   setLang(LANG);
 });
@@ -3191,11 +3191,18 @@ window.SPK_ROLE_ES={"keynote":"Conferencia Magistral","moderator":"Moderador/a",
 window.SPK_ROLE_EN={};
 Object.keys(window.SPK_ROLE_ES).forEach(function(k){window.SPK_ROLE_EN[window.SPK_ROLE_ES[k]]=k;});
 function translateSpeakerRoles(){
-  var isES=(LANG==="es");
-  var lookup=isES?window.SPK_ROLE_ES:window.SPK_ROLE_EN;
-  document.querySelectorAll(".spk-role,.spk-filter-btn").forEach(function(el){
+  if(!window.SPK_ROLE_ES)return;
+  var lookup=LANG==="es"?window.SPK_ROLE_ES:window.SPK_ROLE_EN;
+  document.querySelectorAll(".spk-role").forEach(function(el){
     var cur=el.textContent.trim();
-    if(lookup[cur])el.textContent=lookup[cur];
+    if(lookup[cur]){el.textContent=lookup[cur];return;}
+    // Strip leading emoji+space and try lowercase key
+    var stripped=cur.replace(/^[^a-zA-Z]+/,"").toLowerCase().trim();
+    if(lookup[stripped]){
+      var emojiPrefix=cur.substring(0,cur.length-stripped.length-(cur.length-stripped.length-cur.indexOf(cur.replace(/^[^a-zA-Z]+/,""))));
+      var prefix=cur.match(/^[^a-zA-Z]+/);
+      el.textContent=(prefix?prefix[0]:"")+lookup[stripped];
+    }
   });
 }
 window.translateSpeakerRoles=translateSpeakerRoles;
