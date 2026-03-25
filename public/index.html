@@ -2857,7 +2857,8 @@ window.addEventListener('load',function(){
 
   initHome();
   renderSess();
-  go('home');
+  var _activeView=document.querySelector('[id^="view-"]:not([style*="none"])');
+  if(!_activeView||_activeView.id==='view-home')go('home');
   setLang(LANG);
 });
 
