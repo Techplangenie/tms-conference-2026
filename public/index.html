@@ -1456,7 +1456,7 @@ function filterSpk(role){
       +'</div>';
   }).join('');
 
-  setTimeout(function(){if(typeof translateSpeakerRoles==='function')translateSpeakerRoles();},300);
+  setTimeout(function(){setTimeout(function(){if(typeof translateSpeakerRoles==='function')translateSpeakerRoles();},400);},300);
 }
 
 function toggleMobileNav(btn){
@@ -1500,7 +1500,7 @@ function go(v){
 
   
 
-  setTimeout(function(){setTimeout(function(){if(typeof translateSpeakerRoles==='function')translateSpeakerRoles();},200);},300);
+  setTimeout(function(){setTimeout(function(){setTimeout(function(){if(typeof translateSpeakerRoles==='function')translateSpeakerRoles();},400);},200);},300);
 }
 
 function toast(msg,type){
