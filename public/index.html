@@ -1456,7 +1456,7 @@ function filterSpk(role){
       +'</div>';
   }).join('');
 
-  setTimeout(function(){setTimeout(function(){if(typeof translateSpeakerRoles==='function')translateSpeakerRoles();},400);},300);
+  if(LANG==='es'&&typeof translateSpeakerRoles==='function')translateSpeakerRoles();
 }
 
 function toggleMobileNav(btn){
