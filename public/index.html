@@ -2301,36 +2301,75 @@ function badgeHTML(a){
 function printBadge(id){
   var a=ATT.find(function(x){return x.id===id;});
   if(!a)return;
+  var w=window.open('','_blank','width=500,height=300');
+  var name=a.n||'';
+  var school=a.s||'';
+  var role=a.role||'';
   var html='<!DOCTYPE html><html><head><title>Badge</title>'
     +'<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">'
-    +'<style>*{margin:0;padding:0;box-sizing:border-box;}body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f0f0f0;}'
-    +'@media print{body{background:#fff;}}</style></head>'
-    +'<body>'+badgeHTML(a)+'<'+'script>window.onload=function(){window.print();};<'+'/script></body></html>';
-  var w=window.open('','_blank','width=640,height=480');
-  w.document.open();w.document.write(html);w.document.close();
-  updBadge(id,'printing');
+    +'<style>'
+    +'@page{size:4in 1.5in;margin:0;}'
+    +'*{margin:0;padding:0;box-sizing:border-box;}'
+    +'body{width:4in;height:1.5in;overflow:hidden;font-family:Outfit,sans-serif;background:#fff;display:flex;align-items:stretch;}'
+    +'.logo-col{width:0.9in;background:#0f1f5c;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;flex-shrink:0;}'
+    +'.logo-col img{width:0.65in;height:0.65in;border-radius:50%;}'
+    +'.logo-col .conf{color:rgba(255,255,255,0.75);font-size:5.5px;text-align:center;margin-top:4px;text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;}'
+    +'.info-col{flex:1;padding:10px 10px 8px 10px;display:flex;flex-direction:column;justify-content:center;border-top:4px solid #00c49a;}'
+    +'.name{font-size:22px;font-weight:900;color:#0f1f5c;line-height:1.1;}'
+    +'.school{font-size:10px;font-weight:700;color:#444;margin-top:3px;}'
+    +'.role{font-size:9px;color:#888;margin-top:2px;text-transform:uppercase;letter-spacing:0.4px;}'
+    +'</style>'
+    +'</head><body>'
+    +'<div class="logo-col">'
+    +'<img src="https://tms-conference.vercel.app/Conference%20logo.png">'
+    +'<div class="conf">Spring Educators<br>#EdTech 2026<br>Wyndham Rio Mar</div>'
+    +'</div>'
+    +'<div class="info-col">'
+    +'<div class="name">'+name+'</div>'
+    +'<div class="school">'+school+'</div>'
+    +'<div class="role">'+role+'</div>'
+    +'</div>'
+    +'</body></html>';
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function(){w.print();},600);
 }
 
-function printAllBadges(ids){
-  var badges=ids.map(function(id){
-    var a=ATT.find(function(x){return x.id===id;});
-    return a?badgeHTML(a):'';
-  }).join('');
-  var html='<!DOCTYPE html><html><head><title>TMS Badges</title>'
-    +'<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">'
-    +'<style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#f0f0f0;padding:20px;font-family:Arial,sans-serif;}'
-    +'.grid{display:grid;grid-template-columns:repeat(2,4in);gap:20px;justify-content:center;}'
-    +'@media print{body{background:#fff;padding:0;}.grid{gap:10px;}.noprint{display:none;}}'
-    +'</style></head><body>'
-    +'<div class="noprint" style="text-align:center;margin-bottom:16px;">'
-    +'<button onclick="window.print()" style="background:#0a3378;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;">&#128438; Print All Badges</button>'
-    +' <button onclick="window.close()" style="background:#666;color:#fff;border:none;padding:10px 18px;border-radius:8px;font-size:14px;cursor:pointer;">Close</button>'
-    +'</div>'
-    +'<div class="grid">'+badges+'</div>'
-    +'</body></html>';
+function printAllBadges(){
+  var pending=ATT.filter(function(a){return a.b==='pending'||!a.b;});
+  if(!pending.length){alert('No pending badges.');return;}
   var w=window.open('','_blank','width=900,height=700');
-  w.document.open();w.document.write(html);w.document.close();
-  ids.forEach(function(id){updBadge(id,'printing');});
+  var rows=pending.map(function(a){
+    return '<div class="badge">'
+      +'<div class="logo-col">'
+      +'<img src="https://tms-conference.vercel.app/Conference%20logo.png">'
+      +'<div class="conf">Spring Educators<br>#EdTech 2026<br>Wyndham Rio Mar</div>'
+      +'</div>'
+      +'<div class="info-col">'
+      +'<div class="name">'+(a.n||'')+'</div>'
+      +'<div class="school">'+(a.s||'')+'</div>'
+      +'<div class="role">'+(a.role||'')+'</div>'
+      +'</div>'
+      +'</div>';
+  }).join('');
+  var html='<!DOCTYPE html><html><head><title>All Badges</title>'
+    +'<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">'
+    +'<style>'
+    +'@page{size:4in 1.5in;margin:0;}'
+    +'*{margin:0;padding:0;box-sizing:border-box;}'
+    +'body{font-family:Outfit,sans-serif;background:#fff;}'
+    +'.badge{width:4in;height:1.5in;overflow:hidden;display:flex;align-items:stretch;page-break-after:always;}'
+    +'.logo-col{width:0.9in;background:#0f1f5c;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;flex-shrink:0;}'
+    +'.logo-col img{width:0.65in;height:0.65in;border-radius:50%;}'
+    +'.logo-col .conf{color:rgba(255,255,255,0.75);font-size:5.5px;text-align:center;margin-top:4px;text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;}'
+    +'.info-col{flex:1;padding:10px 10px 8px 10px;display:flex;flex-direction:column;justify-content:center;border-top:4px solid #00c49a;}'
+    +'.name{font-size:22px;font-weight:900;color:#0f1f5c;line-height:1.1;}'
+    +'.school{font-size:10px;font-weight:700;color:#444;margin-top:3px;}'
+    +'.role{font-size:9px;color:#888;margin-top:2px;text-transform:uppercase;letter-spacing:0.4px;}'
+    +'</style></head><body>'+rows+'</body></html>';
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function(){w.print();},800);
 }
 
 
