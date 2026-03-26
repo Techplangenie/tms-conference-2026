@@ -511,6 +511,7 @@ body.lang-es .lang-en{display:none!important;}
 body.lang-en .lang-es{display:none!important;}
 body:not(.lang-es) .lang-es{display:none!important;}
 </style><link rel="icon" type="image/png" href="/Conference%20logo.png">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <div class="bg-photo" style="position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;background:url('/assets/tms-img-0.jpg') center/cover no-repeat fixed"></div>
@@ -1027,6 +1028,7 @@ Los maestros compiten en cinco categorías: <strong style="color:#7c3aed;">Tech 
           <div class="tw" style="padding:20px">
             <div style="font-family:Outfit;font-weight:800;font-size:15px;color:var(--navy);margin-bottom:14px">Positions Represented</div>
             <div id="dash-cities"></div>
+<canvas id="dash-positions-chart" style="max-height:260px;margin-top:24px;display:none;"></canvas>
           </div>
           <div class="tw" style="padding:20px">
             <div style="font-family:Outfit;font-weight:800;font-size:15px;color:var(--navy);margin-bottom:14px">Recent Check-Ins</div>
@@ -2512,6 +2514,22 @@ function renderDash(){
         +'<span style="font-weight:600;">'+e[0]+'</span><span style="color:var(--green);font-weight:700;">'+e[1]+'</span></div>';
     }).join('')+'</div>';
   var recent=ATT.slice(0,5);
+  
+  // Draw positions pie chart
+  var canvas=document.getElementById('dash-positions-chart');
+  if(canvas&&rSorted.length>0){
+    canvas.style.display='block';
+    var colors=['#4f46e5','#06b6d4','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#14b8a6','#f97316','#6366f1'];
+    if(window._posChart) window._posChart.destroy();
+    window._posChart=new Chart(canvas,{
+      type:'pie',
+      data:{
+        labels:rSorted.map(function(e){return e[0];}),
+        datasets:[{data:rSorted.map(function(e){return e[1];}),backgroundColor:colors.slice(0,rSorted.length),borderWidth:2,borderColor:'#fff'}]
+      },
+      options:{responsive:true,plugins:{legend:{position:'right',labels:{font:{size:12},padding:12}},title:{display:false}}}
+    });
+  }
   document.getElementById('dash-recent').innerHTML=recent.length===0
     ?'<p style="color:#999;font-size:12px;">No registrations yet</p>'
     :'<div style="display:flex;flex-direction:column;gap:8px;">'
