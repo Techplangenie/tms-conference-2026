@@ -510,6 +510,19 @@ tr:hover td{background:var(--gray-50)}
 body.lang-es .lang-en{display:none!important;}
 body.lang-en .lang-es{display:none!important;}
 body:not(.lang-es) .lang-es{display:none!important;}
+
+.bulk-bar{display:none;background:var(--navy);color:#fff;border-radius:14px;padding:10px 18px;margin-bottom:12px;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;animation:fadeIn .2s}
+.bulk-bar.active{display:flex}
+.bulk-bar .bulk-count{font-weight:700;font-size:13px}
+.bulk-bar button{padding:5px 14px;border-radius:8px;font-size:12px;font-weight:600;border:none;cursor:pointer;transition:all .2s}
+.bulk-bar .bulk-status{background:rgba(255,255,255,.15);color:#fff}
+.bulk-bar .bulk-status:hover{background:rgba(255,255,255,.25)}
+.bulk-bar .bulk-del{background:#e63946;color:#fff}
+.bulk-bar .bulk-del:hover{background:#c1121f}
+.bulk-bar .bulk-cancel{background:transparent;color:rgba(255,255,255,.7)}
+.bulk-bar .bulk-cancel:hover{color:#fff}
+.att-cb{width:17px;height:17px;accent-color:var(--navy);cursor:pointer;margin:0}
+tr.bulk-selected{background:rgba(26,31,110,.05)}
 </style><link rel="icon" type="image/png" href="/Conference%20logo.png">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 </head>
@@ -2370,20 +2383,7 @@ function printAllBadges(){
     +'.name{font-size:22px;font-weight:900;color:#0f1f5c;line-height:1.1;}'
     +'.school{font-size:10px;font-weight:700;color:#444;margin-top:3px;}'
     +'.role{font-size:9px;color:#888;margin-top:2px;text-transform:uppercase;letter-spacing:0.4px;}'
-    +'
-.bulk-bar{display:none;background:var(--navy);color:#fff;border-radius:14px;padding:10px 18px;margin-bottom:12px;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;animation:fadeIn .2s}
-.bulk-bar.active{display:flex}
-.bulk-bar .bulk-count{font-weight:700;font-size:13px}
-.bulk-bar button{padding:5px 14px;border-radius:8px;font-size:12px;font-weight:600;border:none;cursor:pointer;transition:all .2s}
-.bulk-bar .bulk-status{background:rgba(255,255,255,.15);color:#fff}
-.bulk-bar .bulk-status:hover{background:rgba(255,255,255,.25)}
-.bulk-bar .bulk-del{background:#e63946;color:#fff}
-.bulk-bar .bulk-del:hover{background:#c1121f}
-.bulk-bar .bulk-cancel{background:transparent;color:rgba(255,255,255,.7)}
-.bulk-bar .bulk-cancel:hover{color:#fff}
-.att-cb{width:17px;height:17px;accent-color:var(--navy);cursor:pointer;margin:0}
-tr.bulk-selected{background:rgba(26,31,110,.05)}
-</style></head><body>'+rows+'</body></html>';
+    +'</style></head><body>'+rows+'</body></html>';
   w.document.write(html);
   w.document.close();
   setTimeout(function(){w.print();},800);
