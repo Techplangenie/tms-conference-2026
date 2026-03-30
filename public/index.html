@@ -1094,8 +1094,9 @@ Los maestros compiten en cinco categorías: <strong style="color:#7c3aed;">Tech 
         </div>
 
         <div class="tw">
-          <table>
-            <thead><tr><th>Name</th><th>School</th><th>City</th><th>Time</th><th>Status</th><th>Update</th></tr></thead>
+          <div class="bulk-bar" id="bulk-bar"><div style="display:flex;align-items:center;gap:10px"><button class="bulk-cancel" onclick="bulkClearAll()">✕</button><span class="bulk-count" id="bulk-count">0 selected</span></div><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap" id="bulk-actions"><button class="bulk-status" onclick="bulkSetStatus('pending')">Set Pending</button><button class="bulk-status" onclick="bulkSetStatus('printing')">Set Printing</button><button class="bulk-status" onclick="bulkSetStatus('printed')">Set Printed</button><button class="bulk-del" id="bulk-del-btn" onclick="bulkDeleteStart()">Delete Selected</button></div></div>
+<table>
+            <thead><tr><th style="width:36px;padding:8px;"><input type="checkbox" class="att-cb" id="bulk-all" onchange="bulkToggleAll()" title="Select all"></th><th>Name</th><th>School</th><th>City</th><th>Time</th><th>Status</th><th>Update</th></tr></thead>
             <tbody id="att-tbody"><tr><td colspan="6" style="text-align:center;padding:40px;color:#999">Loading...</td></tr></tbody>
           </table>
         </div>
@@ -2237,9 +2238,11 @@ function updStats(){
 
 function renderAtt(){
   document.getElementById('att-tbody').innerHTML=ATT.length===0
-    ?'<tr><td colspan="6" style="text-align:center;padding:40px;color:#999;">No registrations yet</td></tr>'
+    ?'<tr><td colspan="7" style="text-align:center;padding:40px;color:#999;">No registrations yet</td></tr>'
     :ATT.map(function(a){
-      return '<tr>'
+      var ck=BULK_SEL.has(a.id)?' checked':'';
+      return '<tr class="'+( BULK_SEL.has(a.id)?'bulk-selected':'')+'">'
+        +'<td style="padding:8px;width:36px;"><input type="checkbox" class="att-cb" data-id="'+a.id+'"'+ck+' onchange="bulkToggle(\''+a.id+'\')"></td>'
         +'<td style="font-weight:700;">'+a.n+'</td>'
         +'<td>'+a.s+'</td>'
         +'<td>'+a.c+'</td>'
@@ -2250,11 +2253,12 @@ function renderAtt(){
           +'<option value="pending"'+(a.b==='pending'?' selected':'')+'>Pending</option>'
           +'<option value="printing"'+(a.b==='printing'?' selected':'')+'>Printing</option>'
           +'<option value="printed"'+(a.b==='printed'?' selected':'')+'>Printed</option>'
-          +'<option value="__del__" style="color:#dc3545;font-weight:700;">&#x2715; Delete</option>'
+          +'<option value="__del__">× Delete</option>'
           +'</select>'
         +'</td>'
         +'</tr>';
     }).join('');
+  bulkUpdateUI();
 }
 
 function renderBadges(){
@@ -2366,7 +2370,20 @@ function printAllBadges(){
     +'.name{font-size:22px;font-weight:900;color:#0f1f5c;line-height:1.1;}'
     +'.school{font-size:10px;font-weight:700;color:#444;margin-top:3px;}'
     +'.role{font-size:9px;color:#888;margin-top:2px;text-transform:uppercase;letter-spacing:0.4px;}'
-    +'</style></head><body>'+rows+'</body></html>';
+    +'
+.bulk-bar{display:none;background:var(--navy);color:#fff;border-radius:14px;padding:10px 18px;margin-bottom:12px;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;animation:fadeIn .2s}
+.bulk-bar.active{display:flex}
+.bulk-bar .bulk-count{font-weight:700;font-size:13px}
+.bulk-bar button{padding:5px 14px;border-radius:8px;font-size:12px;font-weight:600;border:none;cursor:pointer;transition:all .2s}
+.bulk-bar .bulk-status{background:rgba(255,255,255,.15);color:#fff}
+.bulk-bar .bulk-status:hover{background:rgba(255,255,255,.25)}
+.bulk-bar .bulk-del{background:#e63946;color:#fff}
+.bulk-bar .bulk-del:hover{background:#c1121f}
+.bulk-bar .bulk-cancel{background:transparent;color:rgba(255,255,255,.7)}
+.bulk-bar .bulk-cancel:hover{color:#fff}
+.att-cb{width:17px;height:17px;accent-color:var(--navy);cursor:pointer;margin:0}
+tr.bulk-selected{background:rgba(26,31,110,.05)}
+</style></head><body>'+rows+'</body></html>';
   w.document.write(html);
   w.document.close();
   setTimeout(function(){w.print();},800);
@@ -3263,5 +3280,69 @@ function translateSpeakerRoles(){
   });
 }
 window.translateSpeakerRoles=translateSpeakerRoles;
+
+// ---- Bulk Selection ----
+var BULK_SEL=new Set();
+var BULK_CONFIRM_DEL=false;
+
+function bulkToggle(id){
+  if(BULK_SEL.has(id))BULK_SEL.delete(id);else BULK_SEL.add(id);
+  bulkUpdateUI();
+  var el=document.querySelector('.att-cb[data-id="'+id+'"]');
+  if(el)el.closest('tr').classList.toggle('bulk-selected',BULK_SEL.has(id));
+}
+function bulkToggleAll(){
+  var cb=document.getElementById('bulk-all');
+  if(cb.checked){ATT.forEach(function(a){BULK_SEL.add(a.id);});}else{BULK_SEL.clear();}
+  bulkUpdateUI();renderAtt();
+}
+function bulkClearAll(){
+  BULK_SEL.clear();BULK_CONFIRM_DEL=false;bulkUpdateUI();renderAtt();
+}
+function bulkUpdateUI(){
+  var bar=document.getElementById('bulk-bar');
+  var cnt=document.getElementById('bulk-count');
+  if(!bar)return;
+  if(BULK_SEL.size>0){bar.classList.add('active');cnt.textContent=BULK_SEL.size+' selected';}
+  else{bar.classList.remove('active');BULK_CONFIRM_DEL=false;}
+  var delBtn=document.getElementById('bulk-del-btn');
+  if(delBtn&&!BULK_CONFIRM_DEL){delBtn.textContent='Delete Selected';delBtn.onclick=function(){bulkDeleteStart();};}
+  var allCb=document.getElementById('bulk-all');
+  if(allCb)allCb.checked=ATT.length>0&&BULK_SEL.size===ATT.length;
+  var dc=document.getElementById('bulk-del-cancel');if(dc&&!BULK_CONFIRM_DEL)dc.remove();
+}
+function bulkDeleteStart(){
+  BULK_CONFIRM_DEL=true;
+  var delBtn=document.getElementById('bulk-del-btn');
+  delBtn.textContent='Confirm Delete '+BULK_SEL.size+'?';
+  delBtn.onclick=function(){bulkDeleteConfirm();};
+  var acts=document.getElementById('bulk-actions');
+  if(!document.getElementById('bulk-del-cancel')){
+    var cb=document.createElement('button');cb.id='bulk-del-cancel';cb.className='bulk-cancel';cb.textContent='Cancel';
+    cb.onclick=function(){BULK_CONFIRM_DEL=false;this.remove();bulkUpdateUI();};
+    acts.appendChild(cb);
+  }
+}
+async function bulkDeleteConfirm(){
+  var ids=Array.from(BULK_SEL);
+  var delBtn=document.getElementById('bulk-del-btn');
+  delBtn.textContent='Deleting...';delBtn.disabled=true;
+  for(var i=0;i<ids.length;i++){try{await supaFetch('/rest/v1/attendees?id=eq.'+ids[i],{method:'DELETE'});}catch(e){}}
+  ATT=ATT.filter(function(a){return !BULK_SEL.has(a.id);});
+  BULK_SEL.clear();BULK_CONFIRM_DEL=false;
+  var dc=document.getElementById('bulk-del-cancel');if(dc)dc.remove();
+  delBtn.disabled=false;
+  updStats();renderAtt();renderBadges();renderSchools();renderAnalytics();bulkUpdateUI();
+}
+async function bulkSetStatus(status){
+  var ids=Array.from(BULK_SEL);
+  for(var i=0;i<ids.length;i++){
+    var a=ATT.find(function(x){return x.id===ids[i];});
+    if(a)a.b=status;
+    try{await supaFetch('/rest/v1/attendees?id=eq.'+ids[i],{method:'PATCH',body:JSON.stringify({badge_status:status})});}catch(e){}
+  }
+  BULK_SEL.clear();BULK_CONFIRM_DEL=false;
+  updStats();renderAtt();renderBadges();renderSchools();renderAnalytics();bulkUpdateUI();
+}
 </script>
 </body></html>
