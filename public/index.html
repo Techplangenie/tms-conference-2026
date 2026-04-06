@@ -1311,7 +1311,7 @@ const SPK=[
 {id:'wilmarys-valentin',n:'Wilmarys Valentín',t:'Tech Disruptors Finalist',r:'tech-disruptor',o:'Educator',p:'wilmarys-valentin',li:''},
 {id:'rosana-rosario',n:'Rosana Rosario',t:'Tech Disruptors Finalist',r:'tech-disruptor',o:'Educator',p:'rosana-rosario',li:''},
 {id:'valerie-martinez',n:'Valerie Martínez',t:'Tech Disruptors Finalist',r:'tech-disruptor',o:'Educator',p:'valerie-martinez',li:''},
-{id:'norma-munoz-varela',n:'Norma Muñoz Varela',t:'Tech Disruptors Finalist',r:'tech-disruptor',o:'Educator',p:'norma-munoz-varela',li:''},
+{id:'norma-munoz-varela',n:'Norma Muñoz Varela',t:'Tech Disruptors Finalist',r:'presenter',o:'Educator',p:'norma-munoz-varela',li:''},
 {id:'alejandra-rentas',n:'Alejandra Rentas',t:'Tech Disruptors Finalist',r:'tech-disruptor',o:'Educator',p:'alejandra-rentas',li:''}];
 const SLOTS=[
 {id:'bs1',day:1,time:'10:30-11:20 AM',lbl:'Breakout 1: Practical AI Integration',sess:[
@@ -1470,6 +1470,7 @@ function spkRoles(sp){
       if(sess.sp===id) isPresenter=true;
     });
   });
+  if(id==='norma-munoz-varela') isPresenter=true;
   if(isPresenter) roles.push('presenter');
   /* 5. Tech My School team */
   var TMS=['robert-cobbs','darlene-colon','armanie-cordero','ivonne-rosa','mehdi-amani'];
@@ -1479,7 +1480,7 @@ function spkRoles(sp){
   if(MC.indexOf(id)>-1) roles.push('mc');
   /* 7. Flock Leaders */
   var FLOCK=['norma-munoz','ariana-colon','zaicha-torres',
-             'kathleen-mcglone','jose-alicea','marina-osorio','mariana-bermudez','yahaira-murphy'];
+             'kathleen-mcglone','jose-alicea','marina-osorio','mariana-bermudez','yahaira-murphy','norma-munoz-varela'];
   if(FLOCK.indexOf(id)>-1) roles.push('flock');
   /* 6. Tech Disruptor */
   var TD=['ariana-colon','wilmarys-valentin','bryan-rivera','marina-osorio','alexander-santana','valerie-martinez','mariana-bermudez','rosana-rosario','norma-munoz-varela','alejandra-rentas'];
