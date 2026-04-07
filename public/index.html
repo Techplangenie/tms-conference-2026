@@ -670,8 +670,16 @@ tr.bulk-selected{background:rgba(26,31,110,.05)}
       <div id="step-profile" class="hidden">
         <h2 style="color:var(--navy);margin-bottom:8px;font-size:1.5rem;" data-i18n="reg.almost">Almost there!</h2>
         <p style="color:#666;margin-bottom:20px;font-size:0.97rem;"><span data-i18n="reg.complete">Complete your profile to finish registering.</span></p>
-        <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">Full Name</label>
-        <input id="rn" type="text" placeholder="Your full name" data-i18n-attr="placeholder" data-i18n="reg.name" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
+        <div style="display:flex;gap:12px;">
+          <div style="flex:1;">
+            <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">First Name</label>
+            <input id="rfn" type="text" placeholder="First name" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
+          </div>
+          <div style="flex:1;">
+            <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">Last Name</label>
+            <input id="rln" type="text" placeholder="Last name" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
+          </div>
+        </div>
         <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">School / Organization</label>
         <input id="rs" type="text" placeholder="Your school or organization" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
         <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">City</label>
@@ -1782,13 +1790,15 @@ async function checkEmail(){
   }
 }
 async function doRegister(){
-  var n=(document.getElementById('rn').value||'').trim();
+  var fn=(document.getElementById('rfn').value||'').trim();
+  var ln=(document.getElementById('rln').value||'').trim();
+  var n=(fn+' '+ln).trim();
   var s=(document.getElementById('rs').value||'').trim();
   var ci=(document.getElementById('rci').value||'').trim();
   var c=(document.getElementById('rc').value||'').trim();
   var e=window._pendingEmail||'';
   var errEl=document.getElementById('profile-err');
-  if(!n||!s||!ci||!c){errEl.textContent='Please fill in all fields.';errEl.style.display='block';return;}
+  if(!fn||!ln||!s||!ci||!c){errEl.textContent='Please fill in all fields.';errEl.style.display='block';return;}
   errEl.style.display='none';
   var btn=document.querySelector('#step-profile button');
   btn.disabled=true;btn.textContent='Saving...';btn.style.opacity='0.7';
