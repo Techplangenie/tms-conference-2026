@@ -2421,50 +2421,52 @@ function badgeHTML(a){
     +'</div>';
 }
 
-function printBadge(id){
-  var a=ATT.find(function(x){return x.id===id;});
-  if(!a)return;
-  // Update status to "printing" immediately
-  updBadge(id,'printing');
-  var w=window.open('','_blank','width=500,height=300');
+function badgePageHTML(a){
   var name=a.n||'';
   var school=a.s||'';
   var role=a.role||'';
-  var html='<!DOCTYPE html><html><head><title>Badge</title>'
-    +'<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">'
-    +'<style>'
-    +'@page{size:4in 1.5in;margin:0;}'
-    +'*{margin:0;padding:0;box-sizing:border-box;}'
-    +'body{width:4in;height:1.5in;overflow:hidden;font-family:Outfit,sans-serif;background:#fff;display:flex;align-items:stretch;}'
-    +'.logo-col{width:0.9in;background:#0f1f5c;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;flex-shrink:0;}'
-    +'.logo-col img{width:0.65in;height:0.65in;border-radius:50%;}'
-    +'.logo-col .conf{color:rgba(255,255,255,0.75);font-size:5.5px;text-align:center;margin-top:4px;text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;}'
-    +'.info-col{flex:1;padding:10px 10px 8px 10px;display:flex;flex-direction:column;justify-content:center;border-top:4px solid #00c49a;}'
-    +'.name{font-size:22px;font-weight:900;color:#0f1f5c;line-height:1.1;}'
-    +'.school{font-size:10px;font-weight:700;color:#444;margin-top:3px;}'
-    +'.role{font-size:9px;color:#888;margin-top:2px;text-transform:uppercase;letter-spacing:0.4px;}'
-    +'</style>'
-    +'</head><body>'
-    +'<div class="logo-col">'
-    +'<img src="https://tms-conference.vercel.app/Conference%20logo.png">'
-    +'<div class="conf">Spring Educators<br>#EdTech 2026<br>Wyndham Rio Mar</div>'
-    +'</div>'
-    +'<div class="info-col">'
+  var city=a.c||'';
+  var qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='+encodeURIComponent('https://tms-conference.vercel.app');
+  return '<div class="badge">'
+    +'<div class="badge-main">'
     +'<div class="name">'+name+'</div>'
-    +'<div class="school">'+school+'</div>'
-    +'<div class="role">'+role+'</div>'
+    +'<div class="info-row"><span class="icon">🏫</span><span class="info-text">'+school+'</span></div>'
+    +'<div class="info-row"><span class="icon">🏙️</span><span class="info-text">'+role+'</span></div>'
+    +(city?'<div class="info-row"><span class="icon">💼</span><span class="info-text">'+city+'</span></div>':'')
     +'</div>'
-    +'</body></html>';
+    +'<div class="qr-col"><img src="'+qrUrl+'" class="qr"></div>'
+    +'</div>';
+}
+
+function badgeStyles(){
+  return '@page{size:4in 2.5in;margin:0;}'
+    +'*{margin:0;padding:0;box-sizing:border-box;}'
+    +'body{font-family:Arial,Helvetica,sans-serif;background:#fff;}'
+    +'.badge{width:4in;height:2.5in;background:#fff;display:flex;align-items:stretch;padding:0.15in 0.2in;page-break-after:always;overflow:hidden;}'
+    +'.badge-main{flex:1;display:flex;flex-direction:column;justify-content:center;}'
+    +'.name{font-size:28px;font-weight:900;color:#000;line-height:1.15;margin-bottom:10px;}'
+    +'.info-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}'
+    +'.icon{font-size:18px;width:28px;text-align:center;flex-shrink:0;}'
+    +'.info-text{font-size:16px;font-weight:700;color:#000;}'
+    +'.qr-col{display:flex;align-items:flex-end;justify-content:flex-end;flex-shrink:0;padding-left:8px;}'
+    +'.qr{width:0.9in;height:0.9in;}';
+}
+
+function printBadge(id){
+  var a=ATT.find(function(x){return x.id===id;});
+  if(!a)return;
+  updBadge(id,'printing');
+  var w=window.open('','_blank','width=500,height=350');
+  var html='<!DOCTYPE html><html><head><title>Badge - '+a.n+'</title>'
+    +'<style>'+badgeStyles()+'</style>'
+    +'</head><body>'+badgePageHTML(a)+'</body></html>';
   w.document.write(html);
   w.document.close();
-  // After print dialog closes, mark as printed
   setTimeout(function(){
     w.print();
-    // Use afterprint event or fallback timeout to mark as printed
     var marked=false;
     function markPrinted(){if(!marked){marked=true;updBadge(id,'printed');}}
     w.onafterprint=markPrinted;
-    // Fallback: if onafterprint doesn't fire (some browsers), mark after 5s
     setTimeout(markPrinted,5000);
   },600);
 }
@@ -2472,41 +2474,15 @@ function printBadge(id){
 function printAllBadges(){
   var pending=ATT.filter(function(a){return a.b==='pending'||!a.b;});
   if(!pending.length){alert('No pending badges.');return;}
-  // Update all to "printing" immediately
   var ids=pending.map(function(a){return a.id;});
   ids.forEach(function(id){updBadge(id,'printing');});
-  var w=window.open('','_blank','width=900,height=700');
-  var rows=pending.map(function(a){
-    return '<div class="badge">'
-      +'<div class="logo-col">'
-      +'<img src="https://tms-conference.vercel.app/Conference%20logo.png">'
-      +'<div class="conf">Spring Educators<br>#EdTech 2026<br>Wyndham Rio Mar</div>'
-      +'</div>'
-      +'<div class="info-col">'
-      +'<div class="name">'+(a.n||'')+'</div>'
-      +'<div class="school">'+(a.s||'')+'</div>'
-      +'<div class="role">'+(a.role||'')+'</div>'
-      +'</div>'
-      +'</div>';
-  }).join('');
+  var w=window.open('','_blank','width=500,height=700');
+  var rows=pending.map(function(a){return badgePageHTML(a);}).join('');
   var html='<!DOCTYPE html><html><head><title>All Badges</title>'
-    +'<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">'
-    +'<style>'
-    +'@page{size:4in 1.5in;margin:0;}'
-    +'*{margin:0;padding:0;box-sizing:border-box;}'
-    +'body{font-family:Outfit,sans-serif;background:#fff;}'
-    +'.badge{width:4in;height:1.5in;overflow:hidden;display:flex;align-items:stretch;page-break-after:always;}'
-    +'.logo-col{width:0.9in;background:#0f1f5c;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;flex-shrink:0;}'
-    +'.logo-col img{width:0.65in;height:0.65in;border-radius:50%;}'
-    +'.logo-col .conf{color:rgba(255,255,255,0.75);font-size:5.5px;text-align:center;margin-top:4px;text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;}'
-    +'.info-col{flex:1;padding:10px 10px 8px 10px;display:flex;flex-direction:column;justify-content:center;border-top:4px solid #00c49a;}'
-    +'.name{font-size:22px;font-weight:900;color:#0f1f5c;line-height:1.1;}'
-    +'.school{font-size:10px;font-weight:700;color:#444;margin-top:3px;}'
-    +'.role{font-size:9px;color:#888;margin-top:2px;text-transform:uppercase;letter-spacing:0.4px;}'
-    +'</style></head><body>'+rows+'</body></html>';
+    +'<style>'+badgeStyles()+'</style>'
+    +'</head><body>'+rows+'</body></html>';
   w.document.write(html);
   w.document.close();
-  // After print dialog closes, mark all as printed
   setTimeout(function(){
     w.print();
     var marked=false;
