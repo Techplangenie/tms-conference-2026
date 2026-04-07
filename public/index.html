@@ -674,6 +674,8 @@ tr.bulk-selected{background:rgba(26,31,110,.05)}
         <input id="rn" type="text" placeholder="Your full name" data-i18n-attr="placeholder" data-i18n="reg.name" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
         <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">School / Organization</label>
         <input id="rs" type="text" placeholder="Your school or organization" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
+        <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">City</label>
+        <input id="rci" type="text" placeholder="e.g. San Juan, Bayamón" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
         <label style="font-weight:600;color:var(--navy);font-size:0.9rem;">Role / Title</label>
         <input id="rc" type="text" placeholder="e.g. Teacher, Principal" style="width:100%;margin-top:6px;margin-bottom:12px;padding:12px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box;"/>
         <div id="profile-err" style="display:none;color:#e53e3e;font-size:0.88rem;margin-bottom:10px;padding:8px 12px;background:#fff5f5;border-radius:6px;border:1px solid #fed7d7;"></div>
@@ -1030,6 +1032,7 @@ Los maestros compiten en cinco categorías: <strong style="color:#7c3aed;">Tech 
     </div>
     <div class="admin-nav-area">
       <button class="admin-ni active" data-t="dashboard" onclick="setAdminTab('dashboard')">Dashboard</button>
+      <button class="admin-ni" data-t="emails" onclick="setAdminTab('emails')">Email List</button>
       <button class="admin-ni" data-t="attendees" onclick="setAdminTab('attendees')">Attendees</button>
       <button class="admin-ni" data-t="badges" onclick="setAdminTab('badges')">Badge Management</button>
       <button class="admin-ni" data-t="schools" onclick="setAdminTab('schools')">Schools</button>
@@ -1057,7 +1060,7 @@ Los maestros compiten en cinco categorías: <strong style="color:#7c3aed;">Tech 
     </div>
     <div class="admin-cont">
       <div class="stats-grid">
-        <div class="stat-card g"><div class="stat-num" id="stat-total">0</div><div class="stat-lbl">Total Registered</div></div>
+        <div class="stat-card g"><div class="stat-num" id="stat-total">0</div><div class="stat-lbl">Total Arrived</div></div>
         <div class="stat-card n"><div class="stat-num" id="stat-pend">0</div><div class="stat-lbl">Badge Pending</div></div>
         <div class="stat-card o"><div class="stat-num" id="stat-prnt">0</div><div class="stat-lbl">Printing</div></div>
         <div class="stat-card t"><div class="stat-num" id="stat-done">0</div><div class="stat-lbl">Printed</div></div>
@@ -1071,9 +1074,43 @@ Los maestros compiten en cinco categorías: <strong style="color:#7c3aed;">Tech 
 <canvas id="dash-positions-chart" style="max-height:260px;margin-top:24px;display:none;"></canvas>
           </div>
           <div class="tw" style="padding:20px">
-            <div style="font-family:Outfit;font-weight:800;font-size:15px;color:var(--navy);margin-bottom:14px">Recent Check-Ins</div>
+            <div style="font-family:Outfit;font-weight:800;font-size:15px;color:var(--navy);margin-bottom:14px">Recently Arrived</div>
             <div id="dash-recent"></div>
           </div>
+        </div>
+      </div>
+      <!-- Email List -->
+      <div class="admin-pane hidden" id="ap-emails">
+        <div class="tw" style="padding:24px;margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+            <div>
+              <div style="font-family:Outfit;font-weight:800;font-size:15px;color:var(--navy)">Approved Emails</div>
+              <div style="font-size:12px;color:var(--gray-600);margin-top:2px">Upload emails here. Only people on this list can check in at the event. When they arrive and complete registration, they'll appear in Attendees.</div>
+            </div>
+            <div style="display:flex;gap:10px">
+              <label style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#22c55e;color:#fff;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap">
+                📤 Upload CSV
+                <input type="file" id="email-csv-upload" accept=".csv,.txt" style="display:none" onchange="handleEmailCSV(this)">
+              </label>
+              <button class="btn-exp" onclick="refreshEmailList()">Refresh</button>
+            </div>
+          </div>
+          <div id="email-csv-status" style="display:none;margin-bottom:14px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600"></div>
+          <div style="margin-bottom:16px">
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="add-email-input" type="email" placeholder="Add a single email..." style="flex:1;padding:10px 14px;border:2px solid var(--gray-200);border-radius:10px;font-size:14px;outline:none;box-sizing:border-box" onkeydown="if(event.key==='Enter')addSingleEmail()">
+              <button class="btn-exp" onclick="addSingleEmail()" style="background:var(--navy);color:#fff;border:none;white-space:nowrap">+ Add</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;margin-bottom:12px;font-size:13px">
+            <div><span style="font-weight:700" id="email-count">0</span> approved emails</div>
+            <div><span style="background:#dcfce7;color:#166534;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700">✓ ARRIVED</span> = checked in at event</div>
+            <div><span style="background:#fef3c7;color:#92400e;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700">Waiting</span> = not yet checked in</div>
+          </div>
+          <table>
+            <thead><tr><th>Email</th><th>Added</th><th>Status</th><th>Remove</th></tr></thead>
+            <tbody id="email-tbody"><tr><td colspan="4" style="text-align:center;padding:40px;color:#999">Loading...</td></tr></tbody>
+          </table>
         </div>
       </div>
       <!-- Attendees -->
@@ -1136,7 +1173,7 @@ Los maestros compiten en cinco categorías: <strong style="color:#7c3aed;">Tech 
         <div class="tw">
           <div class="bulk-bar" id="bulk-bar"><div style="display:flex;align-items:center;gap:10px"><button class="bulk-cancel" onclick="bulkClearAll()">✕</button><span class="bulk-count" id="bulk-count">0 selected</span></div><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap" id="bulk-actions"><button class="bulk-status" onclick="bulkSetStatus('pending')">Set Pending</button><button class="bulk-status" onclick="bulkSetStatus('printing')">Set Printing</button><button class="bulk-status" onclick="bulkSetStatus('printed')">Set Printed</button><button class="bulk-del" id="bulk-del-btn" onclick="bulkDeleteStart()">Delete Selected</button></div></div>
 <table>
-            <thead><tr><th style="width:36px;padding:8px;"><input type="checkbox" class="att-cb" id="bulk-all" onchange="bulkToggleAll()" title="Select all"></th><th>Name</th><th>School</th><th>City</th><th>Time</th><th>Status</th><th>Update</th></tr></thead>
+            <thead><tr><th style="width:36px;padding:8px;"><input type="checkbox" class="att-cb" id="bulk-all" onchange="bulkToggleAll()" title="Select all"></th><th>Name</th><th>Email</th><th>School</th><th>City</th><th>Role</th><th>Arrived</th><th>Status</th><th>Update</th></tr></thead>
             <tbody id="att-tbody"><tr><td colspan="6" style="text-align:center;padding:40px;color:#999">Loading...</td></tr></tbody>
           </table>
         </div>
@@ -1747,10 +1784,11 @@ async function checkEmail(){
 async function doRegister(){
   var n=(document.getElementById('rn').value||'').trim();
   var s=(document.getElementById('rs').value||'').trim();
+  var ci=(document.getElementById('rci').value||'').trim();
   var c=(document.getElementById('rc').value||'').trim();
   var e=window._pendingEmail||'';
   var errEl=document.getElementById('profile-err');
-  if(!n||!s||!c){errEl.textContent='Please fill in all fields.';errEl.style.display='block';return;}
+  if(!n||!s||!ci||!c){errEl.textContent='Please fill in all fields.';errEl.style.display='block';return;}
   errEl.style.display='none';
   var btn=document.querySelector('#step-profile button');
   btn.disabled=true;btn.textContent='Saving...';btn.style.opacity='0.7';
@@ -1759,7 +1797,7 @@ async function doRegister(){
     var res=await fetch(SBU+'/rest/v1/attendees',{
       method:'POST',
       headers:{'Authorization':'Bearer '+SBK,'apikey':SBK,'Content-Type':'application/json','Prefer':'return=representation'},
-      body:JSON.stringify({full_name:n,school:s,role:c,email:e,city:'',badge_status:'pending',sessions_selected:0})
+      body:JSON.stringify({full_name:n,school:s,role:c,email:e,city:ci,badge_status:'pending',sessions_selected:0})
     });
     var rows=await res.json();
     if(!res.ok){errEl.textContent='Error: '+(rows.message||'Could not save. Try again.');errEl.style.display='block';btn.disabled=false;btn.textContent='Complete Check-In →';btn.style.opacity='1';return;}
@@ -2267,9 +2305,11 @@ async function refreshAdmin(){
     var data=await supaFetch('/rest/v1/attendees?select=*&order=registered_at.desc');
     if(Array.isArray(data)&&data.length>0){
       ATT=data.map(function(r){
+        var regDate=new Date(r.registered_at||r.created_at);
         return {id:r.id,n:r.full_name||r.name||'',s:r.school||'',c:r.city||'',role:r.role||'',
           b:r.badge_status||'pending',
-          t:new Date(r.registered_at||r.created_at).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),
+          t:regDate.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),
+          tDate:regDate.toLocaleDateString('en-US',{month:'short',day:'numeric'}),
           sel:r.sessions_selected||0,email:r.email||'',picks:(function(){try{if(r.session_picks)return JSON.parse(r.session_picks);}catch(e){}return {};})()};
       });
     }
@@ -2285,8 +2325,9 @@ function setAdminTab(t){
   document.querySelectorAll('.admin-pane').forEach(function(p){p.classList.toggle('hidden',p.id!=='ap-'+t);});
   if(t==='analytics')renderAnalytics();
   if(t==='sessions')renderSessionsTab();
+  if(t==='emails')refreshEmailList();
   document.getElementById('admin-topbar-title').textContent={
-    dashboard:'Dashboard',attendees:'Attendees',badges:'Badge Management',sessions:'Session Selections',
+    dashboard:'Dashboard',emails:'Email List',attendees:'Attendees',badges:'Badge Management',sessions:'Session Selections',
     schools:'Schools',analytics:'Analytics'
   }[t]||t;
 }
@@ -2304,15 +2345,17 @@ function updStats(){
 
 function renderAtt(){
   document.getElementById('att-tbody').innerHTML=ATT.length===0
-    ?'<tr><td colspan="7" style="text-align:center;padding:40px;color:#999;">No registrations yet</td></tr>'
+    ?'<tr><td colspan="9" style="text-align:center;padding:40px;color:#999;">No registrations yet</td></tr>'
     :ATT.map(function(a){
       var ck=BULK_SEL.has(a.id)?' checked':'';
       return '<tr class="'+( BULK_SEL.has(a.id)?'bulk-selected':'')+'">'
         +'<td style="padding:8px;width:36px;"><input type="checkbox" class="att-cb" data-id="'+a.id+'"'+ck+' onchange="bulkToggle(\''+a.id+'\')"></td>'
         +'<td style="font-weight:700;">'+a.n+'</td>'
+        +'<td style="font-size:12px;color:#666;">'+a.email+'</td>'
         +'<td>'+a.s+'</td>'
         +'<td>'+a.c+'</td>'
-        +'<td>'+a.t+'</td>'
+        +'<td style="font-size:12px;">'+a.role+'</td>'
+        +'<td><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap">✓ '+a.tDate+' '+a.t+'</span></td>'
         +'<td><span class="bst '+a.b+'">'+a.b+'</span></td>'
         +'<td>'
           +'<select style="font-size:11px;padding:3px 6px;border-radius:6px;border:1px solid #ddd;" onchange="updBadge(\''+a.id+'\',this.value)">'
@@ -2643,9 +2686,10 @@ function renderDash(){
     ?'<p style="color:#999;font-size:12px;">No registrations yet</p>'
     :'<div style="display:flex;flex-direction:column;gap:8px;">'
     +recent.map(function(a){
-      return '<div style="background:#fff;border-radius:8px;padding:10px 12px;">'
-        +'<div style="font-weight:700;font-size:12px;">'+a.n+'</div>'
-        +'<div style="font-size:10px;color:#666;">'+a.s+' - '+a.t+'</div>'
+      return '<div style="background:#fff;border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center">'
+        +'<div><div style="font-weight:700;font-size:12px;">'+a.n+'</div>'
+        +'<div style="font-size:10px;color:#666;">'+a.s+'</div></div>'
+        +'<span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;white-space:nowrap">'+a.t+'</span>'
         +'</div>';
     }).join('')+'</div>';
 }
@@ -2667,9 +2711,119 @@ async function updBadge(id,status){
   }
 }
 
+// ── EMAIL LIST MANAGEMENT ───────────────────────────────────────────────
+async function refreshEmailList(){
+  try{
+    var emails=await supaFetch('/rest/v1/approved_emails?select=*&order=created_at.desc');
+    var atts=await supaFetch('/rest/v1/attendees?select=email,registered_at');
+    var attMap={};
+    if(Array.isArray(atts))atts.forEach(function(a){if(a.email)attMap[a.email.toLowerCase()]=a.registered_at;});
+    window._approvedEmails=emails||[];
+    document.getElementById('email-count').textContent=(emails||[]).length;
+    var tbody=document.getElementById('email-tbody');
+    if(!emails||emails.length===0){
+      tbody.innerHTML='<tr><td colspan="4" style="text-align:center;padding:40px;color:#999;">No emails uploaded yet. Upload a CSV or add emails one at a time above.</td></tr>';
+      return;
+    }
+    tbody.innerHTML=emails.map(function(e){
+      var em=e.email||'';
+      var arrived=attMap[em.toLowerCase()];
+      var arrivedBadge=arrived
+        ?'<span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">✓ ARRIVED '+new Date(arrived).toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+new Date(arrived).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+'</span>'
+        :'<span style="background:#fef3c7;color:#92400e;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">Waiting</span>';
+      var addedTime=e.created_at?new Date(e.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+new Date(e.created_at).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}):'—';
+      return '<tr>'
+        +'<td style="font-weight:600;">'+em+'</td>'
+        +'<td style="font-size:12px;color:#666;">'+addedTime+'</td>'
+        +'<td>'+arrivedBadge+'</td>'
+        +'<td><button onclick="removeEmail(\''+e.id+'\',\''+em.replace(/'/g,"\\'")+'\')" style="background:none;border:none;color:#dc3545;cursor:pointer;font-size:14px" title="Remove">✕</button></td>'
+        +'</tr>';
+    }).join('');
+  }catch(err){console.log('Email list error:',err);}
+}
+
+async function handleEmailCSV(input){
+  var file=input.files[0];
+  if(!file)return;
+  var statusEl=document.getElementById('email-csv-status');
+  statusEl.style.display='block';
+  statusEl.style.background='#eff6ff';statusEl.style.color='#1e40af';
+  statusEl.textContent='Reading file...';
+  var reader=new FileReader();
+  reader.onload=async function(ev){
+    var text=ev.target.result;
+    var lines=text.split(/[\r\n]+/).map(function(l){return l.trim();}).filter(function(l){return l;});
+    var emails=[];
+    lines.forEach(function(line){
+      var parts=line.split(',');
+      parts.forEach(function(p){
+        var val=p.trim().replace(/^["']|["']$/g,'').trim().toLowerCase();
+        if(val&&val.includes('@')&&val.includes('.')&&val!=='email'&&val!=='email address'){emails.push(val);}
+      });
+    });
+    var unique=[...new Set(emails)];
+    if(unique.length===0){
+      statusEl.style.background='#fff0f0';statusEl.style.color='#c0392b';
+      statusEl.textContent='No valid emails found in the file.';
+      input.value='';return;
+    }
+    statusEl.textContent='Uploading '+unique.length+' emails...';
+    var success=0;var errors=0;
+    for(var i=0;i<unique.length;i+=50){
+      var chunk=unique.slice(i,i+50);
+      var body=chunk.map(function(e){return {email:e};});
+      try{
+        var res=await fetch(SUPA_URL+'/rest/v1/approved_emails',{
+          method:'POST',
+          headers:{'Authorization':'Bearer '+SUPA_KEY,'apikey':SUPA_KEY,'Content-Type':'application/json','Prefer':'return=minimal,resolution=ignore-duplicates'},
+          body:JSON.stringify(body)
+        });
+        if(res.ok||res.status===201||res.status===200){success+=chunk.length;}
+        else{errors+=chunk.length;}
+      }catch(err){errors+=chunk.length;}
+      statusEl.textContent='Uploading... '+(i+chunk.length)+'/'+unique.length;
+    }
+    statusEl.style.background='#dcfce7';statusEl.style.color='#166534';
+    statusEl.textContent='Done! '+success+' emails uploaded.'+(errors?' '+errors+' errors.':'');
+    input.value='';
+    refreshEmailList();
+  };
+  reader.readAsText(file);
+}
+
+async function addSingleEmail(){
+  var input=document.getElementById('add-email-input');
+  var email=(input.value||'').trim().toLowerCase();
+  if(!email||!email.includes('@')){return;}
+  try{
+    await fetch(SUPA_URL+'/rest/v1/approved_emails',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+SUPA_KEY,'apikey':SUPA_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({email:email})
+    });
+    input.value='';
+    var statusEl=document.getElementById('email-csv-status');
+    statusEl.style.display='block';statusEl.style.background='#dcfce7';statusEl.style.color='#166534';
+    statusEl.textContent='Added: '+email;
+    setTimeout(function(){statusEl.style.display='none';},3000);
+    refreshEmailList();
+  }catch(err){console.log('Add email error:',err);}
+}
+
+async function removeEmail(id,email){
+  if(!confirm('Remove '+email+' from the approved list?'))return;
+  try{
+    await fetch(SUPA_URL+'/rest/v1/approved_emails?id=eq.'+id,{
+      method:'DELETE',
+      headers:{'Authorization':'Bearer '+SUPA_KEY,'apikey':SUPA_KEY}
+    });
+    refreshEmailList();
+  }catch(err){console.log('Remove email error:',err);}
+}
+
 function exportCSV(){
-  var rows=[['Name','School','City','Badge Status','Time']].concat(
-    ATT.map(function(a){return [a.n,a.s,a.c,a.b,a.t];})
+  var rows=[['Name','Email','School','City','Role','Badge Status','Arrived']].concat(
+    ATT.map(function(a){return [a.n,a.email,a.s,a.c,a.role,a.b,a.tDate+' '+a.t];})
   );
   var csv=rows.map(function(r){return r.map(function(c){return '"'+c+'"';}).join(',');}).join('\n');
   var a=document.createElement('a');
