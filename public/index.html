@@ -2414,6 +2414,8 @@ function badgeHTML(a){
 function printBadge(id){
   var a=ATT.find(function(x){return x.id===id;});
   if(!a)return;
+  // Update status to "printing" immediately
+  updBadge(id,'printing');
   var w=window.open('','_blank','width=500,height=300');
   var name=a.n||'';
   var school=a.s||'';
@@ -2445,12 +2447,24 @@ function printBadge(id){
     +'</body></html>';
   w.document.write(html);
   w.document.close();
-  setTimeout(function(){w.print();},600);
+  // After print dialog closes, mark as printed
+  setTimeout(function(){
+    w.print();
+    // Use afterprint event or fallback timeout to mark as printed
+    var marked=false;
+    function markPrinted(){if(!marked){marked=true;updBadge(id,'printed');}}
+    w.onafterprint=markPrinted;
+    // Fallback: if onafterprint doesn't fire (some browsers), mark after 5s
+    setTimeout(markPrinted,5000);
+  },600);
 }
 
 function printAllBadges(){
   var pending=ATT.filter(function(a){return a.b==='pending'||!a.b;});
   if(!pending.length){alert('No pending badges.');return;}
+  // Update all to "printing" immediately
+  var ids=pending.map(function(a){return a.id;});
+  ids.forEach(function(id){updBadge(id,'printing');});
   var w=window.open('','_blank','width=900,height=700');
   var rows=pending.map(function(a){
     return '<div class="badge">'
@@ -2482,7 +2496,14 @@ function printAllBadges(){
     +'</style></head><body>'+rows+'</body></html>';
   w.document.write(html);
   w.document.close();
-  setTimeout(function(){w.print();},800);
+  // After print dialog closes, mark all as printed
+  setTimeout(function(){
+    w.print();
+    var marked=false;
+    function markAllPrinted(){if(!marked){marked=true;ids.forEach(function(id){updBadge(id,'printed');});}}
+    w.onafterprint=markAllPrinted;
+    setTimeout(markAllPrinted,5000);
+  },800);
 }
 
 
@@ -2707,7 +2728,7 @@ async function updBadge(id,status){
   if(a){
     a.b=status;
     try{await supaFetch('/rest/v1/attendees?id=eq.'+id,{method:'PATCH',body:JSON.stringify({badge_status:status})});}catch(e){}
-    updStats();renderBadges();toast('Badge status updated','success');
+    updStats();renderBadges();renderAtt();toast('Badge status updated','success');
   }
 }
 
