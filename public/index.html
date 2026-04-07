@@ -2441,15 +2441,16 @@ function badgePageHTML(a){
 function badgeStyles(){
   return '@page{size:3in 1.5in;margin:0;}'
     +'*{margin:0;padding:0;box-sizing:border-box;}'
-    +'html,body{width:3in;height:1.5in;font-family:Arial,Helvetica,sans-serif;background:#fff;display:flex;justify-content:center;align-items:center;}'
-    +'.badge{width:3in;height:1.5in;background:#fff;display:flex;align-items:center;justify-content:center;padding:0.06in 0.1in;page-break-after:always;overflow:hidden;}'
-    +'.badge-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}'
-    +'.name{font-size:16px;font-weight:900;color:#000;line-height:1.15;margin-bottom:4px;}'
-    +'.info-row{display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:1px;}'
-    +'.icon{font-size:10px;width:16px;text-align:center;flex-shrink:0;}'
-    +'.info-text{font-size:10px;font-weight:700;color:#000;}'
-    +'.qr-col{display:flex;align-items:center;justify-content:center;flex-shrink:0;padding-left:6px;}'
-    +'.qr{width:0.55in;height:0.55in;}';
+    +'html,body{width:3in;height:1.5in;margin:0;padding:0;}'
+    +'body{font-family:Arial,Helvetica,sans-serif;background:#fff;display:flex;justify-content:center;align-items:center;}'
+    +'.badge{width:2.85in;height:1.35in;background:#fff;display:flex;align-items:stretch;padding:0;overflow:hidden;}'
+    +'.badge-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0.05in 0 0.05in 0.12in;}'
+    +'.name{font-size:18px;font-weight:900;color:#000;line-height:1.2;margin-bottom:5px;}'
+    +'.info-row{display:flex;align-items:center;gap:5px;margin-bottom:2px;}'
+    +'.icon{font-size:11px;flex-shrink:0;}'
+    +'.info-text{font-size:11px;font-weight:600;color:#333;}'
+    +'.qr-col{display:flex;align-items:flex-end;justify-content:flex-end;flex-shrink:0;padding:0 0.08in 0.08in 0.08in;}'
+    +'.qr{width:0.5in;height:0.5in;}';
 }
 
 function printBadge(id){
