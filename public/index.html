@@ -2426,7 +2426,7 @@ function badgePageHTML(a){
   var school=a.s||'';
   var role=a.role||'';
   var city=a.c||'';
-  var qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=80x80&data='+encodeURIComponent('https://tms-conference.vercel.app');
+  var qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data='+encodeURIComponent('https://tms-conference.vercel.app');
   return '<div class="badge">'
     +'<div class="badge-content">'
     +'<div class="name">'+name+'</div>'
@@ -2455,7 +2455,7 @@ function badgeStyles(){
     +'.info-text{font-size:15px;font-weight:700;color:#000;}'
     +'.city-text{font-size:13px;font-weight:600;color:#000;}'
     +'.qr-col{position:absolute;right:0.1in;bottom:0.08in;}'
-    +'.qr{width:0.5in;height:0.5in;}';
+    +'.qr{width:1in;height:1in;}';
 }
 
 function printBadge(id){
