@@ -2427,30 +2427,34 @@ function badgePageHTML(a){
   var role=a.role||'';
   var city=a.c||'';
   var qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data='+encodeURIComponent('https://tms-conference.vercel.app');
-  return '<div class="badge">'
+  return '<div class="page"><div class="badge">'
+    +'<div class="badge-left">'
     +'<div class="name">'+name+'</div>'
     +'<div class="info-row"><span class="icon">🏫</span><span class="school-text">'+school+'</span></div>'
     +'<div class="info-row"><span class="icon">💼</span><span class="info-text">'+role+'</span></div>'
     +(city?'<div class="info-row"><span class="icon">🏙️</span><span class="city-text">'+city+'</span></div>':'')
-    +'<div class="qr-row"><img src="'+qrUrl+'" class="qr"></div>'
-    +'</div>';
+    +'</div>'
+    +'<div class="qr-col"><img src="'+qrUrl+'" class="qr"></div>'
+    +'</div></div>';
 }
 
 function badgeStyles(){
-  return '@page{size:2in 3.25in;margin:0!important;}'
+  return '@page{size:1.25in 3in;margin:0!important;}'
     +'@media print{html,body{margin:0!important;padding:0!important;}}'
     +'*{margin:0;padding:0;box-sizing:border-box;}'
-    +'html,body{width:2in;height:3.25in;margin:0;padding:0;overflow:hidden;}'
+    +'html,body{width:1.25in;height:3in;margin:0;padding:0;overflow:hidden;}'
     +'body{font-family:Arial,Helvetica,sans-serif;background:#fff;display:flex;justify-content:center;align-items:center;-webkit-print-color-adjust:exact;overflow:hidden;}'
-    +'.badge{width:1.9in;height:3.1in;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:0.08in;gap:4px;}'
-    +'.name{font-size:24px;font-weight:900;color:#000;line-height:1.1;text-align:center;margin-bottom:4px;}'
-    +'.info-row{display:flex;align-items:center;gap:5px;width:100%;}'
-    +'.icon{font-size:14px;flex-shrink:0;}'
-    +'.school-text{font-size:13px;font-weight:700;color:#000;}'
-    +'.info-text{font-size:12px;font-weight:700;color:#000;}'
-    +'.city-text{font-size:11px;font-weight:600;color:#000;}'
-    +'.qr-row{margin-top:6px;display:flex;justify-content:center;}'
-    +'.qr{width:0.9in;height:0.9in;}';
+    +'.page{width:1.25in;height:3in;display:flex;justify-content:center;align-items:center;overflow:hidden;}'
+    +'.badge{width:3in;height:1.25in;transform:rotate(90deg);display:flex;align-items:center;padding:0.06in 0.1in;overflow:hidden;position:relative;}'
+    +'.badge-left{flex:1;display:flex;flex-direction:column;justify-content:center;padding-right:0.8in;}'
+    +'.name{font-size:20px;font-weight:900;color:#000;line-height:1.1;margin-bottom:3px;text-align:center;}'
+    +'.info-row{display:flex;align-items:center;gap:4px;margin-bottom:1px;}'
+    +'.icon{font-size:11px;flex-shrink:0;}'
+    +'.school-text{font-size:11px;font-weight:700;color:#000;}'
+    +'.info-text{font-size:10px;font-weight:700;color:#000;}'
+    +'.city-text{font-size:9px;font-weight:600;color:#000;}'
+    +'.qr-col{position:absolute;right:0.06in;bottom:0.04in;}'
+    +'.qr{width:0.6in;height:0.6in;}';
 }
 
 function printBadge(id){
