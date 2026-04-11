@@ -1188,6 +1188,9 @@ Los maestros compiten en cinco categorías: <strong style="color:#7c3aed;">Tech 
       </div>
       <!-- Badges -->
       <div class="admin-pane hidden" id="ap-badges">
+        <div style="margin-bottom:12px;">
+          <input id="badge-search" type="text" placeholder="Search by name, email, school..." oninput="filterBadges()" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;font-family:Outfit,sans-serif;" />
+        </div>
         <div id="badges-cont"></div>
       </div>
       <!-- Schools -->
@@ -2380,10 +2383,13 @@ function renderAtt(){
   bulkUpdateUI();
 }
 
+function filterBadges(){renderBadges();}
 function renderBadges(){
-  var pend=ATT.filter(function(a){return a.b==='pending';});
-  var prnt=ATT.filter(function(a){return a.b==='printing';});
-  var done=ATT.filter(function(a){return a.b==='printed';});
+  var q=(document.getElementById('badge-search')?document.getElementById('badge-search').value:'').toLowerCase().trim();
+  var filtered=q?ATT.filter(function(a){return (a.n||'').toLowerCase().indexOf(q)!==-1||(a.e||'').toLowerCase().indexOf(q)!==-1||(a.s||'').toLowerCase().indexOf(q)!==-1||(a.role||'').toLowerCase().indexOf(q)!==-1||(a.c||'').toLowerCase().indexOf(q)!==-1;}):ATT;
+  var pend=filtered.filter(function(a){return a.b==='pending';});
+  var prnt=filtered.filter(function(a){return a.b==='printing';});
+  var done=filtered.filter(function(a){return a.b==='printed';});
   function col(title,items,color,showPrint){
     var idsJson=JSON.stringify(items.map(function(a){return a.id;}));
     var allBtn=showPrint&&items.length?'<button class="pbtn" style="margin-bottom:10px;background:'+color+';" onclick="printAllBadges('+idsJson+')">&#128438; Print All ('+items.length+')</button>':'';
